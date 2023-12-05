@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
+    "@supabase/supabase-js": "^2.39.0",
     "next": "14.0.3",
     "react": "^18",
     "react-animate-height": "^3.2.3",
