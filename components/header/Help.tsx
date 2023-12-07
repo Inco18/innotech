@@ -3,16 +3,14 @@ import React from "react";
 import { PiHeadset } from "react-icons/pi";
 import { MdOutlineEmail } from "react-icons/md";
 import { PiPhone } from "react-icons/pi";
+import HelpButton from "./HelpButton";
 
 const Help = () => {
   return (
     <div className="group flex flex-col justify-center items-center cursor-pointer relative">
-      <div className="p-1 flex flex-col items-center rounded-t-md group-hover:shadow-[0_0_5px_0px_rgba(0,0,0,0.2)]">
-        <PiHeadset className="text-2xl" />
-        <p className="text-xs">Help and contact</p>
-      </div>
+      <HelpButton />
       <div className="bg-white absolute h-[0.65rem] w-full top-[90%] z-50 cursor-default hidden group-hover:block"></div>
-      <div className=" absolute top-full w-max left-0 py-2 text-sm rounded-b-md rounded-r-md cursor-default hidden group-hover:block group-hover:shadow-[0_0_5px_0px_rgba(0,0,0,0.2)] ">
+      <div className="absolute top-full w-max left-0 py-2 text-sm rounded-b-md rounded-r-md cursor-default hidden group-hover:block group-hover:shadow-[0_0_5px_0px_rgba(0,0,0,0.2)] ">
         <div className="flex flex-col">
           <Link
             href={"/delivery-status"}
