@@ -3,10 +3,11 @@ import Image from "next/image";
 import Search from "./Search";
 import Help from "./Help";
 import Link from "next/link";
+import Cart from "./cart/Cart";
 
 const Header = () => {
   return (
-    <header className="w-full grid grid-cols-2 grid-rows-2 justify-center items-center lg:px-32 md:flex md:justify-center md:items-center md:gap-4 p-1 max-w-[110rem] ">
+    <header className="w-full grid grid-cols-[auto_1fr] grid-rows-2 justify-center items-center lg:px-32 md:flex md:justify-center md:items-center md:gap-4 p-1 max-w-[110rem] ">
       <Link href={"/"} className="flex items-center gap-2 order-1 mr-auto">
         <Image
           src={"/logo.png"}
@@ -18,7 +19,10 @@ const Header = () => {
         <h1 className="font-semibold text-md md:text-xl">InnoTech</h1>
       </Link>
       <Search />
-      <Help />
+      <div className="order-2 md:order-3 flex gap-2 ml-auto">
+        <Help />
+        <Cart />
+      </div>
     </header>
   );
 };
