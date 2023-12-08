@@ -20,7 +20,7 @@ const HelpButton = () => {
     <>
       <Link
         href={"/help"}
-        className="p-1 ml-auto flex flex-col w-fit items-center rounded-md md:rounded-t-md hover:shadow-[0_0_5px_0px_rgba(0,0,0,0.2)] md:group-hover:shadow-[0_0_5px_0px_rgba(0,0,0,0.2)]"
+        className="p-1 flex flex-col w-fit items-center rounded-md md:rounded-t-md hover:shadow-[0_0_5px_0px_rgba(0,0,0,0.2)] md:group-hover:shadow-[0_0_5px_0px_rgba(0,0,0,0.2)]"
         onClick={handleClick}
       >
         <PiHeadset className="text-2xl" />
