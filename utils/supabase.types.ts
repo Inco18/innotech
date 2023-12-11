@@ -4,182 +4,182 @@ export type Json =
   | boolean
   | null
   | { [key: string]: Json | undefined }
-  | Json[]
+  | Json[];
 
 export interface Database {
   public: {
     Tables: {
       categories: {
         Row: {
-          created_at: string
-          filters: Json | null
-          id: number
-          name: string | null
-        }
+          created_at: string;
+          filters: Json | null;
+          id: number;
+          name: string | null;
+        };
         Insert: {
-          created_at?: string
-          filters?: Json | null
-          id?: number
-          name?: string | null
-        }
+          created_at?: string;
+          filters?: Json | null;
+          id?: number;
+          name?: string | null;
+        };
         Update: {
-          created_at?: string
-          filters?: Json | null
-          id?: number
-          name?: string | null
-        }
-        Relationships: []
-      }
+          created_at?: string;
+          filters?: Json | null;
+          id?: number;
+          name?: string | null;
+        };
+        Relationships: [];
+      };
       opinions: {
         Row: {
-          created_at: string
-          description: string | null
-          id: number
-          product_id: number | null
-          rating: number
-          username: string | null
-        }
+          created_at: string;
+          description: string | null;
+          id: number;
+          product_id: number | null;
+          rating: number;
+          username: string | null;
+        };
         Insert: {
-          created_at?: string
-          description?: string | null
-          id?: number
-          product_id?: number | null
-          rating: number
-          username?: string | null
-        }
+          created_at?: string;
+          description?: string | null;
+          id?: number;
+          product_id?: number | null;
+          rating: number;
+          username?: string | null;
+        };
         Update: {
-          created_at?: string
-          description?: string | null
-          id?: number
-          product_id?: number | null
-          rating?: number
-          username?: string | null
-        }
+          created_at?: string;
+          description?: string | null;
+          id?: number;
+          product_id?: number | null;
+          rating?: number;
+          username?: string | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "opinions_product_id_fkey"
-            columns: ["product_id"]
-            isOneToOne: false
-            referencedRelation: "products"
-            referencedColumns: ["id"]
+            foreignKeyName: "opinions_product_id_fkey";
+            columns: ["product_id"];
+            isOneToOne: false;
+            referencedRelation: "products";
+            referencedColumns: ["id"];
           }
-        ]
-      }
+        ];
+      };
       products: {
         Row: {
-          " sale_price": number | null
-          created_at: string
-          description: Json | null
-          id: number
-          images: string[]
-          name: string | null
-          price: number | null
-          specification: Json | null
-          subcategory: number | null
-        }
+          sale_price: number | null;
+          created_at: string;
+          description: Json | null;
+          id: number;
+          images: string[];
+          name: string | null;
+          price: number | null;
+          specification: Json | null;
+          subcategory: number | null;
+        };
         Insert: {
-          " sale_price"?: number | null
-          created_at?: string
-          description?: Json | null
-          id?: number
-          images: string[]
-          name?: string | null
-          price?: number | null
-          specification?: Json | null
-          subcategory?: number | null
-        }
+          sale_price?: number | null;
+          created_at?: string;
+          description?: Json | null;
+          id?: number;
+          images: string[];
+          name?: string | null;
+          price?: number | null;
+          specification?: Json | null;
+          subcategory?: number | null;
+        };
         Update: {
-          " sale_price"?: number | null
-          created_at?: string
-          description?: Json | null
-          id?: number
-          images?: string[]
-          name?: string | null
-          price?: number | null
-          specification?: Json | null
-          subcategory?: number | null
-        }
+          sale_price?: number | null;
+          created_at?: string;
+          description?: Json | null;
+          id?: number;
+          images?: string[];
+          name?: string | null;
+          price?: number | null;
+          specification?: Json | null;
+          subcategory?: number | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "products_subcategory_fkey"
-            columns: ["subcategory"]
-            isOneToOne: false
-            referencedRelation: "categories"
-            referencedColumns: ["id"]
+            foreignKeyName: "products_subcategory_fkey";
+            columns: ["subcategory"];
+            isOneToOne: false;
+            referencedRelation: "categories";
+            referencedColumns: ["id"];
           }
-        ]
-      }
+        ];
+      };
       sales: {
         Row: {
-          created_at: string
-          id: number
-          image: string | null
-          name: string | null
-        }
+          created_at: string;
+          id: number;
+          image: string | null;
+          name: string | null;
+        };
         Insert: {
-          created_at?: string
-          id?: number
-          image?: string | null
-          name?: string | null
-        }
+          created_at?: string;
+          id?: number;
+          image?: string | null;
+          name?: string | null;
+        };
         Update: {
-          created_at?: string
-          id?: number
-          image?: string | null
-          name?: string | null
-        }
-        Relationships: []
-      }
+          created_at?: string;
+          id?: number;
+          image?: string | null;
+          name?: string | null;
+        };
+        Relationships: [];
+      };
       sales_products: {
         Row: {
-          created_at: string
-          id: number
-          product_id: number | null
-          sale_id: number | null
-        }
+          created_at: string;
+          id: number;
+          product_id: number | null;
+          sale_id: number | null;
+        };
         Insert: {
-          created_at?: string
-          id?: number
-          product_id?: number | null
-          sale_id?: number | null
-        }
+          created_at?: string;
+          id?: number;
+          product_id?: number | null;
+          sale_id?: number | null;
+        };
         Update: {
-          created_at?: string
-          id?: number
-          product_id?: number | null
-          sale_id?: number | null
-        }
+          created_at?: string;
+          id?: number;
+          product_id?: number | null;
+          sale_id?: number | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "sales_products_product_id_fkey"
-            columns: ["product_id"]
-            isOneToOne: false
-            referencedRelation: "products"
-            referencedColumns: ["id"]
+            foreignKeyName: "sales_products_product_id_fkey";
+            columns: ["product_id"];
+            isOneToOne: false;
+            referencedRelation: "products";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "sales_products_sale_id_fkey"
-            columns: ["sale_id"]
-            isOneToOne: false
-            referencedRelation: "sales"
-            referencedColumns: ["id"]
+            foreignKeyName: "sales_products_sale_id_fkey";
+            columns: ["sale_id"];
+            isOneToOne: false;
+            referencedRelation: "sales";
+            referencedColumns: ["id"];
           }
-        ]
-      }
-    }
+        ];
+      };
+    };
     Views: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Functions: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Enums: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     CompositeTypes: {
-      [_ in never]: never
-    }
-  }
+      [_ in never]: never;
+    };
+  };
 }
 
 export type Tables<
@@ -193,7 +193,7 @@ export type Tables<
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
       Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
-      Row: infer R
+      Row: infer R;
     }
     ? R
     : never
@@ -201,11 +201,11 @@ export type Tables<
       Database["public"]["Views"])
   ? (Database["public"]["Tables"] &
       Database["public"]["Views"])[PublicTableNameOrOptions] extends {
-      Row: infer R
+      Row: infer R;
     }
     ? R
     : never
-  : never
+  : never;
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
@@ -216,17 +216,17 @@ export type TablesInsert<
     : never = never
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Insert: infer I
+      Insert: infer I;
     }
     ? I
     : never
   : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
   ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
-      Insert: infer I
+      Insert: infer I;
     }
     ? I
     : never
-  : never
+  : never;
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
@@ -237,17 +237,17 @@ export type TablesUpdate<
     : never = never
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Update: infer U
+      Update: infer U;
     }
     ? U
     : never
   : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
   ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
-      Update: infer U
+      Update: infer U;
     }
     ? U
     : never
-  : never
+  : never;
 
 export type Enums<
   PublicEnumNameOrOptions extends
@@ -260,4 +260,4 @@ export type Enums<
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof Database["public"]["Enums"]
   ? Database["public"]["Enums"][PublicEnumNameOrOptions]
-  : never
+  : never;
