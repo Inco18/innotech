@@ -6,6 +6,8 @@ import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { CiCircleCheck, CiClock2, CiDeliveryTruck } from "react-icons/ci";
 import { TbCalendarDollar } from "react-icons/tb";
 import { IoStorefrontOutline } from "react-icons/io5";
+import { HiOutlineChevronDoubleDown } from "react-icons/hi";
+import Link from "next/link";
 
 type Props = {};
 
@@ -28,7 +30,29 @@ const ProductInfo = (props: Props) => {
 
   return (
     <div className="flex flex-row gap-2 justify-between my-3">
-      <div className="flex-1"></div>
+      <div className="flex-1 border-y-2 h-fit py-3">
+        <ul className="text-sm">
+          <li className="my-1">
+            <span className="text-gray-500">Screen size:</span> 6,67"
+          </li>
+          <li className="my-1">
+            <span className="text-gray-500">Processor:</span> Qualcomm
+            Snapdragon 695
+          </li>
+          <li className="my-1">
+            <span className="text-gray-500">Ram:</span> 8GB
+          </li>
+          <li className="my-1">
+            <span className="text-gray-500">Memory:</span> 256GB
+          </li>
+        </ul>
+        <Link
+          href={"#specification"}
+          className="flex items-center gap-2 text-sm mt-2 hover:bg-gray-100 w-fit py-1 px-2 rounded-lg transition-colors"
+        >
+          Go to full specification <HiOutlineChevronDoubleDown />
+        </Link>
+      </div>
       <div className="border-2 border-gray-200  rounded-lg">
         <div className="flex flex-col items-end p-3">
           <div className="bg-green-100 w-fit py-1 px-3 text-sm rounded-md text-green-800">
