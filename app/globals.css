@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --yarl__color_backdrop: white;
+  --yarl__color_button: #6b7280;
+  --yarl__color_button_active: black;
+  --yarl__color_button_disabled: #e5e7eb;
+}
+
+.yarl__button {
+  filter: none;
+}
+
+.yarl__slide img {
+  cursor: grab;
+}
+
+.yarl__slide img:active {
+  cursor: grabbing;
+}
+
+.yarl__thumbnails_thumbnail {
+  @apply border-gray-200;
+  @apply rounded-lg;
+}
+
+.yarl__thumbnails_thumbnail_active {
+  @apply border-gray-400;
+}

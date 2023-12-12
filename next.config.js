@@ -2,6 +2,7 @@
 const nextConfig = {
   images: {
     domains: ["assets.x-kom.pl"],
+    remotePatterns: [{ hostname: "cdn.x-kom.pl" }],
   },
 };
 
