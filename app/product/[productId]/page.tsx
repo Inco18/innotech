@@ -1,4 +1,5 @@
 import Images from "@/components/productPage/Images";
+import ProductInfo from "@/components/productPage/ProductInfo";
 import Rating from "@/components/productPage/Rating";
 import Link from "next/link";
 import React from "react";
@@ -23,9 +24,10 @@ const page = ({ params }: Props) => {
         <div className="flex-1">
           <h1 className="text-3xl">AMD Ryzen 7 7800X3D</h1>
           <Rating rating={5.5} />
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-400">
             product id: {params.productId}
           </p>
+          <ProductInfo />
         </div>
       </div>
     </main>
