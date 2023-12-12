@@ -11,7 +11,7 @@ const CartButton = () => {
   const { width } = useWindowDimensions();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    if (width > 768) return;
+    if (width! > 768) return;
     e.preventDefault();
     setIsModalOpen(true);
   };

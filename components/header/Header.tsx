@@ -7,7 +7,7 @@ import Cart from "./cart/Cart";
 
 const Header = () => {
   return (
-    <header className="w-full grid grid-cols-[auto_1fr] grid-rows-2 justify-center items-center lg:px-32 md:flex md:justify-center md:items-center md:gap-4 p-1 max-w-[110rem] ">
+    <header className="w-full grid grid-cols-[auto_1fr] grid-rows-2 justify-center items-center lg:px-16 xl:px-32 md:flex md:justify-center md:items-center md:gap-4 p-1 max-w-[110rem] ">
       <Link href={"/"} className="flex items-center gap-2 order-1 mr-auto">
         <Image
           src={"/logo.png"}

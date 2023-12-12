@@ -21,9 +21,11 @@ const Rating = (props: Props) => {
   return (
     <Link
       href={"#opinions"}
-      className="flex items-center gap-1 text-xs py-2 w-fit text-amber-400"
+      className="flex items-center justify-center gap-1 text-xs py-2 w-fit text-amber-400"
+      title={props.rating.toString()}
     >
       {stars}
+      <p className="text-gray-600 font-semibold">(222 opinions)</p>
     </Link>
   );
 };
