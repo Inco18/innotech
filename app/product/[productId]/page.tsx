@@ -20,7 +20,7 @@ const page = ({ params }: Props) => {
       </div>
       <div className="flex gap-2 flex-col md:flex-row">
         <Images />
-        <div>
+        <div className="flex-1">
           <h1 className="text-3xl">AMD Ryzen 7 7800X3D</h1>
           <Rating rating={5.5} />
           <p className="text-sm text-gray-600">
