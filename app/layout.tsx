@@ -24,7 +24,7 @@ export default function RootLayout({
       >
         <Providers>
           <Header />
-          {children}
+          <main className="h-screen">{children}</main>
           <Footer />
         </Providers>
       </body>
