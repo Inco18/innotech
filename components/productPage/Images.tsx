@@ -32,14 +32,14 @@ const Images = () => {
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center p-2">
+      <div className="flex flex-col justify-center items-center p-2 mb-auto">
         <Image
           src={imagesArr[activeImage]}
           onClick={() => setLighboxOpen(true)}
           width={500}
           height={500}
           alt=""
-          className="cursor-pointer object-cover h-[250px] w-[250px] md:h-[350px] md:w-[350px] lg:h-[450px] lg:w-[450px] aspect-square"
+          className="cursor-pointer object-cover h-[250px] w-[250px] md:h-[450px] md:w-[450px] lg:h-[350px] lg:w-[350px] xl:h-[450px] xl:w-[450px] aspect-square"
         />
         <div className="py-4 flex gap-1">
           {imagesArr.map((imageSrc, i) => {

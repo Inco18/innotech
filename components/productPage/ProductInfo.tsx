@@ -29,8 +29,8 @@ const ProductInfo = (props: Props) => {
   const diffMinutes = Math.floor(timeDiff / 1000 / 60);
 
   return (
-    <div className="flex flex-row gap-2 justify-between my-3">
-      <div className="flex-1 border-y-2 h-fit py-3">
+    <div className="flex flex-col gap-2 justify-between my-3 lg:flex-row">
+      <div className="flex-1 border-y-2 h-fit py-3 order-2 lg:order-1">
         <ul className="text-sm">
           <li className="my-1">
             <span className="text-gray-500">Screen size:</span> 6,67"
@@ -53,12 +53,14 @@ const ProductInfo = (props: Props) => {
           Go to full specification <HiOutlineChevronDoubleDown />
         </Link>
       </div>
-      <div className="border-2 border-gray-200  rounded-lg">
-        <div className="flex flex-col items-end p-3">
-          <div className="bg-green-100 w-fit py-1 px-3 text-sm rounded-md text-green-800">
-            Save 105,00 zł
+      <div className="md:border-2 border-gray-200 rounded-lg lg:max-w-[16rem] xl:max-w-xs 2xl:max-w-none order-1 lg:order-2">
+        <div className="flex flex-col md:items-end md:p-3 md:text-right ">
+          <div className="flex items-center gap-2 md:gap-0 md:flex-col md:items-end">
+            <div className="bg-green-100 w-fit py-1 px-3 text-sm rounded-md text-green-800 order-2 md:order-1">
+              Save 105,00 zł
+            </div>
+            <p className="text-3xl my-1 order-1 md:order-2">894,00 zł</p>
           </div>
-          <p className="text-3xl my-1">894,00 zł</p>
           <p className="text-sm">
             Regular price: <span className="line-through">999,00 zł</span>
           </p>
@@ -83,8 +85,8 @@ const ProductInfo = (props: Props) => {
             </button>
           </form>
         </div>
-        <div>
-          <div className="flex items-center gap-4 px-3 py-2 cursor-pointer hover:bg-gray-100 border-t-2">
+        <div className="text-sm xl:text-base border-2 rounded-lg md:border-0">
+          <div className="flex items-center gap-4 px-3 py-1 xl:py-2 cursor-pointer hover:bg-gray-100 md:border-t-2">
             <CiCircleCheck className="text-3xl" />
             <div>
               <p className="text-green-700">Available</p>
@@ -92,7 +94,7 @@ const ProductInfo = (props: Props) => {
             </div>
           </div>
           {actDate.getHours() < 16 && (
-            <div className="flex items-center gap-4 px-3 py-2 cursor-pointer hover:bg-gray-100 border-t-2">
+            <div className="flex items-center gap-4 px-3 py-1 xl:py-2 cursor-pointer hover:bg-gray-100 border-t-2">
               <CiClock2 className="text-3xl" />
               <div>
                 <p>Buy now, receive tomorrow</p>
@@ -106,21 +108,21 @@ const ProductInfo = (props: Props) => {
               </div>
             </div>
           )}
-          <div className="flex items-center gap-4 px-3 py-2 cursor-pointer hover:bg-gray-100 border-t-2">
+          <div className="flex items-center gap-4 px-3 py-1 xl:py-2 cursor-pointer hover:bg-gray-100 border-t-2">
             <CiDeliveryTruck className="text-3xl " />
             <div>
               <p className="text-green-700">Free delivery</p>
               <p className="text-gray-500 text-sm">Check the details</p>
             </div>
           </div>
-          <div className="flex items-center gap-4 px-3 py-2 cursor-pointer hover:bg-gray-100 border-t-2">
+          <div className="flex items-center gap-4 px-3 py-1 xl:py-2 cursor-pointer hover:bg-gray-100 border-t-2">
             <TbCalendarDollar className="text-3xl stroke-1" />
             <div>
               <p>Installment only 25 zł</p>
               <p className="text-gray-500 text-sm">Calculate installments</p>
             </div>
           </div>
-          <div className="flex items-center gap-4 px-3 py-2 cursor-pointer hover:bg-gray-100 border-t-2">
+          <div className="flex items-center gap-4 px-3 py-1 xl:py-2 cursor-pointer hover:bg-gray-100 border-t-2">
             <IoStorefrontOutline className="text-3xl" />
             <div>
               <p>Available in stores</p>
