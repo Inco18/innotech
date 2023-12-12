@@ -1,6 +1,7 @@
 import Images from "@/components/productPage/Images";
 import ProductInfo from "@/components/productPage/ProductInfo";
 import Rating from "@/components/productPage/Rating";
+import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
 import { FaChevronRight } from "react-icons/fa6";
@@ -8,6 +9,14 @@ import { FaChevronRight } from "react-icons/fa6";
 type Props = {
   params: {
     productId: string;
+  };
+};
+
+export const generateMetadata = async ({
+  params,
+}: Props): Promise<Metadata> => {
+  return {
+    title: "Xiaomi POCO X5 5G 8/256GB Black - InnoTech",
   };
 };
 
