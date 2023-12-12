@@ -1,4 +1,4 @@
-export const sections = [
+export const footerLinks = [
   {
     title: "Zamówienia",
     links: [
@@ -25,7 +25,7 @@ export const sections = [
     ],
   },
   {
-    title: "x-kom",
+    title: "Innotech",
     links: [
       { title: "O nas", url: "/" },
       { title: "Regulamin", url: "/" },
@@ -43,22 +43,33 @@ export const sections = [
       { title: "Realizowane projekty", url: "/" },
     ],
   },
+
   {
     title: "Kontakt",
-    links: [
-      { title: "Realizowane projekty", url: "/" },
-      { title: "Kontakt", url: "/" },
-    ],
-  },
-  {
-    title: "Kontakt",
-    phone: "** *** ** **",
+    phone: "22 222 22 22",
     workingHours: {
       weekdays: "pon. - pt. | 8:00 - 21:00",
       weekends: "sob. - niedz. | 8:00 - 19:00",
     },
     email: "x-kom@x-kom.pl",
     whatsapp: "WhatsApp",
-    xkomSalons: "Salony x-kom",
+    innotechSalons: "Salony Innotech",
   },
+];
+export const companys = [
+  "https://assets.x-kom.pl/public-spa/xkom/37a657a8ea71c244.png",
+  "https://assets.x-kom.pl/public-spa/xkom/49043d12b5e7dd3b.png",
+  "https://assets.x-kom.pl/public-spa/xkom/c26b80bc206f1117.png",
+  "https://assets.x-kom.pl/public-spa/xkom/2a258eafdbb74b43.png",
+  "https://assets.x-kom.pl/public-spa/xkom/2a258eafdbb74b43.png",
+  "https://assets.x-kom.pl/public-spa/xkom/855a87adc47118d4.png",
+  "https://assets.x-kom.pl/public-spa/xkom/a4e6e128e457c7d8.png",
+  "https://assets.x-kom.pl/public-spa/xkom/c500d59374fe7d7d.png",
+  "https://assets.x-kom.pl/public-spa/xkom/33dfc5a98f0f38a4.png",
+  "https://assets.x-kom.pl/public-spa/xkom/e51fb0a6ab97d090.png",
+  "https://assets.x-kom.pl/public-spa/xkom/076d960cdaf096e1.png",
+  "https://assets.x-kom.pl/public-spa/xkom/709b7294b9957695.png",
+  "https://assets.x-kom.pl/public-spa/xkom/93e0b5378eed5aa5.png",
+  "https://assets.x-kom.pl/public-spa/xkom/4ba359ebd3c94054.png",
+  "https://assets.x-kom.pl/public-spa/xkom/c7fb289360e74bc3.png",
 ];

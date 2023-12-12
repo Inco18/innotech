@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className + " flex flex-col items-center"}>
         <Providers>
           <Header />
-          {children}
+          <main className="h-screen">{children}</main>
           <Footer />
         </Providers>
       </body>
