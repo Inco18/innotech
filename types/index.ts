@@ -13,3 +13,26 @@ type CartContextType = {
   removeProductFromCart: () => void;
   clearCart: () => void;
 };
+type FooterSectionProps = {
+  title: string;
+  links?: {
+    title: string;
+    url: string;
+    phone?: string;
+    workingHours?: {
+      weekdays?: string;
+      weekends?: string;
+    };
+    email?: string;
+    whatsapp?: string;
+    innotechSalons?: string;
+  }[];
+  phone?: string;
+  workingHours?: {
+    weekdays: string;
+    weekends: string;
+  };
+  email?: string;
+  whatsapp?: string;
+  innotechSalons?: string;
+};
