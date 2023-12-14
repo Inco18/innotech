@@ -105,7 +105,7 @@ const ProductInfo = (props: Props) => {
                 <p>Buy now, receive tomorrow</p>
                 <p className="text-gray-500 text-sm">
                   Pay in{" "}
-                  <span className="text-green-700">
+                  <span className="text-green-700" suppressHydrationWarning>
                     {`${diffHours <= 9 ? "0" : ""}${diffHours}h
                       ${diffMinutes <= 9 ? "0" : ""}${diffMinutes}min`}
                   </span>
