@@ -1,3 +1,7 @@
+import { PiHeadset } from "react-icons/pi";
+import { MdOutlineEmail } from "react-icons/md";
+import { PiPhone } from "react-icons/pi";
+
 export const footerLinks = [
   {
     title: "Zamówienia",
@@ -73,3 +77,32 @@ export const companys = [
   "https://assets.x-kom.pl/public-spa/xkom/4ba359ebd3c94054.png",
   "https://assets.x-kom.pl/public-spa/xkom/c7fb289360e74bc3.png",
 ];
+
+export const helpAndContactLinks = {
+  helpLinks: [
+    { title: "Delivery status", url: "/delivery-status" },
+    { title: "Delivery", url: "/delivery" },
+    { title: "Installments", url: "/installments" },
+    { title: "Leasing", url: "/leasing" },
+    { title: "Insurance", url: "/insurance" },
+    { title: "Returns and complaints", url: "/returns-and-complaints" },
+    { title: "FAQ", url: "/faq" },
+  ],
+  contactLinks: [
+    {
+      icon: PiHeadset,
+      title: "Contact",
+      url: "/contact",
+    },
+    {
+      icon: MdOutlineEmail,
+      title: "innotech@innotech.com",
+      url: "mailto:innotech@innotech.com",
+    },
+    {
+      icon: PiPhone,
+      title: "123 456 789",
+      url: "tel:123456789",
+    },
+  ],
+};
