@@ -1,7 +1,7 @@
 "use client";
 
 import { useCartContext } from "@/context/cart-context";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { CiCircleCheck, CiClock2, CiDeliveryTruck } from "react-icons/ci";
 import { TbCalendarDollar } from "react-icons/tb";
@@ -13,6 +13,7 @@ type Props = {};
 
 const ProductInfo = (props: Props) => {
   const cartContext = useCartContext();
+  const [actDate, setActDate] = useState(new Date());
 
   //TODO:
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -20,9 +21,13 @@ const ProductInfo = (props: Props) => {
     cartContext.addProductToCart();
   };
 
-  const actDate = new Date();
+  useEffect(() => {
+    const dateInterval = setInterval(() => setActDate(new Date()), 1000 * 60);
+    return () => clearInterval(dateInterval);
+  }, []);
+
   const dateToPay = new Date();
-  dateToPay.setHours(16, 0, 0, 0);
+  dateToPay.setUTCHours(16, 0, 0, 0);
   let timeDiff = dateToPay.getTime() - actDate.getTime();
   const diffHours = Math.floor(timeDiff / 1000 / 60 / 60);
   timeDiff -= diffHours * 1000 * 60 * 60;
@@ -100,7 +105,7 @@ const ProductInfo = (props: Props) => {
                 <p>Buy now, receive tomorrow</p>
                 <p className="text-gray-500 text-sm">
                   Pay in{" "}
-                  <span className="text-green-700">
+                  <span className="text-green-700" suppressHydrationWarning>
                     {`${diffHours <= 9 ? "0" : ""}${diffHours}h
                       ${diffMinutes <= 9 ? "0" : ""}${diffMinutes}min`}
                   </span>
