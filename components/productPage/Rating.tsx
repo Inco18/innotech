@@ -9,13 +9,13 @@ type Props = {
 const Rating = (props: Props) => {
   let stars: React.JSX.Element[] = [];
   for (let index = 1; index <= props.rating; index++) {
-    stars.push(<FaStar />);
+    stars.push(<FaStar key={`star-${index}`} />);
   }
 
   for (let index = props.rating; index < 6; index++) {
     if (index === props.rating && props.rating % 1 >= 0.5)
-      stars.push(<FaStarHalfAlt />);
-    else stars.push(<FaRegStar />);
+      stars.push(<FaStarHalfAlt key={`star-half-${index}`} />);
+    else stars.push(<FaRegStar key={`star-empty-${index}`} />);
   }
 
   return (
