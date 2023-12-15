@@ -4,6 +4,7 @@ const nextConfig = {
     remotePatterns: [
       { hostname: "cdn.x-kom.pl" },
       { hostname: "assets.x-kom.pl" },
+      { hostname: "ornlntxawpvzqcyhardf.supabase.co" },
     ],
   },
 };
