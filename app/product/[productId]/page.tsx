@@ -1,4 +1,5 @@
 import Images from "@/components/productPage/Images";
+import ProductDescription from "@/components/productPage/ProductDescription";
 import ProductInfo from "@/components/productPage/ProductInfo";
 import ProductPageNav from "@/components/productPage/ProductPageNav";
 import Rating from "@/components/productPage/Rating";
@@ -45,7 +46,13 @@ const page = ({ params }: Props) => {
         </div>
       </div>
       <ProductPageNav />
-      <div className="w-full lg:px-16 xl:px-32 px-2 max-w-[110rem]"></div>
+      <div className="w-full lg:px-16 xl:px-32 px-2 max-w-[110rem] my-5">
+        <div className="h-[2px] bg-gray-200 flex">
+          <div className="w-16 h-full bg-black" />
+          <div className="h-full w-16 bg-gray-400" />
+        </div>
+        <ProductDescription description={[]} />
+      </div>
     </main>
   );
 };

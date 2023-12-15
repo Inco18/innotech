@@ -8,7 +8,7 @@ type Props = {};
 
 const ProductPageNav = (props: Props) => {
   return (
-    <div className="sticky top-0 border-y-2 border-gray-200 w-full flex justify-center shadow-sm py-3">
+    <div className="sticky top-0 border-y-2 border-gray-200 w-full flex justify-center shadow-sm py-3 bg-white z-50">
       <div className="w-full max-w-[110rem] lg:px-16 xl:px-32 px-2 text-gray-700 text-sm flex items-center gap-8">
         <PiCaretCircleDoubleUpLight
           className="text-2xl hover:text-black cursor-pointer"
