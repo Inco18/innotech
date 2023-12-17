@@ -13,6 +13,7 @@ const Category = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const alreadySet = useRef(false);
+  const contentRef = useRef<HTMLUListElement | null>(null);
   const widthBelowThreshold = width < 1000;
 
   if (!widthBelowThreshold) {
@@ -31,6 +32,7 @@ const Category = ({
       setIsOpen((prevIsOpen) => !prevIsOpen);
     }
   };
+  const h = contentRef?.current?.scrollHeight;
 
   return (
     <>
@@ -42,16 +44,14 @@ const Category = ({
       >
         <div className="flex justify-between cursor-pointer  items-center">
           <p
-            className={` font-bold  ${
-              widthBelowThreshold && "text-[1.5rem] leading-6"
-            } `}
+            className={` font-bold  ${widthBelowThreshold && "text-[1.2rem]"} `}
           >
             {section.title}
           </p>
           {widthBelowThreshold && (
             <div
               className={`transition-transform duration-[400ms] ease-in-out transform ${
-                isOpen ? "rotate-[180deg]" : "rotate-0"
+                isOpen ? "rotate-[-180deg]" : "rotate-0"
               }`}
             >
               <FaAngleUp className="w-6 h-6 text-gray-500" />
@@ -59,16 +59,18 @@ const Category = ({
           )}
         </div>
 
-        <ul
-          className={`flex flex-col gap-3 list-none transition-all duration-[400ms] ease-in-out overflow-hidden ${
-            isOpen ? "h-[25rem] mt-7" : "h-0"
+        <div
+          className={`grid list-none transition-all duration-[400ms] ease-in-out  grid-rows-[0fr] ${
+            isOpen && `mt-7 grid-rows-[1fr]`
           }`}
         >
-          {!!section.phone && <Contact {...section} />}
-          {section.links?.map((link) => (
-            <CategoryLink key={link.title} {...link} />
-          ))}
-        </ul>
+          <ul className="overflow-hidden">
+            {!!section.phone && <Contact {...section} />}
+            {section.links?.map((link) => (
+              <CategoryLink key={link.title} {...link} />
+            ))}
+          </ul>
+        </div>
       </div>
       {widthBelowThreshold && (
         <hr className="border-b invisible last:visible  " />
