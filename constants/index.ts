@@ -1,6 +1,13 @@
-import { PiHeadset } from "react-icons/pi";
+import { PiHeadset, PiMonitorLight } from "react-icons/pi";
 import { MdOutlineEmail } from "react-icons/md";
 import { PiPhone } from "react-icons/pi";
+import { FaComputer } from "react-icons/fa6";
+import { GiSmartphone } from "react-icons/gi";
+import { GrGamepad } from "react-icons/gr";
+import { CgSmartphoneChip } from "react-icons/cg";
+import { LuCable, LuPrinter } from "react-icons/lu";
+import { BsHouseGear } from "react-icons/bs";
+import { CiPercent } from "react-icons/ci";
 
 export const footerLinks = [
   {
@@ -105,3 +112,120 @@ export const helpAndContactLinks = {
     },
   ],
 };
+
+export const navigationBarCategories = [
+  {
+    category: "Laptops& Computers",
+    icon: FaComputer,
+    subcategories: [
+      { id: 3, name: "Servers and storage" },
+      { id: 5, name: "Computer accessories" },
+      { id: 6, name: "Laptop accessories" },
+      { id: 7, name: "Bags and cases" },
+      { id: 8, name: "Laptop docking stations" },
+      { id: 10, name: "Tablets" },
+      { id: 11, name: "Smartwatches" },
+      { id: 12, name: "Ebook readers" },
+      { id: 13, name: "Phone cases" },
+      { id: 14, name: "Chargers and powerbanks" },
+      { id: 15, name: "Memory cards" },
+      { id: 16, name: "TWS headphones" },
+      { id: 17, name: "GSM accessories" },
+      { id: 18, name: "Tablet accessories" },
+    ],
+  },
+  {
+    category: "Smartphones& Smartwatches",
+    icon: GiSmartphone,
+    subcategories: [
+      { id: 2, name: "Computers" },
+      { id: 4, name: "Software" },
+      { id: 28, name: "Processors" },
+      { id: 1, name: "Laptops/Notebooks/Ultrabooks" },
+    ],
+  },
+  {
+    category: "Gaming& Streaming",
+    icon: GrGamepad,
+    subcategories: [
+      { id: 19, name: "Gaming consoles" },
+      { id: 20, name: "Console accessories" },
+      { id: 21, name: "Games" },
+      { id: 22, name: "VR" },
+      { id: 23, name: "Streaming hardware" },
+      { id: 24, name: "Gadgets for gamers" },
+      { id: 25, name: "Controllers" },
+    ],
+  },
+  {
+    category: "Computer components",
+    icon: CgSmartphoneChip,
+    subcategories: [
+      { id: 26, name: "Hard drives" },
+      { id: 27, name: "Graphics cards" },
+      { id: 29, name: "Motherboards" },
+      { id: 30, name: "Cases" },
+      { id: 31, name: "RAM" },
+      { id: 32, name: "Power supplies" },
+      { id: 33, name: "Cooling" },
+      { id: 34, name: "PC modding" },
+    ],
+  },
+  {
+    category: "Peripheral devices",
+    icon: LuPrinter,
+    subcategories: [
+      { id: 35, name: "Monitors" },
+      { id: 36, name: "Printers" },
+      { id: 37, name: "Network devices" },
+      { id: 38, name: "Mouses" },
+      { id: 39, name: "Keyboards" },
+      { id: 40, name: "Headphones and microphones" },
+      { id: 41, name: "Speakers" },
+      { id: 42, name: "Projectors" },
+      { id: 43, name: "Mousepads" },
+      { id: 44, name: "Cameras" },
+    ],
+  },
+  {
+    category: "TV& Audio",
+    icon: PiMonitorLight,
+    subcategories: [
+      { id: 45, name: "TVs" },
+      { id: 46, name: "Soundbars" },
+      { id: 47, name: "Hi-Fi audio" },
+      { id: 48, name: "Home cinema" },
+      { id: 49, name: "TV accessories" },
+    ],
+  },
+  {
+    category: "Smarthome& Lifestyle",
+    icon: BsHouseGear,
+    subcategories: [
+      { id: 50, name: "Smarthome" },
+      { id: 51, name: "Drones" },
+      { id: 52, name: "Electrical vehicles" },
+      { id: 53, name: "Health" },
+      { id: 54, name: "Car accessories" },
+      { id: 55, name: "Monitoring" },
+      { id: 56, name: "Office chairs" },
+    ],
+  },
+  {
+    category: "Accessories",
+    icon: LuCable,
+    subcategories: [
+      { id: 57, name: "Cables" },
+      { id: 58, name: "Power" },
+      { id: 59, name: "Portable drives" },
+      { id: 60, name: "Cleaning" },
+      { id: 61, name: "Power strips" },
+      { id: 62, name: "Tools" },
+    ],
+  },
+  {
+    category: "Trends, Promotions",
+    icon: CiPercent,
+    subcategories: [{ id: 500, name: "Promotions" }],
+  },
+];

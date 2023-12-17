@@ -36,3 +36,8 @@ type FooterSectionProps = {
   whatsapp?: string;
   innotechSalons?: string;
 };
+
+type subcategoriesProps = {
+  id: number;
+  name: string;
+}[];

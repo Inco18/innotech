@@ -7,8 +7,8 @@ const Help = () => {
   return (
     <div className="group flex flex-col justify-center items-center md:cursor-pointer relative">
       <HelpButton />
-      <div className="bg-white absolute h-[0.65rem] w-full top-[90%] z-50 cursor-default hidden md:group-hover:block"></div>
-      <div className="absolute bg-white top-full w-max right-0 lg:left-0 py-2 text-sm rounded-b-md rounded-l-md lg:rounded-r-md cursor-default hidden md:group-hover:block group-hover:shadow-[0_0_5px_0px_rgba(0,0,0,0.2)] ">
+      <div className="bg-white absolute h-[0.65rem] w-full top-[90%] z-[91] cursor-default hidden md:group-hover:block "></div>
+      <div className="absolute z-[90] bg-white top-full w-max right-0 lg:left-0 py-2 text-sm rounded-b-md rounded-l-md lg:rounded-r-md cursor-default hidden md:group-hover:block group-hover:shadow-[0_0_5px_0px_rgba(0,0,0,0.2)] ">
         <div className="flex flex-col">
           {helpAndContactLinks.helpLinks.map((link) => {
             return (
