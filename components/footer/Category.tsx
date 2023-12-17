@@ -13,7 +13,6 @@ const Category = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const alreadySet = useRef(false);
-  const contentRef = useRef<HTMLUListElement | null>(null);
   const widthBelowThreshold = width < 1000;
 
   if (!widthBelowThreshold) {
@@ -32,7 +31,6 @@ const Category = ({
       setIsOpen((prevIsOpen) => !prevIsOpen);
     }
   };
-  const h = contentRef?.current?.scrollHeight;
 
   return (
     <>
