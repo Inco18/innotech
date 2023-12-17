@@ -51,6 +51,7 @@ const HelpModal = (props: Props) => {
                     <Link
                       href={link.url}
                       className="py-2 px-4 outline-none hover:bg-gray-200 focus:bg-gray-200"
+                      key={link.title}
                     >
                       {link.title}
                     </Link>
@@ -66,6 +67,7 @@ const HelpModal = (props: Props) => {
                     <Link
                       href={link.url}
                       className="py-2 px-4 flex items-center gap-2 outline-none hover:bg-gray-200 focus:bg-gray-200"
+                      key={link.title}
                     >
                       <link.icon className="text-xl" />
                       {link.title}

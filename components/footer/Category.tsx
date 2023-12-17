@@ -2,7 +2,7 @@
 import React, { useState, useRef } from "react";
 import CategoryLink from "./CategoryLink";
 import Contact from "./Contact";
-import { FaAngleDown, FaAngleUp } from "react-icons/fa";
+import { FaAngleUp } from "react-icons/fa";
 
 const Category = ({
   section,
@@ -34,37 +34,45 @@ const Category = ({
 
   return (
     <>
-      <div key={section.title} className=" flex flex-col py-5 px-3 ">
-        <div
-          className="flex justify-between cursor-pointer  items-center"
-          onClick={toggleOpen}
-        >
+      {widthBelowThreshold && <hr className="border-b  " />}
+      <div
+        key={section.title}
+        className=" flex flex-col py-5 px-3 cursor-pointer"
+        onClick={toggleOpen}
+      >
+        <div className="flex justify-between cursor-pointer  items-center">
           <p
-            className={` font-bold  ${widthBelowThreshold &&
-              "text-[1.5rem] leading-6"} `}
+            className={` font-bold  ${
+              widthBelowThreshold && "text-[1.5rem] leading-6"
+            } `}
           >
             {section.title}
           </p>
-          {widthBelowThreshold ? (
-            isOpen ? (
-              <FaAngleUp />
-            ) : (
-              <FaAngleDown />
-            )
-          ) : null}
+          {widthBelowThreshold && (
+            <div
+              className={`transition-transform duration-[400ms] ease-in-out transform ${
+                isOpen ? "rotate-[180deg]" : "rotate-0"
+              }`}
+            >
+              <FaAngleUp className="w-6 h-6 text-gray-500" />
+            </div>
+          )}
         </div>
-        <div className={` overflow-hidden   ${isOpen ? " mt-7 " : "h-0"}`}>
-          <ul className="flex flex-col gap-3 list-none">
-            {!!section.phone && <Contact key={section.title} {...section} />}
 
-            {section.links?.map((link) => (
-              <>
-                <CategoryLink key={link.title} {...link} />
-              </>
-            ))}
-          </ul>
-        </div>
+        <ul
+          className={`flex flex-col gap-3 list-none transition-all duration-[400ms] ease-in-out overflow-hidden ${
+            isOpen ? "h-[25rem] mt-7" : "h-0"
+          }`}
+        >
+          {!!section.phone && <Contact {...section} />}
+          {section.links?.map((link) => (
+            <CategoryLink key={link.title} {...link} />
+          ))}
+        </ul>
       </div>
+      {widthBelowThreshold && (
+        <hr className="border-b invisible last:visible  " />
+      )}
     </>
   );
 };
