@@ -8,6 +8,15 @@ function getWindowDimensions() {
   };
 }
 
+const breakpoints = {
+  sm: 640,
+  md: 768,
+  lg: 1024,
+  xl: 1280,
+  "2xl": 1536,
+  "3xl": 1920,
+};
+
 export default function useWindowDimensions() {
   const [windowDimensions, setWindowDimensions] = useState<{
     width: number | undefined;
@@ -16,6 +25,14 @@ export default function useWindowDimensions() {
 
   useEffect(() => {
     function handleResize() {
+      // const { width } = getWindowDimensions();
+
+      // for (const [size, breakpoint] of Object.entries(breakpoints)) {
+      //   if (width >= breakpoint) {
+      //     getWindowDimensions(size);
+      //   }
+      // }
+
       setWindowDimensions(getWindowDimensions());
     }
 

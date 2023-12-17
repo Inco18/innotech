@@ -10,20 +10,16 @@ import useWindowDimensions from "@/hooks/useWindowSize";
 const Footer = () => {
   const { width = 0 } = useWindowDimensions();
   const widthBelowThreshold = width < 1000;
-  // grid-cols-[repeat(auto-fit,minmax(200px,_1fr))]
+
   return (
-    <footer className="w-full flex flex-col gap-7">
+    <footer className="w-full flex flex-col gap-7 max-w-[110rem]">
       <div
-        className={` ${
+        className={`grid-cols-[repeat(auto-fit,minmax(200px,_1fr))] ${
           widthBelowThreshold ? " flex flex-col" : "grid grid-cols-4 gap-3 "
         }  text-sm  px-10`}
       >
-        {widthBelowThreshold && <hr className="border-b my-5 " />}
         {footerLinks.map((section) => (
-          <>
-            <Category section={section} width={width} key={section.title} />
-            {widthBelowThreshold && <hr className="border-b my-5 " />}
-          </>
+          <Category section={section} width={width} key={section.title} />
         ))}
       </div>
       <CompanysList companys={companys} />
