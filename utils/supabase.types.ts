@@ -34,6 +34,7 @@ export interface Database {
         Row: {
           created_at: string;
           description: string | null;
+          email: string;
           id: number;
           product_id: number | null;
           rating: number;
@@ -42,6 +43,7 @@ export interface Database {
         Insert: {
           created_at?: string;
           description?: string | null;
+          email?: string;
           id?: number;
           product_id?: number | null;
           rating: number;
@@ -50,6 +52,7 @@ export interface Database {
         Update: {
           created_at?: string;
           description?: string | null;
+          email?: string;
           id?: number;
           product_id?: number | null;
           rating?: number;
@@ -67,42 +70,45 @@ export interface Database {
       };
       products: {
         Row: {
-          sale_price: number | null;
+          category: number | null;
           created_at: string;
           description: Json | null;
           id: number;
           images: string[];
-          name: string | null;
-          price: number | null;
+          manufacturer: string;
+          name: string;
+          price: number;
+          sale_price: number | null;
           specification: Json | null;
-          subcategory: number | null;
         };
         Insert: {
-          sale_price?: number | null;
+          category?: number | null;
           created_at?: string;
           description?: Json | null;
           id?: number;
           images: string[];
-          name?: string | null;
-          price?: number | null;
+          manufacturer?: string;
+          name: string;
+          price: number;
+          sale_price?: number | null;
           specification?: Json | null;
-          subcategory?: number | null;
         };
         Update: {
-          sale_price?: number | null;
+          category?: number | null;
           created_at?: string;
           description?: Json | null;
           id?: number;
           images?: string[];
-          name?: string | null;
-          price?: number | null;
+          manufacturer?: string;
+          name?: string;
+          price?: number;
+          sale_price?: number | null;
           specification?: Json | null;
-          subcategory?: number | null;
         };
         Relationships: [
           {
-            foreignKeyName: "products_subcategory_fkey";
-            columns: ["subcategory"];
+            foreignKeyName: "products_category_fkey";
+            columns: ["category"];
             isOneToOne: false;
             referencedRelation: "categories";
             referencedColumns: ["id"];

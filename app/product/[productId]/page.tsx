@@ -1,8 +1,10 @@
 import Images from "@/components/productPage/Images";
+import Opinions from "@/components/productPage/Opinions";
 import ProductDescription from "@/components/productPage/ProductDescription";
 import ProductInfo from "@/components/productPage/ProductInfo";
 import ProductPageNav from "@/components/productPage/ProductPageNav";
 import Rating from "@/components/productPage/Rating";
+import Specification from "@/components/productPage/Specification";
 import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
@@ -37,7 +39,7 @@ const page = ({ params }: Props) => {
             <h1 className="text-xl md:text-2xl lg:text-3xl">
               Xiaomi POCO X5 5G 8/256GB Black
             </h1>
-            <Rating rating={5.5} />
+            <Rating rating={5.5} starsSize="text-xs" isLink />
             <p className="text-sm text-gray-400">
               product id: {params.productId}
             </p>
@@ -52,6 +54,21 @@ const page = ({ params }: Props) => {
           <div className="h-full w-16 bg-gray-400" />
         </div>
         <ProductDescription description={[]} />
+        <div className="h-[2px] bg-gray-200 flex">
+          <div className="w-16 h-full bg-black" />
+          <div className="h-full w-16 bg-gray-400" />
+        </div>
+        <Specification specification={{}} />
+        <div className="h-[2px] bg-gray-200 flex">
+          <div className="w-16 h-full bg-black" />
+          <div className="h-full w-16 bg-gray-400" />
+        </div>
+        <Opinions
+          productId={363}
+          productImage="https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/product_images/poco_x5_black/1.webp"
+          productManufacturer="Xiaomi"
+          productModel="POCO X5 5G 8/256GB Black"
+        />
       </div>
     </main>
   );
