@@ -22,7 +22,7 @@ const Category: React.FC<CategoryProps> = ({
       onMouseOver={() => onHover(true)}
       onMouseLeave={() => onHover(false)}
     >
-      <p className=" text-2xl font-thin">
+      <p className=" text-2xl hidden font-thin xl:block">
         <Icon />
       </p>
 
