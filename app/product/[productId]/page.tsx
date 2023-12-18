@@ -3,6 +3,7 @@ import ProductDescription from "@/components/productPage/ProductDescription";
 import ProductInfo from "@/components/productPage/ProductInfo";
 import ProductPageNav from "@/components/productPage/ProductPageNav";
 import Rating from "@/components/productPage/Rating";
+import Specification from "@/components/productPage/Specification";
 import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
@@ -52,6 +53,11 @@ const page = ({ params }: Props) => {
           <div className="h-full w-16 bg-gray-400" />
         </div>
         <ProductDescription description={[]} />
+        <div className="h-[2px] bg-gray-200 flex">
+          <div className="w-16 h-full bg-black" />
+          <div className="h-full w-16 bg-gray-400" />
+        </div>
+        <Specification specification={{}} />
       </div>
     </main>
   );
