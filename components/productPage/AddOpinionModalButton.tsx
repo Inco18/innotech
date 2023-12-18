@@ -1,10 +1,12 @@
 "use client";
+import { supabase } from "@/utils/supabase";
 import { Transition, Dialog } from "@headlessui/react";
 import Image from "next/image";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { IoIosClose } from "react-icons/io";
 import ReactTextareaAutosize from "react-textarea-autosize";
+import { toast } from "react-toastify";
 
 type Props = {
   productImage: string;
@@ -15,9 +17,23 @@ type Props = {
 const AddOpinionModalButton = (props: Props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [starsSelected, setStarsSelected] = useState(3);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const email = formData.get("email")?.toString();
+    const description = formData.get("description")?.toString();
+    const username = formData.get("name")?.toString();
+    const { data, error } = await supabase.from("opinions").insert({
+      rating: starsSelected,
+      email,
+      description,
+      product_id: props.productId,
+      username,
+    });
+
+    if (error) toast.error(error.code + ": " + error.details);
   };
 
   return (
@@ -75,113 +91,119 @@ const AddOpinionModalButton = (props: Props) => {
                     />
                     {props.productModel}
                   </div>
-                  <form
-                    className="flex flex-col items-center p-5 border-b-2"
-                    onSubmit={handleSubmit}
-                  >
-                    <h4>Your product rating</h4>
-                    <div className="flex group text-3xl m-4 cursor-pointer">
-                      <div
-                        className={`text-amber-400 peer-hover:text-gray-300 px-2 peer`}
-                        onClick={() => setStarsSelected(1)}
-                      >
-                        <FaStar />
-                      </div>
-                      <div
-                        className={`${
-                          starsSelected >= 2
-                            ? "text-amber-400"
-                            : "text-gray-300 group-hover:text-amber-400"
-                        } peer-hover:text-gray-300 px-2 peer`}
-                        onClick={() => setStarsSelected(2)}
-                      >
-                        <FaStar />
-                      </div>
-                      <div
-                        className={`${
-                          starsSelected >= 3
-                            ? "text-amber-400"
-                            : "text-gray-300 group-hover:text-amber-400"
-                        } peer-hover:text-gray-300 px-2 peer`}
-                        onClick={() => setStarsSelected(3)}
-                      >
-                        <FaStar />
-                      </div>
-                      <div
-                        className={`${
-                          starsSelected >= 4
-                            ? "text-amber-400"
-                            : "text-gray-300 group-hover:text-amber-400"
-                        } peer-hover:text-gray-300 px-2 peer`}
-                        onClick={() => setStarsSelected(4)}
-                      >
-                        <FaStar />
-                      </div>
-                      <div
-                        className={`${
-                          starsSelected >= 5
-                            ? "text-amber-400"
-                            : "text-gray-300 group-hover:text-amber-400"
-                        } peer-hover:text-gray-300 px-2 peer`}
-                        onClick={() => setStarsSelected(5)}
-                      >
-                        <FaStar />
-                      </div>
-                      <div
-                        className={`${
-                          starsSelected >= 6
-                            ? "text-amber-400"
-                            : "text-gray-300 group-hover:text-amber-400"
-                        } peer-hover:text-gray-300 px-2 peer`}
-                        onClick={() => setStarsSelected(6)}
-                      >
-                        <FaStar />
+                  <form onSubmit={handleSubmit} ref={formRef} id="opinionForm">
+                    <div className="flex flex-col items-center p-5 border-b-2">
+                      <h4>Your product rating</h4>
+                      <div className="flex group text-3xl m-4 cursor-pointer">
+                        <div
+                          className={`text-amber-400 peer-hover:text-gray-300 px-2 peer`}
+                          onClick={() => setStarsSelected(1)}
+                        >
+                          <FaStar />
+                        </div>
+                        <div
+                          className={`${
+                            starsSelected >= 2
+                              ? "text-amber-400"
+                              : "text-gray-300 group-hover:text-amber-400"
+                          } peer-hover:text-gray-300 px-2 peer`}
+                          onClick={() => setStarsSelected(2)}
+                        >
+                          <FaStar />
+                        </div>
+                        <div
+                          className={`${
+                            starsSelected >= 3
+                              ? "text-amber-400"
+                              : "text-gray-300 group-hover:text-amber-400"
+                          } peer-hover:text-gray-300 px-2 peer`}
+                          onClick={() => setStarsSelected(3)}
+                        >
+                          <FaStar />
+                        </div>
+                        <div
+                          className={`${
+                            starsSelected >= 4
+                              ? "text-amber-400"
+                              : "text-gray-300 group-hover:text-amber-400"
+                          } peer-hover:text-gray-300 px-2 peer`}
+                          onClick={() => setStarsSelected(4)}
+                        >
+                          <FaStar />
+                        </div>
+                        <div
+                          className={`${
+                            starsSelected >= 5
+                              ? "text-amber-400"
+                              : "text-gray-300 group-hover:text-amber-400"
+                          } peer-hover:text-gray-300 px-2 peer`}
+                          onClick={() => setStarsSelected(5)}
+                        >
+                          <FaStar />
+                        </div>
+                        <div
+                          className={`${
+                            starsSelected >= 6
+                              ? "text-amber-400"
+                              : "text-gray-300 group-hover:text-amber-400"
+                          } peer-hover:text-gray-300 px-2 peer`}
+                          onClick={() => setStarsSelected(6)}
+                        >
+                          <FaStar />
+                        </div>
                       </div>
                     </div>
-                  </form>
-                  <div className="p-4">
-                    <h4 className="font-medium">
-                      Write what you think about this product
-                    </h4>
-                    <p className="text-sm">
-                      Remember that your review should concern the product and
-                      its functionality.
-                    </p>
-                    <label className="text-sm flex flex-col my-7">
-                      <p>
-                        What do you think about this product?{" "}
-                        <span className="text-gray-600">(optional)</span>
+                    <div className="p-4">
+                      <h4 className="font-medium">
+                        Write what you think about this product
+                      </h4>
+                      <p className="text-sm">
+                        Remember that your review should concern the product and
+                        its functionality.
                       </p>
-                      <ReactTextareaAutosize
-                        name="description"
-                        minRows={3}
-                        className="resize-none border-2 rounded-lg p-2 outline-none focus:border-gray-600"
-                      />
-                    </label>
-                    <label className="text-sm">
-                      <p className="mb-2">Name</p>
-                      <input
-                        type="text"
-                        name="name"
-                        className="border-2 rounded-lg p-2 outline-none focus:border-gray-600 w-full mb-3"
-                      />
-                    </label>
-                    <label className="text-sm">
-                      <p className="mb-2">E-mail</p>
-                      <input
-                        type="email"
-                        name="email"
-                        className="border-2 rounded-lg p-2 outline-none focus:border-gray-600 w-full"
-                      />
-                    </label>
-                    <p className="text-xs my-1">
-                      Your email address will not be visible after adding your
-                      opinion.
-                    </p>
-                  </div>
+                      <label className="text-sm flex flex-col my-7">
+                        <p>
+                          What do you think about this product?{" "}
+                          <span className="text-gray-600">(optional)</span>
+                        </p>
+                        <ReactTextareaAutosize
+                          name="description"
+                          minRows={3}
+                          className="resize-none border-2 rounded-lg p-2 outline-none focus:border-gray-600"
+                        />
+                      </label>
+                      <label className="text-sm">
+                        <p className="mb-2">Name</p>
+                        <input
+                          type="text"
+                          name="name"
+                          required
+                          className="border-2 rounded-lg p-2 outline-none focus:border-gray-600 w-full mb-3"
+                        />
+                      </label>
+                      <label className="text-sm">
+                        <p className="mb-2">E-mail</p>
+                        <input
+                          type="email"
+                          name="email"
+                          required
+                          className="border-2 rounded-lg p-2 outline-none focus:border-gray-600 w-full"
+                        />
+                      </label>
+                      <p className="text-xs my-1">
+                        Your email address will not be visible after adding your
+                        opinion.
+                      </p>
+                    </div>
+                    <button type="submit" hidden />
+                  </form>
                 </div>
                 <div className="flex justify-end p-4 border-t-2 mt-auto">
-                  <button className="bg-blue-500 py-2 px-4 rounded-lg text-white hover:bg-blue-600 transition-colors">
+                  <button
+                    className="bg-blue-500 py-2 px-4 rounded-lg text-white hover:bg-blue-600 transition-colors"
+                    form="opinionForm"
+                    type="submit"
+                  >
                     Add opinion
                   </button>
                 </div>
