@@ -24,7 +24,7 @@ const HelpModal = (props: Props) => {
         >
           <div className="fixed inset-0 bg-black/60" aria-hidden="true" />
         </Transition.Child>
-        <div className="fixed inset-0 flex w-screen ">
+        <div className="fixed inset-0 flex w-screen z-[999]">
           <Transition.Child
             enter="transition duration-200"
             enterFrom="transform translate-x-[15rem]"

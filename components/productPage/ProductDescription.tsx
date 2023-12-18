@@ -98,7 +98,7 @@ const ProductDescription = (props: Props) => {
             POCO X5 5G does not disappoint
           </h2>
           <p>
-            The black Xiaomi POCO X5 5G 256 GB meets fans' expectations. It
+            The black Xiaomi POCO X5 5G 256 GB meets fans expectations. It
             surprises again with its price, while maintaining high quality.
             Users of this smartphone can count on high performance no matter
             what they do. The modern Snapdragon® 695 processor will meet your

@@ -38,7 +38,7 @@ const ProductInfo = (props: Props) => {
       <div className="flex-1 border-y-2 h-fit py-3 order-2 lg:order-1">
         <ul className="text-sm">
           <li className="my-1">
-            <span className="text-gray-500">Screen size:</span> 6,67"
+            <span className="text-gray-500">Screen size:</span> 6,67
           </li>
           <li className="my-1">
             <span className="text-gray-500">Processor:</span> Qualcomm
