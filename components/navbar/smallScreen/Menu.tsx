@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { PiDotsNine } from "react-icons/pi";
-import NavbarSmallScreenModal from "./NavbarSmallScreenModal";
+import Modal from "./Modal";
 
 const NavbarSmallScreenMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,9 +16,10 @@ const NavbarSmallScreenMenu = () => {
         <p className=" text-[10px] md:text-[12px]">Menu</p>
       </div>
 
-      <NavbarSmallScreenModal
+      <Modal
         isOpen={isOpen}
         closeModal={() => setIsOpen(false)}
+        // key={crypto.randomUUID()}
       />
     </>
   );

@@ -18,7 +18,7 @@ const Navbar = () => {
     <>
       <nav className="bg-gray-50 shadow-md w-full grid grid-rows-[0] overflow-hidden  lg:grid-rows-[3.6rem] lg:overflow-visible  transition-all duration-200 ease-in-out">
         <ul
-          className=" flex justify-center gap-3 max-w-[110rem] relative z-[80] pt-1"
+          className=" flex justify-center max-w-[110rem] relative z-[80] pt-1"
           ref={ulRef}
         >
           {navigationBarCategories.map((category, index) => (
@@ -37,7 +37,7 @@ const Navbar = () => {
           ))}
         </ul>
       </nav>
-      <NavbarModal isOpen={isOpen} top={ulBottom} key={crypto.randomUUID()} />
+      <NavbarModal isOpen={isOpen} top={ulBottom} />
     </>
   );
 };
