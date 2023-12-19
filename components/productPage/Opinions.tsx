@@ -3,12 +3,21 @@ import Rating from "./Rating";
 import OpinionsNumberBar from "./OpinionsNumberBar";
 import AddOpinionModalButton from "./AddOpinionModalButton";
 import Image from "next/image";
+import { Tables } from "@/utils/supabase.types";
 
 type Props = {
   productId: number;
   productImage: string;
   productModel: string;
   productManufacturer: string;
+  rating: number;
+  opinions: Tables<"opinions">[];
+};
+
+const countOpinions = (numRating: number, opinions: Tables<"opinions">[]) => {
+  return opinions.reduce((acc, cur) => {
+    return acc + (cur.rating === numRating ? 1 : 0);
+  }, 0);
 };
 
 const placeholderOpinions = {
@@ -46,22 +55,45 @@ const Opinions = (props: Props) => {
           <div className="flex flex-1">
             <div className="flex flex-col items-center p-5">
               <p className="text-4xl">
-                5.5<span className="text-xl text-gray-400">/6</span>
+                {Math.round(props.rating * 100) / 100}
+                <span className="text-xl text-gray-400">/6</span>
               </p>
-              <Rating
-                rating={5.5}
-                starsSize="text-base md:text-xl"
-                isLink={false}
-              />
-              <p className="text-sm text-gray-400">(35 opinions)</p>
+              <Rating rating={props.rating} starsSize="text-base md:text-xl" />
+              <p className="text-sm text-gray-400">
+                ({props.opinions.length} opinions)
+              </p>
             </div>
             <div className="flex-1">
-              <OpinionsNumberBar numOpinions={5} numTotal={50} numStars={6} />
-              <OpinionsNumberBar numOpinions={0} numTotal={50} numStars={5} />
-              <OpinionsNumberBar numOpinions={50} numTotal={50} numStars={4} />
-              <OpinionsNumberBar numOpinions={25} numTotal={50} numStars={3} />
-              <OpinionsNumberBar numOpinions={15} numTotal={50} numStars={2} />
-              <OpinionsNumberBar numOpinions={10} numTotal={50} numStars={1} />
+              <OpinionsNumberBar
+                numOpinions={countOpinions(6, props.opinions)}
+                numTotal={props.opinions.length}
+                numStars={6}
+              />
+              <OpinionsNumberBar
+                numOpinions={countOpinions(5, props.opinions)}
+                numTotal={props.opinions.length}
+                numStars={5}
+              />
+              <OpinionsNumberBar
+                numOpinions={countOpinions(4, props.opinions)}
+                numTotal={props.opinions.length}
+                numStars={4}
+              />
+              <OpinionsNumberBar
+                numOpinions={countOpinions(3, props.opinions)}
+                numTotal={props.opinions.length}
+                numStars={3}
+              />
+              <OpinionsNumberBar
+                numOpinions={countOpinions(2, props.opinions)}
+                numTotal={props.opinions.length}
+                numStars={2}
+              />
+              <OpinionsNumberBar
+                numOpinions={countOpinions(1, props.opinions)}
+                numTotal={props.opinions.length}
+                numStars={1}
+              />
             </div>
           </div>
           <div className="md:border-2 flex flex-col items-center justify-center text-center rounded-lg md:p-4 md:max-w-xs lg:max-w-sm xl:max-w-none w-full md:w-auto mx-auto md:mx-0">
@@ -73,7 +105,7 @@ const Opinions = (props: Props) => {
               others choose
             </p>
             <AddOpinionModalButton
-              productId={363}
+              productId={props.productId}
               productImage={props.productImage}
               productModel={props.productModel}
             />
@@ -81,10 +113,13 @@ const Opinions = (props: Props) => {
         </div>
         <div>
           <h3 className="text-xl font-medium py-4">
-            Users opinions <span className="text-sm text-gray-400">(35)</span>
+            Users opinions{" "}
+            <span className="text-sm text-gray-400">
+              ({props.opinions.length})
+            </span>
           </h3>
           <div>
-            {placeholderOpinions.data.map((opinion) => {
+            {props.opinions.map((opinion) => {
               return (
                 <div
                   className="p-4 border-t-2 last:border-b-2"
@@ -95,7 +130,7 @@ const Opinions = (props: Props) => {
                       src="/defaultAvatar.svg"
                       height={36}
                       width={36}
-                      alt={opinion.username}
+                      alt={opinion.username ? opinion.username : ""}
                     />
                     <p>{opinion.username}</p>
                   </div>
@@ -105,9 +140,8 @@ const Opinions = (props: Props) => {
                         rating={opinion.rating}
                         starsSize="text-sm"
                         starsColor="text-gray-500"
-                        isLink={false}
                       />
-                      | {new Date(opinion.createdAt).toLocaleDateString()}
+                      | {new Date(opinion.created_at).toLocaleDateString()}
                     </div>
                     <p className="pt-2 text-sm lg:text-base">
                       {opinion.description}

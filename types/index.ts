@@ -41,3 +41,8 @@ type subcategoriesProps = {
   id: number;
   name: string;
 }[];
+
+type specificationEntriesType = [
+  string,
+  { value: string; index: number; shortIndex?: number }
+][];
