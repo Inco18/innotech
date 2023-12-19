@@ -12,20 +12,7 @@ import {
 import "@/app/globals.css";
 import useWindowDimensions from "@/hooks/useWindowSize";
 
-const imagesArr = [
-  "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2023/1/pr_2023_1_31_8_41_34_194_00.jpg",
-  "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2023/1/pr_2023_1_31_8_41_45_638_07.jpg",
-  "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2023/1/pr_2023_1_31_8_41_42_261_05.jpg",
-  "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2023/1/pr_2023_1_31_8_41_43_990_06.jpg",
-  "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2023/1/pr_2023_1_31_8_41_39_108_03.jpg",
-  "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2023/1/pr_2023_1_31_8_41_35_927_01.jpg",
-  "https://cdn.x-kom.pl/i/setup/images/prod/big/product-large,,2023/1/pr_2023_1_31_8_41_47_304_08.jpg",
-  "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2023/1/pr_2023_1_31_8_41_48_759_09.jpg",
-  "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2023/1/pr_2023_1_31_8_41_50_630_10.jpg",
-  "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2023/1/pr_2023_1_31_8_41_40_774_04.jpg",
-];
-
-const Images = () => {
+const Images = ({ imagesArr }: { imagesArr: string[] }) => {
   const [activeImage, setActiveImage] = useState(0);
   const [lightboxOpen, setLighboxOpen] = useState(false);
   const { width, height } = useWindowDimensions();

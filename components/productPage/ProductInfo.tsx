@@ -8,12 +8,26 @@ import { TbCalendarDollar } from "react-icons/tb";
 import { IoStorefrontOutline } from "react-icons/io5";
 import { HiOutlineChevronDoubleDown } from "react-icons/hi";
 import Link from "next/link";
+import { Tables } from "@/utils/supabase.types";
+import {
+  formatSpecificationName,
+  formatspecificationValue,
+} from "@/utils/formatters";
 
-type Props = {};
+type Props = { product: Tables<"products"> };
 
-const ProductInfo = (props: Props) => {
+const ProductInfo = ({ product }: Props) => {
   const cartContext = useCartContext();
   const [actDate, setActDate] = useState(new Date());
+  const specEntries: specificationEntriesType = Object.entries(
+    JSON.parse(JSON.stringify(product.specification))
+  );
+  const sortedSpec = specEntries.sort((a, b) => {
+    if (!a[1].shortIndex) return 1;
+    if (!b[1].shortIndex) return -1;
+    return a[1].shortIndex - b[1].shortIndex;
+  });
+  const actPrice = product.sale_price ? product.sale_price : product.price;
 
   //TODO:
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -37,19 +51,19 @@ const ProductInfo = (props: Props) => {
     <div className="flex flex-col gap-2 justify-between my-3 lg:flex-row">
       <div className="flex-1 border-y-2 h-fit py-3 order-2 lg:order-1">
         <ul className="text-sm">
-          <li className="my-1">
-            <span className="text-gray-500">Screen size:</span> 6,67
-          </li>
-          <li className="my-1">
-            <span className="text-gray-500">Processor:</span> Qualcomm
-            Snapdragon 695
-          </li>
-          <li className="my-1">
-            <span className="text-gray-500">Ram:</span> 8GB
-          </li>
-          <li className="my-1">
-            <span className="text-gray-500">Memory:</span> 256GB
-          </li>
+          {sortedSpec.map((spec) => {
+            if (!spec[1].shortIndex) return;
+            return (
+              <li className="my-1">
+                <span className="text-gray-500">
+                  {formatSpecificationName(spec[0])}:
+                </span>{" "}
+                <span className="whitespace-pre-wrap">
+                  {formatspecificationValue(spec[1].value)}
+                </span>
+              </li>
+            );
+          })}
         </ul>
         <Link
           href={"#specification"}
@@ -58,20 +72,32 @@ const ProductInfo = (props: Props) => {
           Go to full specification <HiOutlineChevronDoubleDown />
         </Link>
       </div>
-      <div className="md:border-2 border-gray-200 rounded-lg lg:max-w-[16rem] xl:max-w-xs 2xl:max-w-none order-1 lg:order-2">
+      <div className="md:border-2 border-gray-200 rounded-lg lg:max-w-[16rem] xl:max-w-xs 2xl:max-w-none order-1 lg:order-2 2xl:min-w-[23rem]">
         <div className="flex flex-col md:items-end md:p-3 md:text-right ">
           <div className="flex items-center gap-2 md:gap-0 md:flex-col md:items-end">
-            <div className="bg-green-100 w-fit py-1 px-3 text-sm rounded-md text-green-800 order-2 md:order-1">
-              Save 105,00 zł
-            </div>
-            <p className="text-3xl my-1 order-1 md:order-2">894,00 zł</p>
+            {product.sale_price && (
+              <div className="bg-green-100 w-fit py-1 px-3 text-sm rounded-md text-green-800 order-2 md:order-1">
+                Save {(product.price - product.sale_price).toFixed(2)} zł
+              </div>
+            )}
+            <p className="text-3xl my-1 order-1 md:order-2">
+              {actPrice.toFixed(2)} zł
+            </p>
           </div>
-          <p className="text-sm">
-            Regular price: <span className="line-through">999,00 zł</span>
-          </p>
-          <p className="text-sm">
-            Lowest price from 30 days before discount: 894,00 zł
-          </p>
+          {product.sale_price && (
+            <>
+              <p className="text-sm">
+                Regular price:{" "}
+                <span className="line-through">
+                  {product.price.toFixed(2)} zł
+                </span>
+              </p>
+              <p className="text-sm">
+                Lowest price from 30 days before discount:{" "}
+                {product.sale_price.toFixed(2)} zł
+              </p>
+            </>
+          )}
           <form
             className="flex items-center w-full gap-3 my-2"
             onSubmit={handleSubmit}
@@ -116,17 +142,23 @@ const ProductInfo = (props: Props) => {
           <div className="flex items-center gap-4 px-3 py-1 xl:py-2 cursor-pointer hover:bg-gray-100 border-t-2">
             <CiDeliveryTruck className="text-3xl " />
             <div>
-              <p className="text-green-700">Free delivery</p>
+              {actPrice >= 200 ? (
+                <p className="text-green-700">Free delivery</p>
+              ) : (
+                <p className="text-black">Free delivery to store</p>
+              )}
               <p className="text-gray-500 text-sm">Check the details</p>
             </div>
           </div>
-          <div className="flex items-center gap-4 px-3 py-1 xl:py-2 cursor-pointer hover:bg-gray-100 border-t-2">
-            <TbCalendarDollar className="text-3xl stroke-1" />
-            <div>
-              <p>Installment only 25 zł</p>
-              <p className="text-gray-500 text-sm">Calculate installments</p>
+          {actPrice >= 600 && (
+            <div className="flex items-center gap-4 px-3 py-1 xl:py-2 cursor-pointer hover:bg-gray-100 border-t-2">
+              <TbCalendarDollar className="text-3xl stroke-1" />
+              <div>
+                <p>Installment only {Math.round(actPrice / 48)} zł</p>
+                <p className="text-gray-500 text-sm">Calculate installments</p>
+              </div>
             </div>
-          </div>
+          )}
           <div className="flex items-center gap-4 px-3 py-1 xl:py-2 cursor-pointer hover:bg-gray-100 border-t-2">
             <IoStorefrontOutline className="text-3xl" />
             <div>

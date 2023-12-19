@@ -8,9 +8,10 @@ type Props = {
 };
 
 const OpinionsNumberBar = (props: Props) => {
-  const widthPercentage = Math.round(
-    (props.numOpinions / props.numTotal) * 100
-  );
+  const widthPercentage =
+    props.numTotal > 0
+      ? Math.round((props.numOpinions / props.numTotal) * 100)
+      : 0;
   return (
     <div className="gap-1 group cursor-pointer items-center grid grid-cols-[1rem_1rem_auto_2rem] hover:text-amber-400 transition-colors">
       <FaStar />

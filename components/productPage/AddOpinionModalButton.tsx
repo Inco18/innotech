@@ -2,11 +2,13 @@
 import { supabase } from "@/utils/supabase";
 import { Transition, Dialog } from "@headlessui/react";
 import Image from "next/image";
-import React, { Fragment, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { Fragment, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { IoIosClose } from "react-icons/io";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
+import SmallSpinner from "../ui/SmallSpinner";
 
 type Props = {
   productImage: string;
@@ -16,8 +18,9 @@ type Props = {
 
 const AddOpinionModalButton = (props: Props) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [starsSelected, setStarsSelected] = useState(3);
-  const formRef = useRef<HTMLFormElement>(null);
+  const [starsSelected, setStarsSelected] = useState(6);
+  const [isSending, setIsSending] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,6 +28,7 @@ const AddOpinionModalButton = (props: Props) => {
     const email = formData.get("email")?.toString();
     const description = formData.get("description")?.toString();
     const username = formData.get("name")?.toString();
+    setIsSending(true);
     const { data, error } = await supabase.from("opinions").insert({
       rating: starsSelected,
       email,
@@ -32,8 +36,14 @@ const AddOpinionModalButton = (props: Props) => {
       product_id: props.productId,
       username,
     });
+    setIsSending(false);
 
     if (error) toast.error(error.code + ": " + error.details);
+    else {
+      toast.success("Your opinion has been added.");
+      router.refresh();
+      setModalOpen(false);
+    }
   };
 
   return (
@@ -91,7 +101,7 @@ const AddOpinionModalButton = (props: Props) => {
                     />
                     {props.productModel}
                   </div>
-                  <form onSubmit={handleSubmit} ref={formRef} id="opinionForm">
+                  <form onSubmit={handleSubmit} id="opinionForm">
                     <div className="flex flex-col items-center p-5 border-b-2">
                       <h4>Your product rating</h4>
                       <div className="flex group text-3xl m-4 cursor-pointer">
@@ -200,11 +210,12 @@ const AddOpinionModalButton = (props: Props) => {
                 </div>
                 <div className="flex justify-end p-4 border-t-2 mt-auto">
                   <button
-                    className="bg-blue-500 py-2 px-4 rounded-lg text-white hover:bg-blue-600 transition-colors"
+                    className="bg-blue-500 py-2 w-36 rounded-lg text-white hover:bg-blue-600 transition-colors flex justify-center items-center disabled:bg-blue-500"
                     form="opinionForm"
                     type="submit"
+                    disabled={isSending}
                   >
-                    Add opinion
+                    {isSending ? <SmallSpinner /> : "Add opinion"}
                   </button>
                 </div>
               </Dialog.Panel>

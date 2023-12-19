@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React from "react";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 
@@ -6,7 +5,6 @@ type Props = {
   rating: number;
   starsSize: string;
   starsColor?: string;
-  isLink: boolean;
 };
 
 const Rating = (props: Props) => {
@@ -21,17 +19,7 @@ const Rating = (props: Props) => {
     else stars.push(<FaRegStar key={`star-empty-${index}`} />);
   }
 
-  return props.isLink ? (
-    <Link
-      href={"#opinions"}
-      className={`flex items-center justify-center gap-1 ${
-        props.starsSize
-      } py-2 w-fit ${props.starsColor ? props.starsColor : "text-amber-400"}`}
-      title={props.rating.toString()}
-    >
-      {stars}
-    </Link>
-  ) : (
+  return (
     <div
       className={`flex items-center justify-center gap-1 ${
         props.starsSize
