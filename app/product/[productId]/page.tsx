@@ -44,10 +44,11 @@ const page = async ({ params }: Props) => {
     .select(`*`)
     .eq("product_id", params.productId)
     .order("created_at", { ascending: false });
-  const productRating = opinionsData
-    ? opinionsData?.reduce((acc, cur) => acc + cur.rating, 0) /
-      opinionsData.length
-    : 0;
+  const productRating =
+    opinionsData && opinionsData?.length > 0
+      ? opinionsData?.reduce((acc, cur) => acc + cur.rating, 0) /
+        opinionsData.length
+      : 0;
   const product = productData[0];
 
   return (

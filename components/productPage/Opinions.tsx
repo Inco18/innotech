@@ -15,35 +15,10 @@ type Props = {
 };
 
 const countOpinions = (numRating: number, opinions: Tables<"opinions">[]) => {
+  if (opinions.length === 0) return 0;
   return opinions.reduce((acc, cur) => {
     return acc + (cur.rating === numRating ? 1 : 0);
   }, 0);
-};
-
-const placeholderOpinions = {
-  data: [
-    {
-      id: 1,
-      username: "John",
-      description: "Very good product",
-      rating: 5,
-      createdAt: "2023-12-18 09:17:16.907949+00",
-    },
-    {
-      id: 2,
-      username: "Aaron",
-      description: "Great product",
-      rating: 6,
-      createdAt: "2023-12-18 09:17:41.862263+00",
-    },
-    {
-      id: 3,
-      username: "Daniel",
-      description: "The worst smartphone i've ever had",
-      rating: 1,
-      createdAt: "2023-12-18 09:18:23.762721+00",
-    },
-  ],
 };
 
 const Opinions = (props: Props) => {
