@@ -18,7 +18,7 @@ const Category: React.FC<CategoryProps> = ({
 }) => {
   return (
     <li
-      className=" relative z-[90] flex items-center gap-3 last:text-pink-500 p-2 group hover:bg-white hover:shadow-[0_0_5px_0px_rgba(0,0,0,0.2)] hover: rounded-t-lg    cursor-default"
+      className=" relative z-[90] flex items-center gap-3 last:text-pink-500 p-2 px-3 group hover:bg-white hover:shadow-[0_0_5px_0px_rgba(0,0,0,0.2)] hover: rounded-t-lg    cursor-default"
       onMouseOver={() => onHover(true)}
       onMouseLeave={() => onHover(false)}
     >
