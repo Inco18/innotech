@@ -5,7 +5,7 @@ import Help from "./Help";
 import Link from "next/link";
 import Cart from "./cart/Cart";
 
-import NavbarSmallScreenMenu from "../navbar/smallScreen/NavbarSmallScreenMenu";
+import NavbarSmallScreenMenu from "../navbar/smallScreen/Menu";
 
 const Header = () => {
   return (
