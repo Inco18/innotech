@@ -8,7 +8,7 @@ import { FaStar } from "react-icons/fa";
 import { IoIosClose } from "react-icons/io";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
-import SmallSpinner from "../ui/smallSpinner";
+import SmallSpinner from "../ui/SmallSpinner";
 
 type Props = {
   productImage: string;
