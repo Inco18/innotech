@@ -5,38 +5,76 @@ import {
   useEffect,
   useState,
 } from "react";
+import { toast } from "react-toastify";
 
 export const CartContext = createContext<CartContextType>({
   productsInCart: [],
   totalPrice: 0,
+  totalSaved: 0,
+  totalQuantity: 0,
   addProductToCart: () => {},
   removeProductFromCart: () => {},
   clearCart: () => {},
 });
 
 const CartContextProvider = ({ children }: { children: ReactNode }) => {
-  const [productsInCart, setProductsInCart] = useState<Product[]>([]);
-  //TODO:
-  const totalPrice = 0;
+  const initialState: Product[] = [];
+  const [productsInCart, setProductsInCart] = useState<Product[]>(initialState);
+  const totalPrice = productsInCart.reduce((acc, prod) => {
+    const actPrice = prod.salePrice ? prod.salePrice : prod.price;
+    return acc + actPrice * prod.quantity;
+  }, 0);
+  const totalSaved = productsInCart.reduce((acc, prod) => {
+    return prod.salePrice ? acc + (prod.price - prod.salePrice) : acc;
+  }, 0);
+  const totalQuantity = productsInCart.reduce(
+    (acc, prod) => acc + prod.quantity,
+    0
+  );
 
-  //TODO:
-  const addProductToCart = () => {};
+  const addProductToCart = (product: Product) => {
+    const productIndex = productsInCart.findIndex(
+      (val) => val.id === product.id
+    );
+    if (productIndex >= 0) {
+      setProductsInCart((prev) => {
+        const newArr = prev.map((prod) =>
+          prod.id === product.id
+            ? { ...prod, quantity: prod.quantity + product.quantity }
+            : prod
+        );
+        localStorage.setItem("cartProducts", JSON.stringify(newArr));
+        return newArr;
+      });
+      toast.success("Product added to cart");
+    } else {
+      setProductsInCart((prev) => {
+        const newArr = [product, ...prev];
+        localStorage.setItem("cartProducts", JSON.stringify(newArr));
+        return newArr;
+      });
+      toast.success("Product added to cart");
+    }
+  };
 
-  //TODO:
-  const removeProductFromCart = () => {};
+  const removeProductFromCart = (productId: number) => {
+    setProductsInCart((prev) => {
+      const newArr = prev.filter((product) => product.id !== productId);
+      localStorage.setItem("cartProducts", JSON.stringify(newArr));
+      return newArr;
+    });
+  };
 
   const clearCart = () => {
     setProductsInCart([]);
+    localStorage.setItem("cartProducts", JSON.stringify([]));
   };
 
   useEffect(() => {
-    localStorage.setItem("cartProducts", JSON.stringify(productsInCart));
-  }, [productsInCart]);
-
-  useEffect(() => {
-    const localStorageProducts = localStorage.getItem("cartProducts");
-    if (!localStorageProducts) return;
-    setProductsInCart(JSON.parse(localStorageProducts));
+    const cartData = JSON.parse(localStorage.getItem("cartProducts")!);
+    if (cartData) {
+      setProductsInCart(cartData);
+    }
   }, []);
 
   return (
@@ -44,6 +82,8 @@ const CartContextProvider = ({ children }: { children: ReactNode }) => {
       value={{
         productsInCart,
         totalPrice,
+        totalSaved,
+        totalQuantity,
         addProductToCart,
         removeProductFromCart,
         clearCart,
