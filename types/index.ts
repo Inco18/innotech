@@ -12,6 +12,7 @@ type CartContextType = {
   totalPrice: number;
   totalSaved: number;
   totalQuantity: number;
+  changeProductQuantity: (productId: number, newQty: number) => void;
   addProductToCart: (product: Product) => void;
   removeProductFromCart: (productId: number) => void;
   clearCart: () => void;

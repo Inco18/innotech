@@ -12,6 +12,7 @@ export const CartContext = createContext<CartContextType>({
   totalPrice: 0,
   totalSaved: 0,
   totalQuantity: 0,
+  changeProductQuantity: () => {},
   addProductToCart: () => {},
   removeProductFromCart: () => {},
   clearCart: () => {},
@@ -25,7 +26,9 @@ const CartContextProvider = ({ children }: { children: ReactNode }) => {
     return acc + actPrice * prod.quantity;
   }, 0);
   const totalSaved = productsInCart.reduce((acc, prod) => {
-    return prod.salePrice ? acc + (prod.price - prod.salePrice) : acc;
+    return prod.salePrice
+      ? acc + (prod.price - prod.salePrice) * prod.quantity
+      : acc;
   }, 0);
   const totalQuantity = productsInCart.reduce(
     (acc, prod) => acc + prod.quantity,
@@ -63,11 +66,32 @@ const CartContextProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem("cartProducts", JSON.stringify(newArr));
       return newArr;
     });
+    toast.success("Product removed from cart");
+  };
+
+  const changeProductQuantity = (productId: number, newQty: number) => {
+    if (newQty > 99) return;
+    if (newQty < 1) {
+      setProductsInCart((prev) => {
+        const newArr = prev.filter((prod) => prod.id !== productId);
+        localStorage.setItem("cartProducts", JSON.stringify(newArr));
+        return newArr;
+      });
+      return;
+    }
+    setProductsInCart((prev) => {
+      const newArr = prev.map((prod) =>
+        prod.id === productId ? { ...prod, quantity: newQty } : prod
+      );
+      localStorage.setItem("cartProducts", JSON.stringify(newArr));
+      return newArr;
+    });
   };
 
   const clearCart = () => {
     setProductsInCart([]);
     localStorage.setItem("cartProducts", JSON.stringify([]));
+    toast.success("Cart cleared");
   };
 
   useEffect(() => {
@@ -84,6 +108,7 @@ const CartContextProvider = ({ children }: { children: ReactNode }) => {
         totalPrice,
         totalSaved,
         totalQuantity,
+        changeProductQuantity,
         addProductToCart,
         removeProductFromCart,
         clearCart,
