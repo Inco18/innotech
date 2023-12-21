@@ -25,21 +25,44 @@ export default function useWindowDimensions() {
 
   useEffect(() => {
     function handleResize() {
-      // const { width } = getWindowDimensions();
+      const { width, height } = getWindowDimensions();
+      let size;
 
-      // for (const [size, breakpoint] of Object.entries(breakpoints)) {
-      //   if (width >= breakpoint) {
-      //     getWindowDimensions(size);
-      //   }
-      // }
+      switch (true) {
+        case width >= breakpoints["2xl"] && width < breakpoints["3xl"]:
+          size = breakpoints["3xl"];
+          break;
+        case width >= breakpoints.xl && width < breakpoints["2xl"]:
+          size = breakpoints["2xl"];
+          break;
+        case width >= breakpoints.lg && width < breakpoints.xl:
+          size = breakpoints.lg;
+          break;
+        case width >= breakpoints.md && width < breakpoints.lg:
+          size = breakpoints.md;
+          break;
+        case width >= breakpoints.sm && width < breakpoints.md:
+          size = breakpoints.sm;
+          break;
+        default: {
+          if (width > breakpoints["3xl"]) {
+            size = breakpoints["3xl"];
+          }
+          if (width < breakpoints.sm) {
+            size = breakpoints.sm;
+          }
+        }
+      }
 
-      setWindowDimensions(getWindowDimensions());
+      if (windowDimensions.width !== size) {
+        setWindowDimensions({ width: size, height });
+      }
     }
 
     window.addEventListener("resize", handleResize);
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [windowDimensions.width]);
 
   return windowDimensions;
 }
