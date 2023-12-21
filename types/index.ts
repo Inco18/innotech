@@ -3,14 +3,18 @@ type Product = {
   id: number;
   name: string;
   price: number;
+  salePrice?: number;
   imageUrl: string;
 };
 
 type CartContextType = {
   productsInCart: Product[];
   totalPrice: number;
-  addProductToCart: () => void;
-  removeProductFromCart: () => void;
+  totalSaved: number;
+  totalQuantity: number;
+  changeProductQuantity: (productId: number, newQty: number) => void;
+  addProductToCart: (product: Product) => void;
+  removeProductFromCart: (productId: number) => void;
   clearCart: () => void;
 };
 type FooterSectionProps = {

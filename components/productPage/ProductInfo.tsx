@@ -17,7 +17,7 @@ import {
 type Props = { product: Tables<"products"> };
 
 const ProductInfo = ({ product }: Props) => {
-  const cartContext = useCartContext();
+  const { addProductToCart } = useCartContext();
   const [actDate, setActDate] = useState(new Date());
   const specEntries: specificationEntriesType = Object.entries(
     JSON.parse(JSON.stringify(product.specification))
@@ -29,10 +29,18 @@ const ProductInfo = ({ product }: Props) => {
   });
   const actPrice = product.sale_price ? product.sale_price : product.price;
 
-  //TODO:
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    cartContext.addProductToCart();
+    const form = e.target as HTMLFormElement;
+    addProductToCart({
+      id: product.id,
+      imageUrl: product.images[0],
+      name: product.manufacturer + " " + product.name,
+      price: product.price,
+      quantity: parseInt(form.quantity.value),
+      salePrice: product.sale_price ? product.sale_price : undefined,
+    });
+    form.reset();
   };
 
   useEffect(() => {

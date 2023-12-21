@@ -1,7 +1,11 @@
+"use client";
 import React, { Fragment } from "react";
 import CartProducts from "./CartProducts";
 import { Transition, Dialog } from "@headlessui/react";
 import { IoIosClose } from "react-icons/io";
+import { useCartContext } from "@/context/cart-context";
+import Link from "next/link";
+import { CiCircleInfo } from "react-icons/ci";
 
 type Props = {
   open: boolean;
@@ -9,6 +13,8 @@ type Props = {
 };
 
 const CartModal = (props: Props) => {
+  const { productsInCart, totalPrice, totalSaved, totalQuantity } =
+    useCartContext();
   return (
     <Transition appear show={props.open} as={Fragment}>
       <Dialog onClose={props.onClose}>
@@ -33,7 +39,7 @@ const CartModal = (props: Props) => {
             leaveTo="transform translate-x-[15rem]"
             as={Fragment}
           >
-            <Dialog.Panel className="ml-auto h-screen bg-white overflow-y-auto">
+            <Dialog.Panel className="ml-auto h-screen bg-white overflow-y-auto max-w-sm flex flex-col">
               <Dialog.Title
                 className="bg-gray-100 p-3 border-b-2 border-gray-200 flex items-center gap-2 font-semibold text-lg"
                 tabIndex={0}
@@ -42,9 +48,45 @@ const CartModal = (props: Props) => {
                   className="text-4xl rounded-md hover:bg-gray-200 cursor-pointer"
                   onClick={props.onClose}
                 />
-                Cart
+                <div className="flex justify-between items-center w-full">
+                  <span className="text-xl font-medium">
+                    Cart{" "}
+                    <span className="text-gray-500">({totalQuantity})</span>
+                  </span>
+                  <Link
+                    href={"/cart"}
+                    className="text-blue-500 hover:text-blue-600 text-sm"
+                  >
+                    Edit
+                  </Link>
+                </div>
               </Dialog.Title>
+              <div className="flex gap-3 px-3 py-1 border-b-2">
+                <CiCircleInfo className="text-4xl" />
+                <p className="mt-1 text-sm">
+                  Complete the order - adding products to the cart does not mean
+                  reserving them.
+                </p>
+              </div>
               <CartProducts />
+              <div className="bg-gray-100 p-3 rounded-md border-t-2 flex flex-col gap-1 mt-auto">
+                {totalSaved > 0 && (
+                  <div className="flex justify-between text-sm text-green-600">
+                    <p>You save</p>
+                    <p>{totalSaved.toFixed(2)} zł</p>
+                  </div>
+                )}
+                <div className="flex text-base justify-between font-medium">
+                  <p>To pay</p>
+                  <p>{totalPrice.toFixed(2)} zł</p>
+                </div>
+                <Link
+                  href={"/cart"}
+                  className="bg-green-600 text-white p-2 w-full rounded-lg text-base text-center"
+                >
+                  Go to cart
+                </Link>
+              </div>
             </Dialog.Panel>
           </Transition.Child>
         </div>

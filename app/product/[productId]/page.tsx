@@ -33,7 +33,7 @@ export const generateMetadata = async ({
   };
 };
 
-const page = async ({ params }: Props) => {
+const ProductPage = async ({ params }: Props) => {
   const { data: productData, error: productError } = await supabase
     .from("products")
     .select(`*, categories (*)`)
@@ -118,4 +118,4 @@ const page = async ({ params }: Props) => {
   );
 };
 
-export default page;
+export default ProductPage;
