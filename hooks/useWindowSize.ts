@@ -45,7 +45,7 @@ export default function useWindowDimensions() {
           size = breakpoints.sm;
           break;
         default: {
-          if (width > breakpoints["3xl"]) {
+          if (width >= breakpoints["3xl"]) {
             size = breakpoints["3xl"];
           }
           if (width < breakpoints.sm) {
