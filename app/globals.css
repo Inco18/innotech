@@ -29,3 +29,16 @@
 .yarl__thumbnails_thumbnail_active {
   @apply border-gray-400;
 }
+
+.unboxBackground {
+  background: linear-gradient(
+      159.53deg,
+      rgba(210, 193, 249, 0.2) -2.26%,
+      rgba(255, 255, 255, 0) 56.06%
+    ),
+    linear-gradient(
+      0.4deg,
+      rgba(105, 48, 240, 0.1) -6.94%,
+      rgba(248, 248, 248, 0) 69.85%
+    );
+}
