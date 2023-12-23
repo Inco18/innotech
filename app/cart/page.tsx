@@ -59,12 +59,13 @@ const Cart = () => {
                 <div className="w-full sm:flex-row sm:flex gap-3 items-center justify-between text-sm md:text-base">
                   <Link
                     href={`/product/${product.id}`}
-                    className="hover:underline"
+                    className="hover:underline line-clamp-2"
+                    title={product.name}
                   >
                     {product.name}
                   </Link>
                   <div className="flex gap-2 items-center justify-between sm:justify-start mt-2 lg:mt-0">
-                    <div className="flex flex-col">
+                    <div className="flex flex-col w-max">
                       {product.salePrice && (
                         <span className="text-gray-500 line-through">
                           {product.price.toFixed(2)} zł
