@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const Unbox = () => {
   return (
-    <div className="border-2 border-purple-100 p-10 flex flex-col items-center unboxBackground rounded-lg relative h-fit">
+    <div className="border-2 border-purple-100 p-10 flex flex-col items-center unboxBackground rounded-lg relative h-fit mx-2 lg:mx-0">
       <Image
         src={"/unboxBg.svg"}
         width={150}

@@ -66,13 +66,15 @@ const placeholderProducts = [
 
 export default function Home() {
   return (
-    <main className="w-full flex flex-col items-center mb-10 lg:px-5 xl:px-32 px-2 max-w-[110rem] py-5">
-      <section className="border-b-2 w-full grid grid-cols-1 lg:grid-cols-[30%_70%] 2xl:grid-cols-[25%_75%] pb-5">
+    <main className="w-full flex flex-col items-center mb-10 lg:px-5 xl:px-32 px-0 max-w-[110rem] py-5 overflow-x-hidden">
+      <section className="lg:border-b-2 w-full grid grid-cols-1 lg:grid-cols-[30%_70%] 2xl:grid-cols-[25%_75%] pb-5">
         <Unbox />
-        <div className="border-t-2 py-5 ml-5">
-          <h2 className="text-2xl font-semibold">We recommend</h2>
+        <div className="lg:hidden mt-10 bg-gray-100 h-5 border-gray-200 border-y-[1px]" />
+        <div className="lg:border-t-2 py-5 lg:ml-5">
+          <h2 className="text-2xl font-semibold ml-5 lg:ml-0">We recommend</h2>
           <ProductList products={placeholderProducts} />
         </div>
+        <div className="lg:hidden mt-5 bg-gray-100 h-5 border-gray-200 border-y-[1px]" />
       </section>
     </main>
   );
