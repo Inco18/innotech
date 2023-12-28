@@ -42,3 +42,11 @@
       rgba(248, 248, 248, 0) 69.85%
     );
 }
+
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}

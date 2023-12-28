@@ -4,10 +4,13 @@ import { PiPhone } from "react-icons/pi";
 import { FaComputer } from "react-icons/fa6";
 import { GiSmartphone } from "react-icons/gi";
 import { GrGamepad } from "react-icons/gr";
-import { CgSmartphoneChip } from "react-icons/cg";
+import { CgMenuGridR, CgSmartphoneChip } from "react-icons/cg";
 import { LuCable, LuPrinter } from "react-icons/lu";
 import { BsHouseGear } from "react-icons/bs";
 import { CiPercent } from "react-icons/ci";
+import { TfiMenu, TfiMenuAlt } from "react-icons/tfi";
+
+export const PAGE_SIZE = 30;
 
 export const footerLinks = [
   {
@@ -118,7 +121,9 @@ export const navigationBarCategories = [
     category: "Laptops& Computers",
     icon: FaComputer,
     subcategories: [
+      { id: 2, name: "Computers" },
       { id: 3, name: "Servers and storage" },
+      { id: 4, name: "Software" },
       { id: 5, name: "Computer accessories" },
       { id: 6, name: "Laptop accessories" },
       { id: 7, name: "Bags and cases" },
@@ -138,10 +143,8 @@ export const navigationBarCategories = [
     category: "Smartphones& Smartwatches",
     icon: GiSmartphone,
     subcategories: [
-      { id: 2, name: "Computers" },
-      { id: 4, name: "Software" },
-      { id: 28, name: "Processors" },
-      { id: 1, name: "Laptops/Notebooks/Ultrabooks" },
+      { id: 9, name: "Smartphones and phones" },
+      { id: 1, name: "Laptops, Notebooks, Ultrabooks" },
     ],
   },
   {
@@ -163,6 +166,7 @@ export const navigationBarCategories = [
     subcategories: [
       { id: 26, name: "Hard drives" },
       { id: 27, name: "Graphics cards" },
+      { id: 28, name: "Processors" },
       { id: 29, name: "Motherboards" },
       { id: 30, name: "Cases" },
       { id: 31, name: "RAM" },
@@ -227,5 +231,24 @@ export const navigationBarCategories = [
     category: "Trends, Promotions",
     icon: CiPercent,
     subcategories: [{ id: 500, name: "Promotions" }],
+  },
+];
+export const categoryFilterOptions = [
+  { label: "Od najpopularniejszych", query: "popularity_desc" },
+  { label: "Ocena klientów: od najlepszej", query: "rating_desc" },
+  { label: "Cena: od najtańszych", query: "price_asc" },
+  { label: "Cena: od najdroższych", query: "price_desc" },
+];
+export const categoryDisplayOptions = [
+  { icon: CgMenuGridR, query: "tile_view", lebel: "Tile View" },
+  {
+    icon: TfiMenuAlt,
+    query: "detailed_list_view",
+    label: "Detailed List View",
+  },
+  {
+    icon: TfiMenu,
+    query: "simplified_list_view",
+    label: "Simplified List View",
   },
 ];

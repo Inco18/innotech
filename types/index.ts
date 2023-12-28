@@ -7,6 +7,15 @@ type Product = {
   imageUrl: string;
 };
 
+type CategoryProduct = {
+  id: number;
+  name: string;
+  price: number;
+  salePrice?: number;
+  imageUrl: string;
+  specification: {};
+};
+
 type CartContextType = {
   productsInCart: Product[];
   totalPrice: number;
