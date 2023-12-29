@@ -78,9 +78,9 @@ const Page = async ({ params, searchParams }: Props) => {
           </h1>
         </div>
         <div className="flex w-full ">
-          <div>
+          {/* <div>
             <FiltersMenu />
-          </div>
+          </div> */}
           <div className="w-full">
             <ProductsListMenu
               currentPage={+page}
