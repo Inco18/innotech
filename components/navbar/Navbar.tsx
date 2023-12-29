@@ -16,7 +16,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-gray-50 shadow-md w-full grid grid-rows-[0] overflow-hidden  lg:grid-rows-[3.6rem] lg:overflow-visible  transition-all duration-200 ease-in-out">
+      <nav className="bg-gray-50 shadow-md w-full grid grid-rows-[0] overflow-hidden  lg:grid-rows-[3.6rem] lg:overflow-visible  transition-all duration-200 ease-in-out justify-center">
         <ul
           className=" flex justify-center max-w-[110rem] relative z-[80] pt-1"
           ref={ulRef}

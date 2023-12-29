@@ -3,6 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import Link from "next/link";
 import React, { Fragment } from "react";
 import { FaAngleRight, FaChevronLeft } from "react-icons/fa6";
+import SubcategoryLink from "../SubcategoryLink";
 
 const SubcategoryModal = ({
   closeModal,
@@ -44,20 +45,8 @@ const SubcategoryModal = ({
 
           <ul className=" flex flex-col gap-1 pt-1 px-4">
             {subcategorys.map(({ name, id }) => (
-              <li
-                key={id}
-                className=" list-none cursor-pointer"
-                onClick={() => {}}
-              >
-                <Link
-                  href={`/${id}-${name}`}
-                  className="flex justify-between items-center p-2 "
-                >
-                  <span className="text-[.9rem]"> {name}</span>
-                  <div className=" text-gray-400 ">
-                    <FaAngleRight />
-                  </div>
-                </Link>
+              <li key={id} className=" list-none cursor-pointer">
+                <SubcategoryLink id={id} name={name} />
               </li>
             ))}
           </ul>

@@ -7,6 +7,17 @@ type Product = {
   imageUrl: string;
 };
 
+interface CategoryProductProps {
+  id: number;
+  name: string;
+  price: number;
+  sale_price: number | null;
+  images: string[];
+  specification: any;
+  rating: number;
+  quantity_sold: number;
+}
+
 type CartContextType = {
   productsInCart: Product[];
   totalPrice: number;
