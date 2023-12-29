@@ -22,14 +22,14 @@ const DetailedElement = ({
       className="  rounded-md transition-shadow duration-300 group hover:shadow-[0_0_5px_0px_rgba(0,0,0,0.2)]"
     >
       <div className={`flex   relative pt-3 h-full items-start`}>
-        <div className="absolute grid grid-rows-[2.6rem,2.6rem,1fr]  top-5 bottom-5 z-[10] right-5  opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
+        <div className="absolute grid grid-cols-[2.6rem,2.6rem,2.6rem] gap-2   bottom-5 z-[10] right-5  opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
           <button className=" rounded-lg h-[2.6rem] w-[2.6rem]  bg-white text-gray-500  text-xl flex justify-center items-center hover:bg-gray-100">
             <IoIosHeartEmpty />
           </button>
           <button className="rounded-lg h-[2.6rem] w-[2.6rem] bg-white text-gray-500 text-xl flex justify-center items-center hover:bg-gray-100">
             <FaScaleUnbalanced />
           </button>
-          <button className="border rounded-lg self-end h-[2.6rem] w-[2.6rem] border-green-600 text-green-600 text-xl flex justify-center items-center hover:bg-green-600 hover:text-white transition-colors duration-300">
+          <button className="border rounded-lg  h-[2.6rem] w-[2.6rem] border-green-600 text-green-600 text-xl flex justify-center items-center hover:bg-green-600 hover:text-white transition-colors duration-300">
             <BsCartPlus />
           </button>
         </div>
