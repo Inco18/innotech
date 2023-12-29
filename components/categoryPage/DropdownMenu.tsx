@@ -24,7 +24,7 @@ const DropdownMenu = ({ sortBy }: { sortBy: string }) => {
       className={`w-[16rem] flex justify-between items-center px-4 relative self-center border border-gray-300  shadow-sm h-8 cursor-pointer  ${
         isOpen ? "rounded-t-lg" : "rounded-lg"
       }`}
-      onClick={() => setIsOpen(true)}
+      onClick={() => setIsOpen((cur) => !cur)}
       onMouseLeave={() => setIsOpen(false)}
     >
       <span className="text-sm  text-center relative z-10">
@@ -37,7 +37,7 @@ const DropdownMenu = ({ sortBy }: { sortBy: string }) => {
       {isOpen ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
 
       <div
-        className={`z-10  bg-white  shadow-sm absolute top-[100%] -right-[1px] -left-[1px] border border-gray-300 rounded-b-lg ${
+        className={`z-[12]  bg-white  shadow-sm absolute top-[100%] -right-[1px] -left-[1px] border border-gray-300 rounded-b-lg ${
           isOpen ? "block" : "hidden"
         }`}
       >

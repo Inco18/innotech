@@ -67,6 +67,17 @@ async function generateProductObject() {
     { shortName: "RTX 3060 Ti", fullName: "Nvidia GeForce RTX 3060 Ti" },
   ];
   const operatingSystemOptions = ["Windows 11", "Windows 10", "macOS", "none"];
+  const images = [
+    "https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/product_images/placeholders/pr_2023_10_12_6_14_57_829_01.jpg",
+    "https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/product_images/placeholders/pr_2023_10_12_6_14_55_643_00.webp",
+    "https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/product_images/placeholders/pr_2023_10_20_14_37_12_211_00.webp",
+    "https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/product_images/placeholders/pr_2023_10_20_14_37_13_959_01.webp",
+    "https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/product_images/placeholders/pr_2023_12_13_15_23_16_706_00.webp",
+    "https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/product_images/placeholders/d0bb4b0b-1e1d-4704-a9dd-8fe60455799020231031_183918.webp",
+    "https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/product_images/placeholders/d005336f-e2e9-4b4a-937c-394ee9e9fcfdimg_20231220_143901_641.webp",
+    "https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/product_images/placeholders/b4ba36f7-1b1b-4709-9f51-c7046006364dimg_20231120_200427.webp",
+    "https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/product_images/placeholders/50f0129d-6b0f-4934-b67e-9808fd222622photo.webp",
+  ];
 
   const ram = getRandomElement(ramOptions);
   const processor = getRandomElement(processorOptions);
@@ -81,23 +92,6 @@ async function generateProductObject() {
   }/${operatingSystem}`;
 
   const price = (2000 + Math.random() * (15000 - 2000)).toFixed(2);
-
-  const accessKey = "9SJg-zsCJNpIeter9URXXfzw61olR-KjtXvKPmPpjog";
-  const apiUrl = `https://api.unsplash.com/photos/?client_id=${accessKey}&query=desktop`;
-
-  async function fetchAndProcessImages(apiUrl) {
-    try {
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-
-      const selected = data.slice(0, 10);
-      const imageUrls = selected.map((item) => item.urls.regular);
-
-      return imageUrls;
-    } catch (error) {
-      console.error("Error fetching or processing data:", error);
-    }
-  }
 
   return {
     name: productName,
@@ -116,8 +110,10 @@ async function generateProductObject() {
       graphics_card: graphicsCard.fullName,
       operating_system: operatingSystem,
     },
-    images: await fetchAndProcessImages(apiUrl),
+    images,
     sale_price: (price * 0.7).toFixed(2),
+    quantity_sold: Math.floor(Math.random() * 1000),
+    rating: Math.floor(Math.random() * 7),
   };
 }
 

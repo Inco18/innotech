@@ -3,6 +3,7 @@ import ProductsList from "@/components/categoryPage/ProductsList";
 import ProductsListMenu from "@/components/categoryPage/ProductsListMenu";
 
 import {
+  CATEGORY_MENU_DEFAULT_VALUES as defaultValues,
   PAGE_SIZE,
   categoryDisplayOptions,
   categoryFilterOptions,
@@ -39,12 +40,6 @@ type Props = {
 //   };
 // };
 
-const defaultValues = {
-  page: 1,
-  sortBy: categoryFilterOptions[0].query,
-  displayType: categoryDisplayOptions[0].query,
-};
-
 const Page = async ({ params, searchParams }: Props) => {
   const {
     page = defaultValues.page,
@@ -77,7 +72,6 @@ const Page = async ({ params, searchParams }: Props) => {
           </div>
           <h1 className="flex gap-1 items-center text-lg">
             <span className=" text-3xl">
-              {" "}
               {categoryId[1].replaceAll("%20", " ")}
             </span>
             <span className="text-gray-600">({products?.length} results)</span>
@@ -87,7 +81,7 @@ const Page = async ({ params, searchParams }: Props) => {
           <div>
             <FiltersMenu />
           </div>
-          <div>
+          <div className="w-full">
             <ProductsListMenu
               currentPage={+page}
               numOfPages={Math.ceil(products?.length / PAGE_SIZE)}

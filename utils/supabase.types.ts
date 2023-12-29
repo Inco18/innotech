@@ -80,6 +80,8 @@ export interface Database {
           price: number;
           sale_price: number | null;
           specification: Json | null;
+          rating: number;
+          quantity_sold: number;
         };
         Insert: {
           category?: number | null;
@@ -92,6 +94,8 @@ export interface Database {
           price: number;
           sale_price?: number | null;
           specification?: Json | null;
+          rating?: number;
+          quantity_sold?: number;
         };
         Update: {
           category?: number | null;
@@ -104,6 +108,8 @@ export interface Database {
           price?: number;
           sale_price?: number | null;
           specification?: Json | null;
+          rating?: number;
+          quantity_sold?: number;
         };
         Relationships: [
           {

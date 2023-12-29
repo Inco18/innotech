@@ -10,8 +10,6 @@ import { BsHouseGear } from "react-icons/bs";
 import { CiPercent } from "react-icons/ci";
 import { TfiMenu, TfiMenuAlt } from "react-icons/tfi";
 
-export const PAGE_SIZE = 30;
-
 export const footerLinks = [
   {
     title: "Orders",
@@ -240,15 +238,23 @@ export const categoryFilterOptions = [
   { label: "Cena: od najdroższych", query: "price_desc" },
 ];
 export const categoryDisplayOptions = [
-  { icon: CgMenuGridR, query: "tile_view", lebel: "Tile View" },
+  { icon: CgMenuGridR, query: "tile_view", label: "Tile View" },
   {
-    icon: TfiMenuAlt,
+    icon: TfiMenu,
     query: "detailed_list_view",
     label: "Detailed List View",
   },
   {
-    icon: TfiMenu,
+    icon: TfiMenuAlt,
     query: "simplified_list_view",
     label: "Simplified List View",
   },
 ];
+
+export const PAGE_SIZE = 30;
+
+export const CATEGORY_MENU_DEFAULT_VALUES = {
+  page: 1,
+  sortBy: categoryFilterOptions[0].query,
+  displayType: categoryDisplayOptions[0].query,
+};

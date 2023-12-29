@@ -26,10 +26,10 @@ const DisplayMenu = ({ displayType }: { displayType: string }) => {
       className={`w-[4rem] flex items-center px-2 gap-1 relative self-center border border-gray-300  shadow-sm h-8 cursor-pointer mr-auto  ${
         isOpen ? "rounded-t-lg" : "rounded-lg"
       }`}
-      onClick={() => setIsOpen(true)}
+      onClick={() => setIsOpen((cur) => !cur)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <span className="text-2xl  text-center text-gray-300">
+      <span className="text-2xl  text-center text-gray-300 hover:text-gray-600">
         {Icon ? <Icon /> : <DefaultIcon />}
       </span>
       {isOpen ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
@@ -40,24 +40,23 @@ const DisplayMenu = ({ displayType }: { displayType: string }) => {
         }`}
       >
         <ul className=" text-gray-700 ">
-          {categoryDisplayOptions.map(
-            ({ label, query, icon: IconOption }, index) => (
-              <li
-                className={`px-2 block hover:bg-gray-100 py-1`}
-                key={label}
-                onClick={() => {
-                  handelDisplay(query);
-                }}
-              >
-                <IconOption
-                  className={` text-gray-300  ${
-                    (displayType === query || (!Icon && index === 0)) &&
-                    " text-gray-600"
-                  }`}
-                />
-              </li>
-            )
-          )}
+          {categoryDisplayOptions.map(({ label, query, icon: IconOption }) => (
+            <li
+              className={`px-2 block hover:bg-gray-100 py-1`}
+              key={query}
+              onClick={() => {
+                handelDisplay(query);
+              }}
+            >
+              <IconOption
+                className={` text-gray-300  ${
+                  (displayType === query ||
+                    (!Icon && label === categoryDisplayOptions[0].label)) &&
+                  " text-gray-600"
+                }`}
+              />
+            </li>
+          ))}
         </ul>
       </div>
     </div>
