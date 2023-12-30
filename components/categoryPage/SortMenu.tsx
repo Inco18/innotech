@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { RiArrowDownSLine, RiArrowUpSLine } from "react-icons/ri";
 
-const SortMenu = ({ sortBy }: { sortBy: string }) => {
+const SortMenu = ({ sortBy, styles }: { sortBy: string; styles?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
@@ -21,7 +21,7 @@ const SortMenu = ({ sortBy }: { sortBy: string }) => {
 
   return (
     <div
-      className={`w-[16rem] flex justify-between items-center px-4 relative self-center border border-gray-300  shadow-sm h-8 cursor-pointer  ${
+      className={`w-[16rem] flex ${styles} justify-between items-center px-2 relative self-center border border-gray-300  shadow-sm h-8 cursor-pointer  ${
         isOpen ? "rounded-t-lg" : "rounded-lg"
       }`}
       onClick={() => setIsOpen((cur) => !cur)}
@@ -44,7 +44,7 @@ const SortMenu = ({ sortBy }: { sortBy: string }) => {
         <ul className="text-sm text-gray-700 ">
           {categoryFilterOptions.map(({ label, query }, index) => (
             <li
-              className={`block px-4 py-2 hover:bg-gray-100  ${
+              className={`block px-3 py-2 hover:bg-gray-100  ${
                 (sortBy === query || (!name && index === 0)) && " font-semibold"
               }`}
               key={label}

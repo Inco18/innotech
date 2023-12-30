@@ -9,6 +9,8 @@ function getWindowDimensions() {
 }
 
 const breakpoints = {
+  "2xs": 260,
+  xs: 412,
   sm: 640,
   md: 768,
   lg: 1024,
@@ -44,12 +46,18 @@ export default function useWindowDimensions() {
         case width >= breakpoints.sm && width < breakpoints.md:
           size = breakpoints.sm;
           break;
+        case width >= breakpoints.xs && width < breakpoints.sm:
+          size = breakpoints.xs;
+          break;
+        case width >= breakpoints["2xs"] && width < breakpoints.xs:
+          size = breakpoints["2xs"];
+          break;
         default: {
           if (width >= breakpoints["3xl"]) {
             size = breakpoints["3xl"];
           }
-          if (width < breakpoints.sm) {
-            size = breakpoints.sm;
+          if (width < breakpoints["2xs"]) {
+            size = breakpoints["2xs"];
           }
         }
       }
