@@ -41,7 +41,7 @@ const ProductsListMenu = ({
       <div>
         <nav className="w-full flex flex-col  justify-between">
           <hr />
-          <div className=" w-full flex gap-3">
+          <div className=" w-full flex">
             <div className="flex md:hidden w-full">
               <DisplayMenuSmall displayType={displayType} />
               <FiltersMenuSmall />
@@ -52,7 +52,7 @@ const ProductsListMenu = ({
             <PaginationMenu
               currentPage={currentPage}
               numOfPages={numOfPages}
-              styles="hidden sm:flex border-r border-gray-300 md:border-r-[0]"
+              styles="hidden sm:flex border-r border-gray-300 md:border-r-[0] lg:px-4"
             />
           </div>
           <div className="flex md:hidden"></div>

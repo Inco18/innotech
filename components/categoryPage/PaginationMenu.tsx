@@ -32,7 +32,7 @@ const PaginationMenu = ({
   };
 
   return (
-    <div className={` text-xl p-4 gap-2  ${styles}`}>
+    <div className={` text-xl py-4 px-1 gap-2  ${styles}`}>
       <button
         className={`text-[1.7rem] h-8 w-8 rounded-md flex justify-center items-center  ${
           currentPage < 2
