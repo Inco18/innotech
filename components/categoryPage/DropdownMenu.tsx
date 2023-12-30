@@ -9,9 +9,11 @@ type DropdownMenuProps = {
 
 const DropdownMenu = ({ options }: DropdownMenuProps) => {
   return (
-    <div className="relative z-[13]">
+    <div className="relative ">
       <Menu as="div" className="relative inline-block text-left">
-        <div>
+        <div
+          onClick={(e: React.MouseEvent<HTMLElement>) => e.stopPropagation()}
+        >
           <Menu.Button className="inline-flex w-full justify-center rounded-lg  px-3 py-3 text-lg font-medium text-gray-600 hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
             <BsThreeDotsVertical />
           </Menu.Button>

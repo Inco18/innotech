@@ -33,7 +33,7 @@ const SimplifiedElement = ({
       <div
         className={`py-2 px-1 relative h-full flex flex-col  sm:grid sm:grid-cols-[min-content,minmax(10rem,1fr),10rem,7rem] sm:items-center gap-2 sm:gap-0`}
       >
-        <div className=" absolute sm:hidden top-4 right-4">
+        <div className=" absolute sm:hidden top-4 right-4 z-[13]">
           <DropdownMenu options={simplifiedElementDropdownMenu} />
         </div>
 

@@ -11,6 +11,7 @@ const ElementMenu = () => {
       }`}
       title={label}
       key={label}
+      onClick={(e: React.MouseEvent<HTMLElement>) => e.stopPropagation()}
     >
       <Icon />
     </button>
