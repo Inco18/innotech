@@ -1,9 +1,9 @@
 import Image from "next/image";
-import { BsCartPlus } from "react-icons/bs";
-import { FaScaleUnbalanced } from "react-icons/fa6";
-import { IoIosHeartEmpty } from "react-icons/io";
-import Rating from "../productPage/Rating";
+
+import Rating from "../../productPage/Rating";
 import { formatSpecificationName } from "@/utils/formatters";
+import { categoryElementMenu } from "@/constants";
+import ElementMenu from "../ElementMenu";
 
 const DetailedElement = ({
   id,
@@ -14,24 +14,23 @@ const DetailedElement = ({
   images,
   specification,
 }: CategoryProductProps) => {
-  const specificationToShow = Object.entries(specification).slice(0, 4);
+  const specificationToShow: SpecificationItemProps = Object.entries(
+    specification as SpecificationProps
+  )
+    .slice(0, 4)
+    .sort((a, b) => (a[1].shortIndex ?? 0) - (b[1].shortIndex ?? 0))
+    .map(([key, { value }]) => [key, value]);
 
   return (
     <div
       id={`${id}`}
       className="  rounded-md transition-shadow duration-300 group hover:shadow-[0_0_5px_0px_rgba(0,0,0,0.2)]"
     >
-      <div className={`flex   relative pt-3 h-full items-start`}>
+      <div
+        className={`flex relative py-5 h-full items-start pr-5 overflow-hidden`}
+      >
         <div className="absolute grid grid-cols-[2.6rem,2.6rem,2.6rem] gap-2   bottom-5 z-[10] right-5  opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
-          <button className=" rounded-lg h-[2.6rem] w-[2.6rem]  bg-white text-gray-500  text-xl flex justify-center items-center hover:bg-gray-100">
-            <IoIosHeartEmpty />
-          </button>
-          <button className="rounded-lg h-[2.6rem] w-[2.6rem] bg-white text-gray-500 text-xl flex justify-center items-center hover:bg-gray-100">
-            <FaScaleUnbalanced />
-          </button>
-          <button className="border rounded-lg  h-[2.6rem] w-[2.6rem] border-green-600 text-green-600 text-xl flex justify-center items-center hover:bg-green-600 hover:text-white transition-colors duration-300">
-            <BsCartPlus />
-          </button>
+          <ElementMenu />
         </div>
 
         <div className=" overflow-hidden my-auto">
@@ -64,7 +63,7 @@ const DetailedElement = ({
               ))}
             </ul>
           </div>
-          <div className="px-5 md:px-0 ">
+          <div className="px-5 md:px-0">
             {sale_price && (
               <div className="flex gap-2 items-center text-[13px]">
                 <span className=" p-1 bg-[#eef7ed] rounded-md text-[#007d00]">
@@ -82,7 +81,7 @@ const DetailedElement = ({
           </div>
         </div>
       </div>
-      <hr className=" w-[90%] mx-auto" />
+      <hr className=" w-[99%] mx-auto" />
     </div>
   );
 };

@@ -59,6 +59,7 @@ const ProductsList = async ({ params, searchParams }: Props) => {
     )
     .eq("category", categoryIdNumber)
     .range((page - 1) * PAGE_SIZE, page * PAGE_SIZE - 1);
+
   if (!products || !products[0]) notFound();
 
   const selectedDisplayType =
@@ -73,7 +74,8 @@ const ProductsList = async ({ params, searchParams }: Props) => {
   const detailed_list_view =
     selectedDisplayType === categoryDisplayOptions[1].query && `flex flex-col`;
   const simplified_list_view =
-    selectedDisplayType === categoryDisplayOptions[2].query && `flex flex-col`;
+    selectedDisplayType === categoryDisplayOptions[2].query &&
+    `grid grid-cols-[repeat(auto-fit,minmax(15rem,1fr))] sm:flex sm:flex-col `;
 
   const displayType = tile_view || detailed_list_view || simplified_list_view;
 

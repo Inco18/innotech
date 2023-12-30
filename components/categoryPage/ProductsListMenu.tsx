@@ -1,6 +1,6 @@
 import React from "react";
 
-import DropdownMenu from "./DropdownMenu";
+import DropdownMenu from "./SortMenu";
 import PaginationMenu from "./PaginationMenu";
 import DisplayMenu from "./DisplayMenu";
 

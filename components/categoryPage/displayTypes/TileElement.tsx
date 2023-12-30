@@ -2,8 +2,10 @@ import Image from "next/image";
 import { BsCartPlus } from "react-icons/bs";
 import { FaScaleUnbalanced } from "react-icons/fa6";
 import { IoIosHeartEmpty } from "react-icons/io";
-import Rating from "../productPage/Rating";
+import Rating from "../../productPage/Rating";
 import { formatSpecificationName } from "@/utils/formatters";
+import { categoryElementMenu } from "@/constants";
+import ElementMenu from "../ElementMenu";
 
 const TileElement = ({
   id,
@@ -14,7 +16,12 @@ const TileElement = ({
   images,
   specification,
 }: CategoryProductProps) => {
-  const specificationToShow = Object.entries(specification).slice(0, 4);
+  const specificationToShow: SpecificationItemProps = Object.entries(
+    specification as SpecificationProps
+  )
+    .slice(0, 4)
+    .sort((a, b) => (a[1].shortIndex ?? 0) - (b[1].shortIndex ?? 0))
+    .map(([key, { value }]) => [key, value]);
 
   return (
     <div
@@ -22,19 +29,11 @@ const TileElement = ({
       className="  rounded-md transition-shadow duration-300 group hover:shadow-[0_0_5px_0px_rgba(0,0,0,0.2)]"
     >
       <div className={`flex flex-col relative pt-3 h-full`}>
-        <div className="absolute grid grid-rows-[2.6rem,2.6rem,1fr]  top-5 bottom-5 z-[10] right-5  opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
-          <button className=" rounded-lg h-[2.6rem] w-[2.6rem]  bg-white text-gray-500  text-xl flex justify-center items-center hover:bg-gray-100">
-            <IoIosHeartEmpty />
-          </button>
-          <button className="rounded-lg h-[2.6rem] w-[2.6rem] bg-white text-gray-500 text-xl flex justify-center items-center hover:bg-gray-100">
-            <FaScaleUnbalanced />
-          </button>
-          <button className="border rounded-lg self-end h-[2.6rem] w-[2.6rem] border-green-600 text-green-600 text-xl flex justify-center items-center hover:bg-green-600 hover:text-white transition-colors duration-300">
-            <BsCartPlus />
-          </button>
+        <div className="absolute grid grid-rows-[2.6rem,2.6rem,1fr]  top-5 bottom-5 z-[10] right-5 items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
+          <ElementMenu />
         </div>
 
-        <div className="p-1">
+        <div className="p-1 mx-auto">
           <div className="relative  h-[15rem]  w-[15rem]">
             <Image
               src={images[0]}

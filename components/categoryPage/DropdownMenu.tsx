@@ -1,60 +1,56 @@
-"use client";
-import { categoryFilterOptions } from "@/constants";
-import { updateSearchParams } from "@/utils/url";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import { RiArrowDownSLine, RiArrowUpSLine } from "react-icons/ri";
+import { Menu, Transition } from "@headlessui/react";
+import React, { Fragment } from "react";
+import { IconType } from "react-icons";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
-const DropdownMenu = ({ sortBy }: { sortBy: string }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const router = useRouter();
+type DropdownMenuProps = {
+  options: { icon: IconType; label: string; color?: string }[];
+};
 
-  const handelSort = (query: string) => {
-    const updatedUrl = updateSearchParams("sort_by", query);
-
-    router.push(updatedUrl);
-  };
-
-  const name = categoryFilterOptions.find(
-    (option) => option.query === sortBy
-  )?.label;
-
+const DropdownMenu = ({ options }: DropdownMenuProps) => {
   return (
-    <div
-      className={`w-[16rem] flex justify-between items-center px-4 relative self-center border border-gray-300  shadow-sm h-8 cursor-pointer  ${
-        isOpen ? "rounded-t-lg" : "rounded-lg"
-      }`}
-      onClick={() => setIsOpen((cur) => !cur)}
-      onMouseLeave={() => setIsOpen(false)}
-    >
-      <span className="text-sm  text-center relative z-10">
-        {name || categoryFilterOptions[0].label}
-        <span className=" absolute -top-4 left-0 bg-white text-gray-400 text-[13px] z-[10] pr-1">
-          Sortowanie
-        </span>
-        <span className="absolute left-[-3px] -top-4 h-full w-1 bg-white z-[5]" />
-      </span>
-      {isOpen ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
-
-      <div
-        className={`z-[12]  bg-white  shadow-sm absolute top-[100%] -right-[1px] -left-[1px] border border-gray-300 rounded-b-lg ${
-          isOpen ? "block" : "hidden"
-        }`}
-      >
-        <ul className="text-sm text-gray-700 ">
-          {categoryFilterOptions.map(({ label, query }, index) => (
-            <li
-              className={`block px-4 py-2 hover:bg-gray-100  ${
-                (sortBy === query || (!name && index === 0)) && " font-semibold"
-              }`}
-              key={label}
-              onClick={() => handelSort(query)}
-            >
-              {label}
-            </li>
-          ))}
-        </ul>
-      </div>
+    <div className="relative z-[13]">
+      <Menu as="div" className="relative inline-block text-left">
+        <div>
+          <Menu.Button className="inline-flex w-full justify-center rounded-lg  px-3 py-3 text-lg font-medium text-gray-600 hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
+            <BsThreeDotsVertical />
+          </Menu.Button>
+        </div>
+        <Transition
+          as={Fragment}
+          enter="transition ease-out duration-100"
+          enterFrom="transform opacity-0 scale-95"
+          enterTo="transform opacity-100 scale-100"
+          leave="transition ease-in duration-75"
+          leaveFrom="transform opacity-100 scale-100"
+          leaveTo="transform opacity-0 scale-95"
+        >
+          <Menu.Items
+            className="absolute right-0 origin-top-right 
+           divide-gray-100 rounded-md
+           bg-white shadow-lg ring-1 ring-black/5 focus:outline-none overflow-hidden"
+          >
+            <div className="w-[max-content]  ">
+              {options.map(({ label, icon: Icon, color }, index) => (
+                <Menu.Item key={label}>
+                  {({ active }) => (
+                    <button
+                      className={`${
+                        active ? " bg-gray-100 " : ""
+                      }text-gray-900  flex w-full gap-2 items-center  p-4 text-sm ${
+                        color ? `text-${color}` : ""
+                      }`}
+                    >
+                      <Icon className={`text-lg `} />
+                      <span> {label}</span>
+                    </button>
+                  )}
+                </Menu.Item>
+              ))}
+            </div>
+          </Menu.Items>
+        </Transition>
+      </Menu>
     </div>
   );
 };
