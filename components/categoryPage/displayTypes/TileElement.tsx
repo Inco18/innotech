@@ -28,7 +28,7 @@ const TileElement = ({
       id={`${id}`}
       className="  rounded-md transition-shadow duration-300 group hover:shadow-[0_0_5px_0px_rgba(0,0,0,0.2)]"
     >
-      <div className={`flex flex-col relative pt-3 h-full`}>
+      <div className={`flex flex-col justify-between relative pt-3 h-full`}>
         <div className="absolute grid grid-rows-[2.6rem,2.6rem,1fr]  top-5 bottom-5 z-[10] right-5 items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
           <ElementMenu />
         </div>

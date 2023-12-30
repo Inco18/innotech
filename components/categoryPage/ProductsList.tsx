@@ -70,7 +70,7 @@ const ProductsList = async ({ params, searchParams }: Props) => {
 
   const tile_view =
     selectedDisplayType === categoryDisplayOptions[0].query &&
-    `grid grid-cols-[repeat(auto-fit,minmax(15rem,1fr))]`;
+    `grid grid-cols-[repeat(auto-fit,minmax(16rem,1fr))]`;
   const detailed_list_view =
     selectedDisplayType === categoryDisplayOptions[1].query && `flex flex-col`;
   const simplified_list_view =

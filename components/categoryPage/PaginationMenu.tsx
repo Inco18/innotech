@@ -1,4 +1,5 @@
 "use client";
+
 import { updateSearchParams } from "@/utils/url";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -10,9 +11,14 @@ import {
 type ProductsListMenuProps = {
   currentPage: number;
   numOfPages: number;
+  styles?: string;
 };
 
-const PaginationMenu = ({ currentPage, numOfPages }: ProductsListMenuProps) => {
+const PaginationMenu = ({
+  currentPage,
+  numOfPages,
+  styles,
+}: ProductsListMenuProps) => {
   const router = useRouter();
 
   const handlePagination = (page: number) => {
@@ -26,7 +32,7 @@ const PaginationMenu = ({ currentPage, numOfPages }: ProductsListMenuProps) => {
   };
 
   return (
-    <div className="flex text-xl p-4 gap-2">
+    <div className={` text-xl p-4 gap-2  ${styles}`}>
       <button
         className={`text-[1.7rem] h-8 w-8 rounded-md flex justify-center items-center  ${
           currentPage < 2
@@ -49,7 +55,7 @@ const PaginationMenu = ({ currentPage, numOfPages }: ProductsListMenuProps) => {
           key={crypto.randomUUID()}
         />
       </div>
-      <span className=" text-base text-gray-400 self-center">
+      <span className=" text-base text-gray-400 self-center whitespace-nowrap">
         z {numOfPages}
       </span>
       <button

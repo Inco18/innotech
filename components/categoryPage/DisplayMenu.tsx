@@ -25,7 +25,7 @@ const DisplayMenu = ({ displayType }: { displayType: string }) => {
 
   return (
     <div
-      className={`w-[4rem] flex items-center px-2 gap-1 relative self-center border border-gray-300  shadow-sm h-8 cursor-pointer mr-auto  ${
+      className={`hidden md:flex w-[4rem] items-center px-2 gap-1 relative self-center border border-gray-300  shadow-sm h-8 cursor-pointer mr-auto  ${
         isOpen ? "rounded-t-lg" : "rounded-lg"
       }`}
       onClick={() => setIsOpen((cur) => !cur)}

@@ -1,32 +1,84 @@
-import React from "react";
+"use client";
+import React, { Children } from "react";
 
-import DropdownMenu from "./SortMenu";
+import SortMenu from "./SortMenu";
 import PaginationMenu from "./PaginationMenu";
 import DisplayMenu from "./DisplayMenu";
+
+import FiltersMenuSmall from "./smallScreen/FiltersMenuSmall";
+import DisplayMenuSmall from "./smallScreen/DisplayMenuSmall";
+import SortMenuSmall from "./smallScreen/SortMenuSmall";
+import { PAGE_SIZE } from "@/constants";
+import useWindowDimensions from "@/hooks/useWindowSize";
 
 type ProductsListMenuProps = {
   sortBy: string;
   displayType: string;
   currentPage: number;
   numOfPages: number;
+  numOfProducts: number;
+  children: JSX.Element;
 };
 
 const ProductsListMenu = ({
   currentPage,
   numOfPages,
+  numOfProducts,
   sortBy,
   displayType,
+  children,
 }: ProductsListMenuProps) => {
+  const { width } = useWindowDimensions();
+
+  const info = `${(currentPage - 1) * PAGE_SIZE + 1} -${
+    currentPage * PAGE_SIZE > PAGE_SIZE
+      ? numOfProducts
+      : currentPage * PAGE_SIZE
+  } z ${numOfProducts}`;
+
   return (
-    <nav className="w-full flex flex-col justify-between">
-      <hr />
-      <div className="flex w-full">
-        <DisplayMenu displayType={displayType} />
-        <DropdownMenu sortBy={sortBy} />
-        <PaginationMenu currentPage={currentPage} numOfPages={numOfPages} />
+    <>
+      <div>
+        <nav className="w-full flex flex-col  justify-between">
+          <hr />
+          <div className=" w-full flex gap-3">
+            <div className="flex md:hidden w-full">
+              <DisplayMenuSmall displayType={displayType} />
+              <FiltersMenuSmall />
+              <SortMenuSmall sortBy={sortBy} />
+            </div>
+            <DisplayMenu displayType={displayType} />
+            <SortMenu styles="hidden md:flex" sortBy={sortBy} />
+            <PaginationMenu
+              currentPage={currentPage}
+              numOfPages={numOfPages}
+              styles="hidden sm:flex border-r border-gray-300 md:border-r-[0]"
+            />
+          </div>
+          <div className="flex md:hidden"></div>
+          <hr />
+        </nav>
+        <main>{children}</main>
+        <footer className=" w-full flex flex-col  sm:hidden">
+          <hr />
+          <div className="items-center flex pt-5 flex-col w-full">
+            <div
+              className={` gap-2 items-center flex ${
+                width === 260 ? "hidden" : "flex"
+              }`}
+            >
+              <SortMenu sortBy={sortBy} styles="" />
+              <span className="text-gray-500 text-sm">{info}</span>
+            </div>
+            <PaginationMenu
+              currentPage={currentPage}
+              numOfPages={numOfPages}
+              styles="flex"
+            />
+          </div>
+        </footer>
       </div>
-      <hr />
-    </nav>
+    </>
   );
 };
 

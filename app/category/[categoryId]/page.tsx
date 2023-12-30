@@ -9,6 +9,7 @@ import {
   categoryFilterOptions,
   navigationBarCategories,
 } from "@/constants";
+import useWindowDimensions from "@/hooks/useWindowSize";
 import { supabase } from "@/utils/supabase";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -46,6 +47,7 @@ const Page = async ({ params, searchParams }: Props) => {
     sort_by = defaultValues.sortBy,
     display_type = defaultValues.displayType,
   } = searchParams;
+
   const categoryId = params.categoryId.split("-");
   const categoryIdNumber = +categoryId[0];
 
@@ -81,19 +83,21 @@ const Page = async ({ params, searchParams }: Props) => {
           </h1>
         </div>
         <div className="flex w-full ">
-          {/* <div>
+          <div>
             <FiltersMenu />
-          </div> */}
+          </div>
           <div className="w-full">
             <ProductsListMenu
               currentPage={+page}
               numOfPages={Math.ceil(products?.length / PAGE_SIZE)}
               sortBy={sort_by}
               displayType={display_type}
-            />
-            <Suspense fallback={<p>Loading feed...</p>}>
-              <ProductsList params={params} searchParams={searchParams} />
-            </Suspense>
+              numOfProducts={products.length}
+            >
+              <Suspense fallback={<p>Loading feed...</p>}>
+                <ProductsList params={params} searchParams={searchParams} />
+              </Suspense>
+            </ProductsListMenu>
           </div>
         </div>
       </div>

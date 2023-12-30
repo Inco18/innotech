@@ -27,7 +27,7 @@ const DetailedElement = ({
       className="  rounded-md transition-shadow duration-300 group hover:shadow-[0_0_5px_0px_rgba(0,0,0,0.2)]"
     >
       <div
-        className={`flex relative py-5 h-full items-start pr-5 overflow-hidden`}
+        className={`flex relative py-5 h-full items-start  overflow-hidden lg:px-5`}
       >
         <div className="absolute grid grid-cols-[2.6rem,2.6rem,2.6rem] gap-2   bottom-5 z-[10] right-5  opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
           <ElementMenu />
