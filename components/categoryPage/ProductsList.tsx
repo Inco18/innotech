@@ -1,5 +1,4 @@
 import {
-  CATEGORY_MENU_DEFAULT_VALUES,
   categoryDisplayOptions,
   categoryFilterOptions,
   CATEGORY_MENU_DEFAULT_VALUES as defaultValues,
@@ -75,7 +74,7 @@ const ProductsList = async ({
 
   const selectedDisplayType =
     categoryDisplayOptions.find((option) => option.query === display_type)
-      ?.query || CATEGORY_MENU_DEFAULT_VALUES.displayType;
+      ?.query || defaultValues.displayType;
 
   const sortedProducts = sortProducts({ products, sort_by });
 
