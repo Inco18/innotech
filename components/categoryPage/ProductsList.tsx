@@ -21,6 +21,7 @@ type Props = {
     sort_by?: string;
     display_type?: string;
   };
+  productsAmount: number;
 };
 
 const sortProducts = ({
@@ -42,7 +43,11 @@ const sortProducts = ({
   }
 };
 
-const ProductsList = async ({ params, searchParams }: Props) => {
+const ProductsList = async ({
+  params,
+  searchParams,
+  productsAmount,
+}: Props) => {
   const categoryId = params.categoryId.split("-");
   const categoryIdNumber = +categoryId[0];
 
@@ -52,13 +57,19 @@ const ProductsList = async ({ params, searchParams }: Props) => {
     display_type = defaultValues.displayType,
   } = searchParams;
 
+  const numOfPages = Math.ceil(productsAmount / PAGE_SIZE);
+  const verifiedPageNumber = Math.min(Math.max(+page, 1), numOfPages);
+
   const { data: products, error: productsError } = await supabase
     .from("products")
     .select(
       `id,name,price,specification,sale_price,images,rating,quantity_sold`
     )
     .eq("category", categoryIdNumber)
-    .range((page - 1) * PAGE_SIZE, page * PAGE_SIZE - 1);
+    .range(
+      (verifiedPageNumber - 1) * PAGE_SIZE,
+      verifiedPageNumber * PAGE_SIZE - 1
+    );
 
   if (!products || !products[0]) notFound();
 
