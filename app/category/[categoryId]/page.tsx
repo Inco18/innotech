@@ -64,6 +64,9 @@ const Page = async ({ params, searchParams }: Props) => {
 
   if (!products || !products[0]) notFound();
 
+  const numOfPages = Math.ceil(products?.length / PAGE_SIZE);
+  const verifiedPageNumber = Math.min(Math.max(+page, 1), numOfPages);
+
   return (
     <main className="w-full flex flex-col items-center mb-10">
       <div className="w-full lg:px-16 xl:px-32 px-2 max-w-[110rem]">
@@ -88,14 +91,18 @@ const Page = async ({ params, searchParams }: Props) => {
           </div>
           <div className="w-full">
             <ProductsListMenu
-              currentPage={+page}
+              currentPage={verifiedPageNumber}
               numOfPages={Math.ceil(products?.length / PAGE_SIZE)}
               sortBy={sort_by}
               displayType={display_type}
               numOfProducts={products.length}
             >
               <Suspense fallback={<p>Loading feed...</p>}>
-                <ProductsList params={params} searchParams={searchParams} />
+                <ProductsList
+                  params={params}
+                  searchParams={searchParams}
+                  productsAmount={products.length}
+                />
               </Suspense>
             </ProductsListMenu>
           </div>
