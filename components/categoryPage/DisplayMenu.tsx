@@ -16,9 +16,11 @@ const DisplayMenu = ({ displayType }: { displayType: string }) => {
     router.push(updatedUrl);
   };
 
-  const Icon = categoryDisplayOptions.find(
+  const selectedOption = categoryDisplayOptions.find(
     (option) => option.query === displayType
-  )?.icon;
+  );
+
+  const Icon = selectedOption?.icon;
   const DefaultIcon = categoryDisplayOptions[0].icon;
 
   return (
@@ -29,20 +31,24 @@ const DisplayMenu = ({ displayType }: { displayType: string }) => {
       onClick={() => setIsOpen((cur) => !cur)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <span className="text-2xl  text-center text-gray-300 hover:text-gray-600">
+      <span
+        className="text-2xl  text-center text-gray-300 hover:text-gray-600"
+        title={selectedOption?.label}
+      >
         {Icon ? <Icon /> : <DefaultIcon />}
       </span>
       {isOpen ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
 
       <div
-        className={`z-10  bg-white text-2xl text-gray-100  shadow-sm absolute top-[100%] -right-[1px] -left-[1px] border border-gray-300 rounded-b-lg ${
+        className={`z-10  bg-white text-2xl text-gray-100  shadow-sm absolute top-[100%] -right-[1px] -left-[1px] border border-gray-300 rounded-b-lg overflow-hidden ${
           isOpen ? "block" : "hidden"
         }`}
       >
         <ul className=" text-gray-700 ">
           {categoryDisplayOptions.map(({ label, query, icon: IconOption }) => (
             <li
-              className={`px-2 block hover:bg-gray-100 py-1`}
+              className={`px-2 block hover:bg-gray-100 py-1 `}
+              title={label}
               key={query}
               onClick={() => {
                 handelDisplay(query);

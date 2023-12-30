@@ -59,6 +59,7 @@ const Page = async ({ params, searchParams }: Props) => {
     .from("products")
     .select(`id`)
     .eq("category", categoryIdNumber);
+
   if (!products || !products[0]) notFound();
 
   return (
@@ -68,7 +69,9 @@ const Page = async ({ params, searchParams }: Props) => {
           <div className="text-xs flex items-center gap-1 text-gray-600 py-4">
             <Link href={"/"}>InnoTech</Link>
             <FaChevronRight />
-            <Link href={`/category/${params.categoryId}`}>{categoryId[1]}</Link>
+            <Link href={`/category/${params.categoryId}`}>
+              {categoryId[1].replaceAll("%20", " ")}
+            </Link>
           </div>
           <h1 className="flex gap-1 items-center text-lg">
             <span className=" text-3xl">
@@ -78,9 +81,9 @@ const Page = async ({ params, searchParams }: Props) => {
           </h1>
         </div>
         <div className="flex w-full ">
-          <div>
+          {/* <div>
             <FiltersMenu />
-          </div>
+          </div> */}
           <div className="w-full">
             <ProductsListMenu
               currentPage={+page}

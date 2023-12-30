@@ -9,9 +9,9 @@ import { BsCartPlus } from "react-icons/bs";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { FaScaleUnbalanced } from "react-icons/fa6";
 import { categoryDisplayOptions } from "@/constants";
-import TileElement from "./TileElement";
-import DetailedElement from "./DetailedElement";
-import SimplifiedElement from "./SimplifiedElement";
+import TileElement from "./displayTypes/TileElement";
+import DetailedElement from "./displayTypes/DetailedElement";
+import SimplifiedElement from "./displayTypes/SimplifiedElement";
 
 interface ProductListElement extends CategoryProductProps {
   display_type: string;

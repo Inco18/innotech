@@ -61,3 +61,20 @@ type specificationEntriesType = [
   string,
   { value: string; index: number; shortIndex?: number }
 ][];
+
+type SpecificationItemProps = [
+  key: string,
+  {
+    index?: number;
+    value: any;
+    shortIndex?: number;
+  }
+][];
+
+type SpecificationProps = {
+  [key: string]: {
+    index?: number;
+    value: any;
+    shortIndex?: number;
+  };
+};

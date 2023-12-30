@@ -105,13 +105,13 @@ async function generateProductObject() {
       },
     ],
     specification: {
-      ram,
-      processor: processor.fullName,
-      graphics_card: graphicsCard.fullName,
-      operating_system: operatingSystem,
+      processor: { index: 0, value: processor.fullName, shortIndex: 0 },
+      graphics_card: { index: 1, value: graphicsCard.fullName, shortIndex: 1 },
+      ram: { index: 2, value: ram, shortIndex: 2 },
+      operating_system: { index: 3, value: operatingSystem, shortIndex: 3 },
     },
     images,
-    sale_price: (price * 0.7).toFixed(2),
+    sale_price: (price * 0.92).toFixed(2),
     quantity_sold: Math.floor(Math.random() * 1000),
     rating: Math.floor(Math.random() * 7),
   };

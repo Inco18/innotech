@@ -1,14 +1,15 @@
 import { PiHeadset, PiMonitorLight } from "react-icons/pi";
 import { MdOutlineEmail } from "react-icons/md";
 import { PiPhone } from "react-icons/pi";
-import { FaComputer } from "react-icons/fa6";
+import { FaComputer, FaScaleUnbalanced } from "react-icons/fa6";
 import { GiSmartphone } from "react-icons/gi";
 import { GrGamepad } from "react-icons/gr";
 import { CgMenuGridR, CgSmartphoneChip } from "react-icons/cg";
 import { LuCable, LuPrinter } from "react-icons/lu";
-import { BsHouseGear } from "react-icons/bs";
+import { BsCartPlus, BsHouseGear } from "react-icons/bs";
 import { CiPercent } from "react-icons/ci";
 import { TfiMenu, TfiMenuAlt } from "react-icons/tfi";
+import { IoIosHeartEmpty } from "react-icons/io";
 
 export const footerLinks = [
   {
@@ -258,3 +259,34 @@ export const CATEGORY_MENU_DEFAULT_VALUES = {
   sortBy: categoryFilterOptions[0].query,
   displayType: categoryDisplayOptions[0].query,
 };
+
+export const simplifiedElementDropdownMenu = [
+  {
+    icon: BsCartPlus,
+    label: "Dodaj do koszyka",
+    color: "green-600",
+  },
+  {
+    icon: IoIosHeartEmpty,
+    label: "Zapisz na liście",
+  },
+  {
+    icon: FaScaleUnbalanced,
+    label: "Dodaj do porównania",
+  },
+];
+export const categoryElementMenu = [
+  {
+    icon: IoIosHeartEmpty,
+    label: "Zapisz na liście",
+  },
+  {
+    icon: FaScaleUnbalanced,
+    label: "Dodaj do porównania",
+  },
+  {
+    icon: BsCartPlus,
+    label: "Dodaj do koszyka",
+    color: "green-600",
+  },
+];
