@@ -30,6 +30,33 @@ export interface Database {
         };
         Relationships: [];
       };
+      news: {
+        Row: {
+          content: Json | null;
+          created_at: string;
+          description: string;
+          id: number;
+          imageUrl: string;
+          title: string;
+        };
+        Insert: {
+          content?: Json | null;
+          created_at?: string;
+          description: string;
+          id?: number;
+          imageUrl: string;
+          title: string;
+        };
+        Update: {
+          content?: Json | null;
+          created_at?: string;
+          description?: string;
+          id?: number;
+          imageUrl?: string;
+          title?: string;
+        };
+        Relationships: [];
+      };
       opinions: {
         Row: {
           created_at: string;
@@ -78,10 +105,10 @@ export interface Database {
           manufacturer: string;
           name: string;
           price: number;
+          quantity_sold: number;
+          rating: number;
           sale_price: number | null;
           specification: Json | null;
-          rating: number;
-          quantity_sold: number;
         };
         Insert: {
           category?: number | null;
@@ -92,10 +119,10 @@ export interface Database {
           manufacturer?: string;
           name: string;
           price: number;
+          quantity_sold?: number;
+          rating?: number;
           sale_price?: number | null;
           specification?: Json | null;
-          rating?: number;
-          quantity_sold?: number;
         };
         Update: {
           category?: number | null;
@@ -106,10 +133,10 @@ export interface Database {
           manufacturer?: string;
           name?: string;
           price?: number;
+          quantity_sold?: number;
+          rating?: number;
           sale_price?: number | null;
           specification?: Json | null;
-          rating?: number;
-          quantity_sold?: number;
         };
         Relationships: [
           {

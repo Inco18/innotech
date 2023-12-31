@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { BsCartPlus } from "react-icons/bs";
-import Slider from "@ant-design/react-slick";
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useRouter } from "next/navigation";
@@ -30,7 +30,7 @@ const ProductList = ({ products }: Props) => {
     href: string
   ) => {
     e.preventDefault();
-    if (!mouseMoved) router.push(href);
+    if (!mouseMoved && e.button === 0) router.push(href);
   };
 
   const mappedProducts = products.map((product) => {
@@ -101,7 +101,6 @@ const ProductList = ({ products }: Props) => {
       } lg:grid lg:grid-cols-4 gap-x-1 gap-y-10 pt-5`}
     >
       {width && width <= 768 ? (
-        //@ts-ignore
         <Slider
           slidesToShow={4.5}
           infinite={false}

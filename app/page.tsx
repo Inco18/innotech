@@ -1,5 +1,9 @@
+import News from "@/components/homePage/News";
 import ProductList from "@/components/homePage/ProductList";
 import Unbox from "@/components/homePage/Unbox";
+import { supabase } from "@/utils/supabase";
+import Link from "next/link";
+import { IoChevronForwardOutline } from "react-icons/io5";
 
 const placeholderProducts = [
   {
@@ -64,7 +68,12 @@ const placeholderProducts = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const { data: news, error } = await supabase
+    .from("news")
+    .select("title,description,imageUrl,created_at,id")
+    .order("created_at");
+
   return (
     <main className="w-full flex flex-col items-center mb-10 lg:px-5 xl:px-32 px-0 max-w-[110rem] py-5 overflow-x-hidden">
       <section className="lg:border-b-2 w-full grid grid-cols-1 lg:grid-cols-[30%_70%] 2xl:grid-cols-[25%_75%] pb-5">
@@ -76,6 +85,20 @@ export default function Home() {
         </div>
         <div className="lg:hidden mt-5 bg-gray-100 h-5 border-gray-200 border-y-[1px]" />
       </section>
+      {news && (
+        <section className="w-full py-0 lg:py-5">
+          <div className="flex justify-between mb-3">
+            <h2 className="text-2xl font-semibold ml-5 lg:ml-0">News</h2>
+            <Link
+              href={"/news"}
+              className="flex items-center gap-2 hover:bg-gray-100 py-1 px-5 transition-colors rounded-lg text-sm"
+            >
+              Show all <IoChevronForwardOutline />
+            </Link>
+          </div>
+          <News news={news} />
+        </section>
+      )}
     </main>
   );
 }
