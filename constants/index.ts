@@ -254,6 +254,16 @@ export const categoryDisplayOptions = [
 
 export const PAGE_SIZE = 30;
 
+export const NUM_OF_CATEGORY_MENU = 5;
+
+export const ALLOWED_SEARCH_PARAMS = [
+  "page",
+  "display_type",
+  "sort_by",
+  "to",
+  "from",
+];
+
 export const CATEGORY_MENU_DEFAULT_VALUES = {
   page: 1,
   sortBy: categoryFilterOptions[0].query,

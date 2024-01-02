@@ -40,7 +40,7 @@ const TileElement = ({
               alt="Picture of the item"
               style={{ objectFit: "contain" }}
               loading="lazy"
-              fill={true}
+              fill
             />
           </div>
         </div>

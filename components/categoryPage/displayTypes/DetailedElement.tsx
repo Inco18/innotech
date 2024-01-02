@@ -40,6 +40,7 @@ const DetailedElement = ({
               alt="Picture of the item"
               style={{ objectFit: "contain" }}
               loading="lazy"
+              sizes="100%"
               fill={true}
             />
           </div>

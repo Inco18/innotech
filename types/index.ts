@@ -7,7 +7,7 @@ type Product = {
   imageUrl: string;
 };
 
-interface CategoryProductProps {
+type CategoryProductProps = {
   id: number;
   name: string;
   price: number;
@@ -16,7 +16,11 @@ interface CategoryProductProps {
   specification: any;
   rating: number;
   quantity_sold: number;
-}
+};
+type SpecificationPageProps = {
+  id: number;
+  specification: any;
+};
 
 type CartContextType = {
   productsInCart: Product[];
@@ -77,4 +81,55 @@ type SpecificationProps = {
     value: any;
     shortIndex?: number;
   };
+};
+type FilterMenuOptionProps = {
+  filters: [
+    string,
+    {
+      values: { value: string; amount: number }[];
+      type?: string;
+      min?: number;
+      max?: number;
+    }
+  ];
+  searchParams: { [key: string]: any };
+  categoryFilters: string[];
+};
+type SubOptionProps = {
+  value: string;
+  amount: number;
+  filterName: string;
+  searchParams: { [key: string]: string | string[] };
+  categoryFilters: string[];
+};
+type Props = {
+  searchParams: {};
+  categoryFilters: any | null | undefined;
+  productsSpecificationsList: {
+    specification: any;
+  }[];
+};
+type NewCategoryFiltersProps = {
+  [key: string]: {
+    values: {
+      value: string;
+      amount: number;
+    }[];
+    type?: string;
+    min?: number;
+    max?: number;
+  };
+};
+
+type ProductsListProps = {
+  params: {
+    categoryId: string;
+  };
+  searchParams: {
+    page?: number;
+    sort_by?: string;
+    display_type?: string;
+  };
+  productsAmount: number;
+  productsIds: number[];
 };

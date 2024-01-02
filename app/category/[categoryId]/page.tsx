@@ -5,11 +5,9 @@ import ProductsListMenu from "@/components/categoryPage/ProductsListMenu";
 import {
   CATEGORY_MENU_DEFAULT_VALUES as defaultValues,
   PAGE_SIZE,
-  categoryDisplayOptions,
-  categoryFilterOptions,
   navigationBarCategories,
 } from "@/constants";
-import useWindowDimensions from "@/hooks/useWindowSize";
+
 import { supabase } from "@/utils/supabase";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -25,6 +23,8 @@ type Props = {
     page?: number;
     sort_by?: string;
     display_type?: string;
+    from?: number;
+    to?: number;
   };
 };
 
@@ -41,12 +41,49 @@ type Props = {
 //   };
 // };
 
+const filterProducts = ({
+  products,
+  filters,
+}: {
+  products: CategoryProductProps[] | SpecificationPageProps[];
+  filters: [string, string[]][];
+}) => {
+  if (filters.length === 0) return products.map((pro) => pro.id);
+
+  const filtered = products.filter((product) =>
+    filters.every(([filterCategory, filterValues]) => {
+      const normalizedFilterValues = filterValues.map((value) =>
+        value.toLowerCase()
+      );
+
+      const productSpecValue = (
+        product.specification[filterCategory].value || ""
+      )
+        .replaceAll(" ", "_")
+        .toLowerCase();
+
+      return normalizedFilterValues.includes(productSpecValue);
+    })
+  );
+
+  return filtered.map((pro) => pro.id);
+};
+
+const isValidValue = (value: number) => !isNaN(value) && value >= 0;
+
 const Page = async ({ params, searchParams }: Props) => {
   const {
     page = defaultValues.page,
     sort_by = defaultValues.sortBy,
     display_type = defaultValues.displayType,
+    from = 0,
+    to = 0,
   } = searchParams;
+
+  const checkedFrom =
+    isValidValue(from) && (isValidValue(to) ? from <= to : true) ? from : 0;
+  const checkedTo =
+    isValidValue(to) && (isValidValue(from) ? to >= from : true) ? to : 0;
 
   const categoryId = params.categoryId.split("-");
   const categoryIdNumber = +categoryId[0];
@@ -57,14 +94,50 @@ const Page = async ({ params, searchParams }: Props) => {
 
   if (!exists) return notFound();
 
-  const { data: products, error: productsError } = await supabase
+  const { data: specification, error: productsError } = await supabase
     .from("products")
-    .select(`id`)
+    .select(`price , sale_price , specification , id`)
     .eq("category", categoryIdNumber);
+
+  const { data: categoryFilters, error: categoryFiltersError } = await supabase
+    .from("categories")
+    .select(`filters`)
+    .eq("id", categoryIdNumber);
+
+  const products = specification;
 
   if (!products || !products[0]) notFound();
 
-  const numOfPages = Math.ceil(products?.length / PAGE_SIZE);
+  const normalizedCategoryFilters = categoryFilters?.[0]?.filters;
+
+  const appliedFilters = Object.entries(searchParams)
+    .filter(([key]) =>
+      Object.keys(normalizedCategoryFilters as string[]).includes(key)
+    )
+    .map(
+      ([key, values]) =>
+        [key, Array.isArray(values) ? values : [values]] as [string, string[]]
+    );
+
+  const filteredProductsPrices = products.filter((product) => {
+    const cost = product.sale_price || product.price;
+
+    if (
+      (checkedFrom === 0 || checkedFrom <= cost) &&
+      (checkedTo === 0 || cost <= checkedTo)
+    ) {
+      return true;
+    }
+    return false;
+  });
+
+  const filteredProductsIds = filterProducts({
+    products: filteredProductsPrices,
+    filters: appliedFilters,
+  });
+  const productsAmount = filteredProductsIds?.length || 0;
+
+  const numOfPages = Math.ceil(productsAmount / PAGE_SIZE);
   const verifiedPageNumber = Math.min(Math.max(+page, 1), numOfPages);
 
   return (
@@ -82,26 +155,31 @@ const Page = async ({ params, searchParams }: Props) => {
             <span className=" text-3xl">
               {categoryId[1].replaceAll("%20", " ")}
             </span>
-            <span className="text-gray-600">({products?.length} results)</span>
+            <span className="text-gray-600">({productsAmount} results)</span>
           </h1>
         </div>
-        <div className="flex w-full ">
-          <div>
-            <FiltersMenu />
+        <div className="flex w-full gap-6">
+          <div className=" hidden md:block">
+            <FiltersMenu
+              searchParams={searchParams}
+              categoryFilters={normalizedCategoryFilters}
+              productsSpecificationsList={specification}
+            />
           </div>
           <div className="w-full">
             <ProductsListMenu
               currentPage={verifiedPageNumber}
-              numOfPages={Math.ceil(products?.length / PAGE_SIZE)}
+              numOfPages={Math.ceil(productsAmount / PAGE_SIZE)}
               sortBy={sort_by}
               displayType={display_type}
-              numOfProducts={products.length}
+              numOfProducts={productsAmount}
             >
               <Suspense fallback={<p>Loading feed...</p>}>
                 <ProductsList
                   params={params}
                   searchParams={searchParams}
-                  productsAmount={products.length}
+                  productsAmount={productsAmount}
+                  productsIds={filteredProductsIds}
                 />
               </Suspense>
             </ProductsListMenu>
