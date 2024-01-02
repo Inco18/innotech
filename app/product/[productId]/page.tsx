@@ -38,7 +38,9 @@ const ProductPage = async ({ params }: Props) => {
     .from("products")
     .select(`*, categories (*)`)
     .eq("id", params.productId);
+
   if (!productData || !productData[0]) notFound();
+
   const { data: opinionsData, error: opinionsError } = await supabase
     .from("opinions")
     .select(`*`)

@@ -11,34 +11,22 @@ import { notFound } from "next/navigation";
 
 //Max 30 items for page
 
-type Props = {
-  params: {
-    categoryId: string;
-  };
-  searchParams: {
-    page?: number;
-    sort_by?: string;
-    display_type?: string;
-  };
-  productsAmount: number;
-};
-
 const sortProducts = ({
   products,
   sort_by,
 }: {
-  products: CategoryProductProps[];
+  products: CategoryProductProps[] | null;
   sort_by: string;
 }) => {
   switch (sort_by) {
     case categoryFilterOptions[1].query: //rating_desc
-      return products.sort((a, b) => b.rating - a.rating);
+      return products?.sort((a, b) => b.rating - a.rating);
     case categoryFilterOptions[2].query: //price_asc
-      return products.sort((a, b) => a.price - b.price);
+      return products?.sort((a, b) => a.price - b.price);
     case categoryFilterOptions[3].query: //price_desc
-      return products.sort((a, b) => b.price - a.price);
+      return products?.sort((a, b) => b.price - a.price);
     default:
-      return products.sort((a, b) => b.quantity_sold - a.quantity_sold); //popularity_desc
+      return products?.sort((a, b) => b.quantity_sold - a.quantity_sold); //popularity_desc
   }
 };
 
@@ -46,7 +34,8 @@ const ProductsList = async ({
   params,
   searchParams,
   productsAmount,
-}: Props) => {
+  productsIds,
+}: ProductsListProps) => {
   const categoryId = params.categoryId.split("-");
   const categoryIdNumber = +categoryId[0];
 
@@ -59,24 +48,23 @@ const ProductsList = async ({
   const numOfPages = Math.ceil(productsAmount / PAGE_SIZE);
   const verifiedPageNumber = Math.min(Math.max(+page, 1), numOfPages);
 
-  const { data: products, error: productsError } = await supabase
+  const { data: products = [], error: productsError } = await supabase
     .from("products")
     .select(
       `id,name,price,specification,sale_price,images,rating,quantity_sold`
     )
+    .in("id", productsIds)
     .eq("category", categoryIdNumber)
     .range(
       (verifiedPageNumber - 1) * PAGE_SIZE,
       verifiedPageNumber * PAGE_SIZE - 1
     );
 
-  if (!products || !products[0]) notFound();
-
   const selectedDisplayType =
     categoryDisplayOptions.find((option) => option.query === display_type)
       ?.query || defaultValues.displayType;
 
-  const sortedProducts = sortProducts({ products, sort_by });
+  const sortedProducts = sortProducts({ products, sort_by }) || [];
 
   const tile_view =
     selectedDisplayType === categoryDisplayOptions[0].query &&
@@ -90,15 +78,18 @@ const ProductsList = async ({
   const displayType = tile_view || detailed_list_view || simplified_list_view;
 
   return (
-    <div className={`grid ${displayType}`}>
-      {sortedProducts?.map((product) => (
-        <ProductListElement
-          {...product}
-          display_type={selectedDisplayType}
-          key={product.id}
-        />
-      ))}
-    </div>
+    <>
+      <div className={`grid ${displayType}`}>
+        {sortedProducts?.map((product) => (
+          <ProductListElement
+            {...product}
+            display_type={selectedDisplayType}
+            key={product.id}
+          />
+        ))}
+      </div>
+      {sortedProducts.length === 0 && <p>No products</p>}
+    </>
   );
 };
 

@@ -3,7 +3,7 @@ import { BsCartPlus } from "react-icons/bs";
 import { FaScaleUnbalanced } from "react-icons/fa6";
 import { IoIosHeartEmpty } from "react-icons/io";
 import Rating from "../../productPage/Rating";
-import DropdownMenu from "../DropdownMenu";
+import DropdownMenu from "../smallScreen/DropdownMenu";
 import {
   categoryElementMenu,
   simplifiedElementDropdownMenu,
@@ -43,6 +43,7 @@ const SimplifiedElement = ({
               src={images[0]}
               alt="Picture of the item"
               style={{ objectFit: "contain" }}
+              sizes="100%"
               loading="lazy"
               fill={true}
             />

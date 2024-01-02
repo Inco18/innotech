@@ -42,6 +42,9 @@ const DropdownMenu = ({ options }: DropdownMenuProps) => {
                       }text-gray-900  flex w-full gap-2 items-center  p-4 text-sm ${
                         color ? `text-${color}` : ""
                       }`}
+                      onClick={(e: React.MouseEvent<HTMLElement>) =>
+                        e.stopPropagation()
+                      }
                     >
                       <Icon className={`text-lg `} />
                       <span> {label}</span>
