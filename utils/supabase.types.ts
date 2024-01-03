@@ -152,20 +152,23 @@ export interface Database {
         Row: {
           created_at: string;
           id: number;
-          image: string | null;
-          name: string | null;
+          image: string;
+          imageSm: string;
+          name: string;
         };
         Insert: {
           created_at?: string;
           id?: number;
-          image?: string | null;
-          name?: string | null;
+          image: string;
+          imageSm: string;
+          name: string;
         };
         Update: {
           created_at?: string;
           id?: number;
-          image?: string | null;
-          name?: string | null;
+          image?: string;
+          imageSm?: string;
+          name?: string;
         };
         Relationships: [];
       };
