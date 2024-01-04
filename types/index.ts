@@ -133,3 +133,11 @@ type ProductsListProps = {
   productsAmount: number;
   productsIds: number[];
 };
+type MultiRangeSliderProps = {
+  min: number;
+  max: number;
+  searchParams: {
+    minSize?: number;
+    maxSize?: number;
+  };
+};

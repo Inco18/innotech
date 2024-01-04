@@ -233,10 +233,10 @@ export const navigationBarCategories = [
   },
 ];
 export const categoryFilterOptions = [
-  { label: "Od najpopularniejszych", query: "popularity_desc" },
-  { label: "Ocena klientów: od najlepszej", query: "rating_desc" },
-  { label: "Cena: od najtańszych", query: "price_asc" },
-  { label: "Cena: od najdroższych", query: "price_desc" },
+  { label: "Most Popular", query: "popularity_desc" },
+  { label: "Customer Rating", query: "rating_desc" },
+  { label: "Price: ascending", query: "price_asc" },
+  { label: "Price: descending", query: "price_desc" },
 ];
 export const categoryDisplayOptions = [
   { icon: CgMenuGridR, query: "tile_view", label: "Tile View" },
@@ -273,30 +273,31 @@ export const CATEGORY_MENU_DEFAULT_VALUES = {
 export const simplifiedElementDropdownMenu = [
   {
     icon: BsCartPlus,
-    label: "Dodaj do koszyka",
+    label: "Add to Cart",
     color: "green-600",
   },
   {
     icon: IoIosHeartEmpty,
-    label: "Zapisz na liście",
+    label: "Save to List",
   },
   {
     icon: FaScaleUnbalanced,
-    label: "Dodaj do porównania",
+    label: "Add to Compare",
   },
 ];
+
 export const categoryElementMenu = [
   {
     icon: IoIosHeartEmpty,
-    label: "Zapisz na liście",
+    label: "Save to List",
   },
   {
     icon: FaScaleUnbalanced,
-    label: "Dodaj do porównania",
+    label: "Add to Compare",
   },
   {
     icon: BsCartPlus,
-    label: "Dodaj do koszyka",
+    label: "Add to Cart",
     color: "green-600",
   },
 ];
