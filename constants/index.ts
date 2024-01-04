@@ -300,3 +300,14 @@ export const categoryElementMenu = [
     color: "green-600",
   },
 ];
+
+export const homePageBrands = [
+  "https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/brands_zone_logos/amd.svg?t=2024-01-04T11%3A09%3A49.937Z",
+  "https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/brands_zone_logos/apple.svg",
+  "https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/brands_zone_logos/dji.svg?t=2024-01-04T11%3A10%3A09.151Z",
+  "https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/brands_zone_logos/intel.svg?t=2024-01-04T11%3A10%3A18.663Z",
+  "https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/brands_zone_logos/nvidia-rtx.png?t=2024-01-04T11%3A54%3A13.672Z",
+  "https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/brands_zone_logos/samsung.svg?t=2024-01-04T11%3A10%3A33.838Z",
+  "https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/brands_zone_logos/sony.svg?t=2024-01-04T11%3A10%3A48.527Z",
+  "https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/brands_zone_logos/xiaomi.svg?t=2024-01-04T11%3A10%3A53.403Z",
+];

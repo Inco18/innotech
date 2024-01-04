@@ -8,6 +8,7 @@ import Link from "next/link";
 import { IoChevronForwardOutline } from "react-icons/io5";
 import BigSlider from "@/components/homePage/BigSlider";
 import ProductsSlider from "@/components/homePage/ProductsSlider";
+import Brands from "@/components/homePage/Brands";
 
 const placeholderProducts = [
   {
@@ -84,7 +85,6 @@ export default async function Home() {
     .from("tutorials")
     .select("title,description,imageUrl,created_at,id")
     .order("created_at");
-
   return (
     <main className="w-full flex flex-col items-center mb-10 lg:px-5 xl:px-32 px-0 max-w-[110rem] py-5 overflow-x-hidden">
       {sales && <SalesSlider sales={sales} />}
@@ -148,7 +148,7 @@ export default async function Home() {
         </section>
       )}
 
-      <section className="w-full py-0 lg:py-5">
+      <section className="lg:border-b-2 w-full py-0 lg:py-5">
         <div className="flex justify-between mb-3">
           <h2 className="text-2xl font-semibold ml-5 lg:ml-0">Bestsellers</h2>
           <Link
@@ -159,6 +159,13 @@ export default async function Home() {
           </Link>
         </div>
         <ProductsSlider products={placeholderProducts} />
+        <div className="lg:hidden my-5 bg-gray-100 h-5 border-gray-200 border-y-[1px]" />
+      </section>
+      <section className="w-full py-0 lg:py-5">
+        <div className="mb-3">
+          <h2 className="text-2xl font-semibold ml-5 lg:ml-0">Brands zone</h2>
+        </div>
+        <Brands />
       </section>
     </main>
   );

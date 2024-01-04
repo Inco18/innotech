@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Slider from "react-slick";
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
+import { supabase } from "@/utils/supabase";
 
 type Props = {
   sales: {

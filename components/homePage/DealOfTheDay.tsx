@@ -102,8 +102,14 @@ const DealOfTheDay = ({ product }: Props) => {
                 {timeDiff > 0 ? (
                   <>
                     <p className="text-sm">Hurry up, this offer ends in:</p>
-                    <div className="flex items-center mt-2 gap-4 mx-auto">
-                      <div className="flex flex-col items-center text-xs ">
+                    <div
+                      className="flex items-center mt-2 gap-4 mx-auto"
+                      suppressHydrationWarning
+                    >
+                      <div
+                        className="flex flex-col items-center text-xs "
+                        suppressHydrationWarning
+                      >
                         <div
                           className="w-12 h-12 flex items-center justify-center bg-zinc-300 text-2xl rounded-lg relative"
                           suppressHydrationWarning
@@ -117,7 +123,10 @@ const DealOfTheDay = ({ product }: Props) => {
                         hours
                       </div>
 
-                      <div className="flex flex-col items-center text-xs">
+                      <div
+                        className="flex flex-col items-center text-xs"
+                        suppressHydrationWarning
+                      >
                         <div
                           className="w-12 h-12 flex items-center justify-center bg-zinc-300 text-2xl rounded-lg relative"
                           suppressHydrationWarning
@@ -130,7 +139,10 @@ const DealOfTheDay = ({ product }: Props) => {
                         </div>
                         mins
                       </div>
-                      <div className="flex flex-col items-center text-xs">
+                      <div
+                        className="flex flex-col items-center text-xs"
+                        suppressHydrationWarning
+                      >
                         <div
                           className="w-12 h-12 flex items-center justify-center bg-zinc-300 text-2xl rounded-lg"
                           suppressHydrationWarning
