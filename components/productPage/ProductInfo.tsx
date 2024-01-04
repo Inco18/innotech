@@ -62,7 +62,7 @@ const ProductInfo = ({ product }: Props) => {
           {sortedSpec.map((spec) => {
             if (!spec[1].shortIndex) return;
             return (
-              <li className="my-1">
+              <li className="my-1" key={spec[0]}>
                 <span className="text-gray-500">
                   {formatSpecificationName(spec[0])}:
                 </span>{" "}

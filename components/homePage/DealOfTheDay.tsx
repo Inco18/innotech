@@ -33,11 +33,12 @@ const DealOfTheDay = ({ product }: Props) => {
   const dateToPay = new Date();
   dateToPay.setHours(23, 59, 59);
   let timeDiff = dateToPay.getTime() - actDate.getTime();
-  const diffHours = Math.floor(timeDiff / 1000 / 60 / 60);
-  timeDiff -= diffHours * 1000 * 60 * 60;
-  const diffMinutes = Math.floor(timeDiff / 1000 / 60);
-  timeDiff -= diffMinutes * 1000 * 60;
-  const diffSeconds = Math.floor(timeDiff / 1000);
+  let timeDiffToCalc = timeDiff;
+  const diffHours = Math.floor(timeDiffToCalc / 1000 / 60 / 60);
+  timeDiffToCalc -= diffHours * 1000 * 60 * 60;
+  const diffMinutes = Math.floor(timeDiffToCalc / 1000 / 60);
+  timeDiffToCalc -= diffMinutes * 1000 * 60;
+  const diffSeconds = Math.floor(timeDiffToCalc / 1000);
 
   return (
     <div className="p-[2px] rounded-lg mx-2 lg:mx-0 bg-gradient-to-b from-[#fa0064] via-black to-[#fa0064]">
@@ -94,7 +95,10 @@ const DealOfTheDay = ({ product }: Props) => {
                   />
                 </div>
               </div>
-              <div className="w-full text-center flex flex-col items-center">
+              <div
+                className="w-full text-center flex flex-col items-center"
+                suppressHydrationWarning
+              >
                 {timeDiff > 0 ? (
                   <>
                     <p className="text-sm">Hurry up, this offer ends in:</p>

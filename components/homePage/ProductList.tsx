@@ -35,7 +35,10 @@ const ProductList = ({ products }: Props) => {
 
   const mappedProducts = products.map((product) => {
     return (
-      <div className="flex flex-col items-center p-2 lg:hover:shadow-[0px_2px_4px_0px_rgba(0,0,0,0.08),rgba(0,0,0,0.08)_0px_0px_2px_1px] rounded-lg group min-w-[10rem] h-full">
+      <div
+        className="flex flex-col items-center p-2 lg:hover:shadow-[0px_2px_4px_0px_rgba(0,0,0,0.08),rgba(0,0,0,0.08)_0px_0px_2px_1px] rounded-lg group min-w-[10rem] h-full"
+        key={product.productId}
+      >
         <Link
           href={`/product/${product.productId}`}
           onMouseMove={() => setMouseMoved(true)}
@@ -133,7 +136,9 @@ const ProductList = ({ products }: Props) => {
           ]}
         >
           {mappedProducts.map((prod) => (
-            <div className="h-[14rem]">{prod}</div>
+            <div className="h-[14rem]" key={prod.key}>
+              {prod}
+            </div>
           ))}
         </Slider>
       ) : (

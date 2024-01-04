@@ -15,7 +15,10 @@ const ProductDescription = ({ description }: Props) => {
     <div id="description" className="py-5 relative scroll-m-16">
       {description.map((desc) => {
         return (
-          <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] justify-items-center">
+          <div
+            className="grid grid-cols-1 md:grid-cols-[auto_1fr] justify-items-center"
+            key={desc.header}
+          >
             <Image
               src={desc.icon}
               height={95}
