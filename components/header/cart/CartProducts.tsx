@@ -11,7 +11,10 @@ const CartProducts = () => {
     <ul className="flex-1 overflow-y-auto px-2">
       {productsInCart.map((product) => {
         return (
-          <li className="flex gap-3 pt-2 border-b-2 last:border-none pb-5">
+          <li
+            className="flex gap-3 pt-2 border-b-2 last:border-none pb-5"
+            key={product.id}
+          >
             <Link href={`/product/${product.id}`}>
               <Image src={product.imageUrl} height={80} width={80} alt="" />
             </Link>

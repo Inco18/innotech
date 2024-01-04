@@ -208,6 +208,33 @@ export interface Database {
           }
         ];
       };
+      tutorials: {
+        Row: {
+          content: Json | null;
+          created_at: string;
+          description: string;
+          id: number;
+          imageUrl: string;
+          title: string;
+        };
+        Insert: {
+          content?: Json | null;
+          created_at?: string;
+          description: string;
+          id?: number;
+          imageUrl: string;
+          title: string;
+        };
+        Update: {
+          content?: Json | null;
+          created_at?: string;
+          description?: string;
+          id?: number;
+          imageUrl?: string;
+          title?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;

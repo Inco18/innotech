@@ -3,12 +3,12 @@ import { useCartContext } from "@/context/cart-context";
 import useWindowDimensions from "@/hooks/useWindowSize";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
-import { BsCartPlus } from "react-icons/bs";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { useRouter } from "next/navigation";
+import React, { useRef, useState } from "react";
+import { BsCartPlus } from "react-icons/bs";
+import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
+import Slider from "react-slick";
+
 type Props = {
   products: {
     name: string;
@@ -19,11 +19,13 @@ type Props = {
   }[];
 };
 
-const ProductList = ({ products }: Props) => {
+const ProductsSlider = ({ products }: Props) => {
   const { width } = useWindowDimensions();
   const { addProductToCart } = useCartContext();
   const [mouseMoved, setMouseMoved] = useState(false);
+  const [sliderIndex, setSliderIndex] = useState(0);
   const router = useRouter();
+  const sliderRef = useRef<Slider>(null);
 
   const handleLink = (
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -98,17 +100,49 @@ const ProductList = ({ products }: Props) => {
   });
 
   return (
-    <div
-      className={`${
-        width ? "block" : "flex"
-      } lg:grid lg:grid-cols-4 gap-x-1 gap-y-10 pt-5`}
-    >
-      {width && width <= 768 ? (
+    <div className={`${width ? "block" : "flex"} relative`}>
+      {sliderIndex != 0 && (
+        <button
+          className="hidden lg:block absolute bg-white top-2/4 -translate-y-2/4 -left-3 text-lg p-2 rounded-lg text-black shadow-[0px_2px_4px_0px_rgba(0,0,0,0.08),rgba(0,0,0,0.08)_0px_0px_2px_1px] z-50 hover:bg-gray-200 active:bg-gray-300"
+          onClick={() => sliderRef?.current?.slickPrev()}
+        >
+          <IoChevronBackOutline />
+        </button>
+      )}
+      {width &&
+        ((width >= 1280 && sliderIndex != products.length - 6) ||
+          (width < 1280 && sliderIndex != products.length - 5)) && (
+          <button
+            className="hidden lg:block absolute bg-white top-2/4 -translate-y-2/4 -right-3 text-lg p-2 rounded-lg text-black shadow-[0px_2px_4px_0px_rgba(0,0,0,0.08),rgba(0,0,0,0.08)_0px_0px_2px_1px] z-50 hover:bg-gray-200 active:bg-gray-300"
+            onClick={() => sliderRef?.current?.slickNext()}
+          >
+            <IoChevronForwardOutline />
+          </button>
+        )}
+      {width ? (
         <Slider
-          slidesToShow={4.5}
+          ref={sliderRef}
+          slidesToShow={6}
+          slidesToScroll={1}
           infinite={false}
+          arrows={false}
           swipeToSlide
+          rows={1}
+          beforeChange={(index, newIndex) => setSliderIndex(newIndex)}
+          className="[&_.slick-list]:py-1"
           responsive={[
+            {
+              breakpoint: 1280,
+              settings: {
+                slidesToShow: 5,
+              },
+            },
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 4.5,
+              },
+            },
             {
               breakpoint: 700,
               settings: {
@@ -148,4 +182,4 @@ const ProductList = ({ products }: Props) => {
   );
 };
 
-export default ProductList;
+export default ProductsSlider;

@@ -32,10 +32,10 @@ export default function useWindowDimensions() {
 
       switch (true) {
         case width >= breakpoints["2xl"] && width < breakpoints["3xl"]:
-          size = breakpoints["3xl"];
+          size = breakpoints["2xl"];
           break;
         case width >= breakpoints.xl && width < breakpoints["2xl"]:
-          size = breakpoints["2xl"];
+          size = breakpoints.xl;
           break;
         case width >= breakpoints.lg && width < breakpoints.xl:
           size = breakpoints.lg;
