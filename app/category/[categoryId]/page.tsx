@@ -1,6 +1,7 @@
 import CategotyFiltersMenu from "@/components/categoryPage/FiltersMenu";
 import ProductsList from "@/components/categoryPage/ProductsList";
 import ProductsListMenu from "@/components/categoryPage/ProductsListMenu";
+import News from "@/components/homePage/News";
 
 import {
   CATEGORY_MENU_DEFAULT_VALUES as defaultValues,
@@ -14,6 +15,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { FaChevronRight } from "react-icons/fa6";
+import { IoChevronForwardOutline } from "react-icons/io5";
 
 export const generateMetadata = async ({
   params,
@@ -100,6 +102,25 @@ const Page = async ({ params, searchParams }: CategoryPageProps) => {
       .select(`filters`)
       .eq("id", categoryIdNumber);
 
+  const { data: recomended = [], error: recomendedError } = await supabase
+    .from("products")
+    .select("name,description,images,created_at,id,quantity_sold")
+    .eq("category", categoryIdNumber)
+    .order("quantity_sold", { ascending: false })
+    .limit(10);
+
+  const normalizedRecomendedProducts = (recomended || []).map((product) => {
+    const { id, name, images, description, created_at } = product;
+
+    return {
+      id,
+      title: name,
+      description: (description as { content: string }[])?.[0]?.content || "",
+      imageUrl: images[0],
+      created_at,
+    };
+  });
+
   const products = productsData;
 
   if (!products || !products[0]) notFound();
@@ -175,7 +196,7 @@ const Page = async ({ params, searchParams }: CategoryPageProps) => {
   return (
     <main className="w-full flex flex-col items-center mb-10">
       <div className="w-full lg:px-16 xl:px-32 px-2 max-w-[110rem]">
-        <div className=" flex flex-col items-start">
+        <section className=" flex flex-col items-start">
           {/* Breadcrumb */}
           <div className="text-xs flex items-center gap-1 text-gray-600 py-4">
             <Link href={"/"}>InnoTech</Link>
@@ -191,8 +212,8 @@ const Page = async ({ params, searchParams }: CategoryPageProps) => {
             </span>
             <span className="text-gray-600">({productsAmount} results)</span>
           </h1>
-        </div>
-        <div className="flex w-full gap-6 mt-4">
+        </section>
+        <section className="flex w-full gap-6 mt-4">
           {/* Category Filters Menu */}
           <div className="hidden md:block">
             <CategotyFiltersMenu
@@ -203,6 +224,23 @@ const Page = async ({ params, searchParams }: CategoryPageProps) => {
           </div>
           {/* Products List Menu */}
           <div className="w-full">
+            {!!recomended?.length && (
+              <section className="grid grid-cols-1  py-0 lg:pb-5">
+                <div className="flex justify-between mb-3">
+                  <h2 className="text-2xl font-semibold ml-5 lg:ml-0">
+                    Recommended in category
+                  </h2>
+                  {/* <Link
+                  href={"/news"}
+                  className="flex items-center gap-2 hover:bg-gray-100 py-1 px-5 transition-colors rounded-lg text-sm"
+                >
+                  Show all <IoChevronForwardOutline />
+                </Link> */}
+                </div>
+                <News news={normalizedRecomendedProducts} />
+              </section>
+            )}
+
             <ProductsListMenu
               currentPage={verifiedPageNumber}
               numOfPages={Math.ceil(productsAmount / PAGE_SIZE)}
@@ -221,7 +259,7 @@ const Page = async ({ params, searchParams }: CategoryPageProps) => {
               </Suspense>
             </ProductsListMenu>
           </div>
-        </div>
+        </section>
       </div>
     </main>
   );

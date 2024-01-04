@@ -88,6 +88,7 @@ const SalesSlider = ({ sales }: Props) => {
               onClick={(e) => e.preventDefault()}
               className="outline-none w-full overflow-hidden flex justify-start"
               title={sale.name}
+              key={sale.id}
             >
               <Image
                 src={sale.image}
@@ -115,6 +116,7 @@ const SalesSlider = ({ sales }: Props) => {
             <button
               className="py-4 px-2 hover:bg-gray-200 rounded-b-md grow transition-colors relative"
               onClick={() => sliderRef.current?.slickGoTo(i)}
+              key={i}
             >
               <div
                 className={`absolute top-0 left-2/4 -translate-x-2/4 h-[6px] w-[95%] rounded-b-md ${

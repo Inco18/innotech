@@ -88,7 +88,7 @@ const News = ({ news }: Props) => {
       >
         {news.map((news) => {
           return (
-            <div className="py-1">
+            <div className="py-1" key={news.created_at}>
               <Link
                 href={`/news/${news.id}`}
                 onMouseMove={() => setMouseMoved(true)}

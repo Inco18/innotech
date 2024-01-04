@@ -120,7 +120,7 @@ export default async function Home() {
         <div className="lg:hidden mt-10 bg-gray-100 h-5 border-gray-200 border-y-[1px]" />
         <div className="lg:border-t-2 py-5 lg:ml-5">
           <h2 className="text-2xl font-semibold ml-5 lg:ml-0">
-            This week's hits
+            {`This week's hits`}
           </h2>
           <ProductList products={placeholderProducts} />
         </div>
