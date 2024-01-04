@@ -83,7 +83,7 @@ const PriceInputs = ({
           className="text-[12px] text-gray-500 cursor-pointer inline-block"
           onClick={hadleClearSearchParams}
         >
-          Wyczyść wszystkie
+          Clear all
         </p>
       )}
       <div className="flex py-2 justify-center w-full">
@@ -92,7 +92,7 @@ const PriceInputs = ({
             className={`w-[6rem] lg:w-[7rem] rounded-md p-1 text-center border ${
               valid ? "border-gray-300" : "border-red-500"
             }`}
-            placeholder="od"
+            placeholder="from"
             type="text"
             min={0}
             value={from || ""}
@@ -105,7 +105,7 @@ const PriceInputs = ({
             className={`w-[6rem] lg:w-[7rem] rounded-md p-1 text-center border  ${
               valid ? "border-gray-300" : "border-red-500"
             }`}
-            placeholder="do"
+            placeholder="to"
             type="text"
             min={0}
             value={to || ""}
