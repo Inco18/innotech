@@ -102,7 +102,7 @@ export default async function Home() {
               Show all <IoChevronForwardOutline />
             </Link>
           </div>
-          <News news={news} />
+          <News news={news} type="news" />
         </section>
       )}
       <section className="lg:border-b-2 w-full grid grid-cols-1 lg:grid-cols-[30%_70%] 2xl:grid-cols-[25%_75%] pb-5">
