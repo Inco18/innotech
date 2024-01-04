@@ -16,9 +16,10 @@ type Props = {
     imageUrl: string;
     created_at: string;
   }[];
+  type: "recommended" | "news";
 };
 
-const News = ({ news }: Props) => {
+const News = ({ news, type = "news" }: Props) => {
   const [mouseMoved, setMouseMoved] = useState(false);
   const [sliderIndex, setSliderIndex] = useState(0);
   const router = useRouter();
@@ -30,6 +31,14 @@ const News = ({ news }: Props) => {
   ) => {
     e.preventDefault();
     if (!mouseMoved && e.button === 0) router.push(href);
+  };
+
+  const handlePathName = (type: string, id: number) => {
+    if (type === "recommended") {
+      return `/product/${id}`;
+    } else {
+      return `/news/${id}`;
+    }
   };
 
   return (
@@ -90,10 +99,10 @@ const News = ({ news }: Props) => {
           return (
             <div className="py-1" key={news.created_at}>
               <Link
-                href={`/news/${news.id}`}
+                href={handlePathName(type, news.id)}
                 onMouseMove={() => setMouseMoved(true)}
                 onMouseDown={() => setMouseMoved(false)}
-                onMouseUp={(e) => handleLink(e, `/news/${news.id}`)}
+                onMouseUp={(e) => handleLink(e, handlePathName(type, news.id))}
                 onClick={(e) => e.preventDefault()}
                 className="outline-none"
               >
@@ -106,10 +115,10 @@ const News = ({ news }: Props) => {
                 />
               </Link>
               <Link
-                href={`/news/${news.id}`}
+                href={handlePathName(type, news.id)}
                 onMouseMove={() => setMouseMoved(true)}
                 onMouseDown={() => setMouseMoved(false)}
-                onMouseUp={(e) => handleLink(e, `/news/${news.id}`)}
+                onMouseUp={(e) => handleLink(e, handlePathName(type, news.id))}
                 onClick={(e) => e.preventDefault()}
                 className="outline-none"
                 draggable={false}

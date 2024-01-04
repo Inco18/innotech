@@ -230,14 +230,8 @@ const Page = async ({ params, searchParams }: CategoryPageProps) => {
                   <h2 className="text-2xl font-semibold ml-5 lg:ml-0">
                     Recommended in category
                   </h2>
-                  {/* <Link
-                  href={"/news"}
-                  className="flex items-center gap-2 hover:bg-gray-100 py-1 px-5 transition-colors rounded-lg text-sm"
-                >
-                  Show all <IoChevronForwardOutline />
-                </Link> */}
                 </div>
-                <News news={normalizedRecomendedProducts} />
+                <News news={normalizedRecomendedProducts} type="recommended" />
               </section>
             )}
 
