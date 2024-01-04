@@ -1,11 +1,13 @@
 import DealOfTheDay from "@/components/homePage/DealOfTheDay";
-import News from "@/components/homePage/News";
+import News from "@/components/homePage/BigSlider";
 import ProductList from "@/components/homePage/ProductList";
 import SalesSlider from "@/components/homePage/SalesSlider";
 import Unbox from "@/components/homePage/Unbox";
 import { supabase } from "@/utils/supabase";
 import Link from "next/link";
 import { IoChevronForwardOutline } from "react-icons/io5";
+import BigSlider from "@/components/homePage/BigSlider";
+import ProductsSlider from "@/components/homePage/ProductsSlider";
 
 const placeholderProducts = [
   {
@@ -78,6 +80,10 @@ export default async function Home() {
   const { data: sales, error: salesError } = await supabase
     .from("sales")
     .select("*");
+  const { data: tutorials, error: tutorialsError } = await supabase
+    .from("tutorials")
+    .select("title,description,imageUrl,created_at,id")
+    .order("created_at");
 
   return (
     <main className="w-full flex flex-col items-center mb-10 lg:px-5 xl:px-32 px-0 max-w-[110rem] py-5 overflow-x-hidden">
@@ -102,7 +108,7 @@ export default async function Home() {
               Show all <IoChevronForwardOutline />
             </Link>
           </div>
-          <News news={news} />
+          <BigSlider data={news} pageUrl="/news/" />
         </section>
       )}
       <section className="lg:border-b-2 w-full grid grid-cols-1 lg:grid-cols-[30%_70%] 2xl:grid-cols-[25%_75%] pb-5">
@@ -125,6 +131,34 @@ export default async function Home() {
           <ProductList products={placeholderProducts} />
         </div>
         <div className="lg:hidden mt-5 bg-gray-100 h-5 border-gray-200 border-y-[1px]" />
+      </section>
+      {tutorials && (
+        <section className="lg:border-b-2 w-full py-0 lg:py-5">
+          <div className="flex justify-between mb-3">
+            <h2 className="text-2xl font-semibold ml-5 lg:ml-0">Tutorials</h2>
+            <Link
+              href={"/tutorials"}
+              className="flex items-center gap-2 hover:bg-gray-100 py-1 px-5 transition-colors rounded-lg text-sm"
+            >
+              Show all <IoChevronForwardOutline />
+            </Link>
+          </div>
+          <BigSlider data={tutorials} pageUrl="/tutorials/" />
+          <div className="lg:hidden my-5 bg-gray-100 h-5 border-gray-200 border-y-[1px]" />
+        </section>
+      )}
+
+      <section className="w-full py-0 lg:py-5">
+        <div className="flex justify-between mb-3">
+          <h2 className="text-2xl font-semibold ml-5 lg:ml-0">Bestsellers</h2>
+          <Link
+            href={"/bestsellers"}
+            className="flex items-center gap-2 hover:bg-gray-100 py-1 px-5 transition-colors rounded-lg text-sm"
+          >
+            Show all <IoChevronForwardOutline />
+          </Link>
+        </div>
+        <ProductsSlider products={placeholderProducts} />
       </section>
     </main>
   );

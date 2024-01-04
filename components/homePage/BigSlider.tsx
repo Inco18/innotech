@@ -9,16 +9,17 @@ import { useRouter } from "next/navigation";
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5";
 
 type Props = {
-  news: {
+  data: {
     id: number;
     title: string;
     description: string;
     imageUrl: string;
     created_at: string;
   }[];
+  pageUrl: string;
 };
 
-const News = ({ news }: Props) => {
+const BigSlider = ({ data, pageUrl }: Props) => {
   const [mouseMoved, setMouseMoved] = useState(false);
   const [sliderIndex, setSliderIndex] = useState(0);
   const router = useRouter();
@@ -42,7 +43,7 @@ const News = ({ news }: Props) => {
           <IoChevronBackOutline />
         </button>
       )}
-      {sliderIndex != news.length - 4 && (
+      {sliderIndex != data.length - 4 && (
         <button
           className="hidden lg:block absolute bg-white top-1/4 -right-3 text-lg p-2 rounded-lg text-black shadow-[0px_2px_4px_0px_rgba(0,0,0,0.08),rgba(0,0,0,0.08)_0px_0px_2px_1px] z-50 hover:bg-gray-200 active:bg-gray-300"
           onClick={() => sliderRef?.current?.slickNext()}
@@ -86,19 +87,19 @@ const News = ({ news }: Props) => {
           },
         ]}
       >
-        {news.map((news) => {
+        {data.map((data) => {
           return (
-            <div className="py-1" key={news.id} title={news.title}>
+            <div className="py-1" key={data.id} title={data.title}>
               <Link
-                href={`/news/${news.id}`}
+                href={`${pageUrl}${data.id}`}
                 onMouseMove={() => setMouseMoved(true)}
                 onMouseDown={() => setMouseMoved(false)}
-                onMouseUp={(e) => handleLink(e, `/news/${news.id}`)}
+                onMouseUp={(e) => handleLink(e, `${pageUrl}${data.id}`)}
                 onClick={(e) => e.preventDefault()}
                 className="outline-none"
               >
                 <Image
-                  src={news.imageUrl}
+                  src={data.imageUrl}
                   width={309}
                   height={218}
                   alt=""
@@ -106,21 +107,21 @@ const News = ({ news }: Props) => {
                 />
               </Link>
               <Link
-                href={`/news/${news.id}`}
+                href={`${pageUrl}${data.id}`}
                 onMouseMove={() => setMouseMoved(true)}
                 onMouseDown={() => setMouseMoved(false)}
-                onMouseUp={(e) => handleLink(e, `/news/${news.id}`)}
+                onMouseUp={(e) => handleLink(e, `${pageUrl}${data.id}`)}
                 onClick={(e) => e.preventDefault()}
                 className="outline-none"
                 draggable={false}
               >
                 <h3 className="font-medium text-lg line-clamp-2">
-                  {news.title}
+                  {data.title}
                 </h3>
               </Link>
-              <p className="line-clamp-1 text-sm">{news.description}</p>
+              <p className="line-clamp-1 text-sm">{data.description}</p>
               <div className="flex text-xs mt-2">
-                <p>{new Date(news.created_at).toDateString()}</p>
+                <p>{new Date(data.created_at).toDateString()}</p>
               </div>
             </div>
           );
@@ -130,4 +131,4 @@ const News = ({ news }: Props) => {
   );
 };
 
-export default News;
+export default BigSlider;

@@ -30,7 +30,7 @@ const SalesSlider = ({ sales }: Props) => {
   };
 
   return (
-    <div className="w-full relative lg:mb-5">
+    <div className="w-full relative lg:mb-5 md:px-2 lg:px-0">
       <button
         className="hidden lg:block absolute bg-white top-2/4 -left-3 text-lg p-3 rounded-lg text-black shadow-[0px_2px_4px_0px_rgba(0,0,0,0.08),rgba(0,0,0,0.08)_0px_0px_2px_1px] z-50 hover:bg-gray-200 -translate-y-3/4 active:bg-gray-300"
         onClick={() => {
