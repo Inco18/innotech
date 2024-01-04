@@ -57,7 +57,9 @@ const SubOption = ({
           )}
         </div>
 
-        <span className="text-gray-800 text-sm">{value}</span>
+        <span className="text-gray-800 text-sm">
+          {value.replaceAll(/\\"/g, "")}
+        </span>
         <span className="text-gray-400">({amount})</span>
       </label>
     </li>

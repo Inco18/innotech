@@ -1,21 +1,19 @@
-"use client";
-
 import React, { useState } from "react";
 import { FaChevronUp } from "react-icons/fa6";
+import { FiMinus, FiPlus } from "react-icons/fi";
 import SubOption from "./SubOption";
+import { NUM_OF_CATEGORY_MENU } from "@/constants";
 import { addRemoveSearchParams, removeSearchParams } from "@/utils/url";
 import { useRouter } from "next/navigation";
-import { FiMinus, FiPlus } from "react-icons/fi";
-import { NUM_OF_CATEGORY_MENU } from "@/constants";
 
-const FilterMenuOption = ({
+const FiltersMenuOption = ({
   filters,
   searchParams,
   categoryFilters,
 }: FilterMenuOptionProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const [isOpenList, setIsOpenList] = useState(false);
-  const [key, { values = [], type }] = filters;
+  const [key, { values = [] }] = filters;
   const router = useRouter();
 
   const activeFilters = searchParams[key]
@@ -45,7 +43,7 @@ const FilterMenuOption = ({
   const checkListLength = values.length - NUM_OF_CATEGORY_MENU || 0;
 
   return (
-    <div>
+    <div className="">
       <div className="py-2 px-4">
         <div className=" relative" onClick={() => setIsOpen((cur) => !cur)}>
           <p className=" cursor-pointer">
@@ -65,14 +63,14 @@ const FilterMenuOption = ({
             className="text-[12px] text-gray-500 cursor-pointer inline-block"
             onClick={handleRemoveAll}
           >
-            Wyczyść ({activeFilters})
+            Clear ({activeFilters})
           </p>
         ) : (
           <p
             className="text-[12px] text-gray-500 cursor-pointer inline-block"
             onClick={handleAddAll}
           >
-            Zaznacz wszystkie
+            Select all
           </p>
         )}
       </div>
@@ -120,5 +118,4 @@ const FilterMenuOption = ({
     </div>
   );
 };
-
-export default FilterMenuOption;
+export default FiltersMenuOption;

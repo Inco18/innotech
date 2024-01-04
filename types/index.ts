@@ -133,3 +133,23 @@ type ProductsListProps = {
   productsAmount: number;
   productsIds: number[];
 };
+type MultiRangeSliderProps = {
+  min: number;
+  max: number;
+  searchParams: {
+    minSize?: number;
+    maxSize?: number;
+  };
+};
+type CategoryPageProps = {
+  params: {
+    categoryId: string;
+  };
+  searchParams: {
+    page?: number;
+    sort_by?: string;
+    display_type?: string;
+    from?: number;
+    to?: number;
+  };
+};

@@ -46,7 +46,7 @@ const DetailedElement = ({
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row w-full  justify-between">
+        <div className="flex flex-col lg:flex-row w-full  justify-between">
           <div className="px-5">
             <p className="text-sm">{name}</p>
 
@@ -64,7 +64,7 @@ const DetailedElement = ({
               ))}
             </ul>
           </div>
-          <div className="px-5 md:px-0">
+          <div className="px-5 lg:px-0">
             {sale_price && (
               <div className="flex gap-2 items-center text-[13px]">
                 <span className=" p-1 bg-[#eef7ed] rounded-md text-[#007d00]">
@@ -76,7 +76,7 @@ const DetailedElement = ({
               </div>
             )}
 
-            <p className="block text-xl font-light text-black text-left  md:text-right">
+            <p className="block text-xl font-light text-black text-left  lg:text-right">
               {sale_price ? sale_price.toFixed(2) : price} zł
             </p>
           </div>
