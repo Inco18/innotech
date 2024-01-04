@@ -1,7 +1,7 @@
 import CategotyFiltersMenu from "@/components/categoryPage/FiltersMenu";
 import ProductsList from "@/components/categoryPage/ProductsList";
 import ProductsListMenu from "@/components/categoryPage/ProductsListMenu";
-import News from "@/components/homePage/News";
+import BigSlider from "@/components/homePage/BigSlider";
 
 import {
   CATEGORY_MENU_DEFAULT_VALUES as defaultValues,
@@ -231,7 +231,10 @@ const Page = async ({ params, searchParams }: CategoryPageProps) => {
                     Recommended in category
                   </h2>
                 </div>
-                <News news={normalizedRecomendedProducts} type="recommended" />
+                <BigSlider
+                  data={normalizedRecomendedProducts}
+                  pageUrl="/product/"
+                />
               </section>
             )}
 
