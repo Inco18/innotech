@@ -36,7 +36,7 @@ const News = ({ news }: Props) => {
     <div className="relative">
       {sliderIndex != 0 && (
         <button
-          className="hidden lg:block absolute bg-white top-1/4 -left-3 text-lg p-2 rounded-lg text-black shadow-[0px_2px_4px_0px_rgba(0,0,0,0.08),rgba(0,0,0,0.08)_0px_0px_2px_1px] z-50"
+          className="hidden lg:block absolute bg-white top-1/4 -left-3 text-lg p-2 rounded-lg text-black shadow-[0px_2px_4px_0px_rgba(0,0,0,0.08),rgba(0,0,0,0.08)_0px_0px_2px_1px] z-50 hover:bg-gray-200 active:bg-gray-300"
           onClick={() => sliderRef?.current?.slickPrev()}
         >
           <IoChevronBackOutline />
@@ -44,7 +44,7 @@ const News = ({ news }: Props) => {
       )}
       {sliderIndex != news.length - 4 && (
         <button
-          className="hidden lg:block absolute bg-white top-1/4 -right-3 text-lg p-2 rounded-lg text-black shadow-[0px_2px_4px_0px_rgba(0,0,0,0.08),rgba(0,0,0,0.08)_0px_0px_2px_1px] z-50"
+          className="hidden lg:block absolute bg-white top-1/4 -right-3 text-lg p-2 rounded-lg text-black shadow-[0px_2px_4px_0px_rgba(0,0,0,0.08),rgba(0,0,0,0.08)_0px_0px_2px_1px] z-50 hover:bg-gray-200 active:bg-gray-300"
           onClick={() => sliderRef?.current?.slickNext()}
         >
           <IoChevronForwardOutline />
@@ -88,7 +88,7 @@ const News = ({ news }: Props) => {
       >
         {news.map((news) => {
           return (
-            <div className="py-1" key={news.id}>
+            <div className="py-1" key={news.id} title={news.title}>
               <Link
                 href={`/news/${news.id}`}
                 onMouseMove={() => setMouseMoved(true)}
