@@ -13,7 +13,7 @@ const FiltersMenuOption = ({
 }: FilterMenuOptionProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const [isOpenList, setIsOpenList] = useState(false);
-  const [key, { values = [], type, min = 0, max = 0 }] = filters;
+  const [key, { values = [] }] = filters;
   const router = useRouter();
 
   const activeFilters = searchParams[key]

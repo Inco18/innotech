@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { removeSearchParams, updateSearchParams } from "@/utils/url";
 import { useRouter } from "next/navigation";
 
@@ -12,6 +12,7 @@ const FiltersMenu = ({
   categoryFilters,
   productsSpecificationsList,
 }: Props) => {
+  const renenderPriceInputs = useRef(0);
   const router = useRouter();
 
   const newCategoryFilters: NewCategoryFiltersProps = {};
@@ -51,6 +52,8 @@ const FiltersMenu = ({
   const updatedCategoryFiltersEntries = Object.entries(newCategoryFilters);
 
   const handleClearSearchParmas = () => {
+    renenderPriceInputs.current = renenderPriceInputs.current ? 0 : 1;
+
     const newPathName = removeSearchParams([
       ...Object.keys(newCategoryFilters),
       "to",
@@ -74,7 +77,10 @@ const FiltersMenu = ({
         <p>
           <strong className="capitalize">Price</strong>
         </p>
-        <PriceInputs searchParams={searchParams} key={crypto.randomUUID()} />
+        <PriceInputs
+          searchParams={searchParams}
+          key={renenderPriceInputs.current}
+        />
       </div>
       {updatedCategoryFiltersEntries.map((filters) => (
         <FiltersMenuOption

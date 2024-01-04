@@ -141,3 +141,15 @@ type MultiRangeSliderProps = {
     maxSize?: number;
   };
 };
+type CategoryPageProps = {
+  params: {
+    categoryId: string;
+  };
+  searchParams: {
+    page?: number;
+    sort_by?: string;
+    display_type?: string;
+    from?: number;
+    to?: number;
+  };
+};
