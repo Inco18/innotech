@@ -12,7 +12,8 @@ const SubOption = ({
 }: SubOptionProps) => {
   const router = useRouter();
 
-  const isChecked = searchParams?.[filterName]?.includes(
+  const filters = searchParams?.[filterName];
+  const isChecked = (Array.isArray(filters) ? filters : [filters])?.includes(
     value.replaceAll(" ", "_")
   );
 

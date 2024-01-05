@@ -7,6 +7,7 @@ import {
   CATEGORY_MENU_DEFAULT_VALUES as defaultValues,
   PAGE_SIZE,
   navigationBarCategories,
+  numberOfResultsPerPage,
 } from "@/constants";
 
 import { supabase } from "@/utils/supabase";
@@ -38,7 +39,6 @@ export const generateMetadata = async ({
   };
 };
 
-// Function to filter products based on selected filters
 const filterProducts = ({
   products,
   filters,
@@ -48,10 +48,18 @@ const filterProducts = ({
 }) => {
   if (filters.length === 0) return products.map((product) => product.id);
 
-  const filtered = products.filter((product) =>
+  const filteredProductIds = products.filter((product) =>
     filters.every(([filterCategory, filterValues]) => {
+      const existingSpecValues = products.map((p) =>
+        p.specification[filterCategory].value.replaceAll(" ", "_").toLowerCase()
+      );
+
       const normalizedFilterValues = filterValues.map((value) =>
         value.toLowerCase()
+      );
+
+      const matchingFilterValues = normalizedFilterValues.filter((filter) =>
+        existingSpecValues.includes(filter)
       );
 
       const productSpecValue = (
@@ -60,11 +68,11 @@ const filterProducts = ({
         .replaceAll(" ", "_")
         .toLowerCase();
 
-      return normalizedFilterValues.includes(productSpecValue);
+      return matchingFilterValues.includes(productSpecValue);
     })
   );
 
-  return filtered.map((product) => product.id);
+  return filteredProductIds.map((product) => product.id);
 };
 
 // Function to check if a value is a valid number
@@ -75,6 +83,7 @@ const Page = async ({ params, searchParams }: CategoryPageProps) => {
     page = defaultValues.page,
     sort_by = defaultValues.sortBy,
     display_type = defaultValues.displayType,
+    page_size = defaultValues.pageSize,
     from = 0,
     to = 0,
   } = searchParams;
@@ -187,8 +196,12 @@ const Page = async ({ params, searchParams }: CategoryPageProps) => {
 
   const productsAmount = filteredProductsIds?.length || 0;
 
+  const verifiedPageSize = numberOfResultsPerPage.includes(page_size)
+    ? page_size
+    : PAGE_SIZE;
+
   // Calculating number of pages based on PAGE_SIZE
-  const numOfPages = Math.ceil(productsAmount / PAGE_SIZE);
+  const numOfPages = Math.ceil(productsAmount / verifiedPageSize);
 
   // Validating page number
   const verifiedPageNumber = Math.min(Math.max(+page, 1), numOfPages);
@@ -222,7 +235,8 @@ const Page = async ({ params, searchParams }: CategoryPageProps) => {
               productsSpecificationsList={products}
             />
           </div>
-          {/* Products List Menu */}
+
+          {/*Categoty's Recommended Products*/}
           <div className="w-full">
             {!!recomended?.length && (
               <section className="grid grid-cols-1  py-0 lg:pb-5">
@@ -237,13 +251,14 @@ const Page = async ({ params, searchParams }: CategoryPageProps) => {
                 />
               </section>
             )}
-
+            {/* Products List Menu */}
             <ProductsListMenu
               currentPage={verifiedPageNumber}
-              numOfPages={Math.ceil(productsAmount / PAGE_SIZE)}
+              numOfPages={numOfPages}
               sortBy={sort_by}
               displayType={display_type}
               numOfProducts={productsAmount}
+              pageSize={verifiedPageSize}
             >
               <Suspense fallback={<p>Loading feed...</p>}>
                 {/* Products List */}

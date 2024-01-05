@@ -89,9 +89,9 @@ const FiltersMenuOption = ({
                 filterName={key}
                 value={value}
                 amount={amount}
-                key={value}
                 searchParams={searchParams}
                 categoryFilters={categoryFilters}
+                key={value}
               />
             ))}
         </ul>
