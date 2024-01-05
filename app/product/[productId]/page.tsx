@@ -54,7 +54,7 @@ const ProductPage = async ({ params }: Props) => {
   const product = productData[0];
 
   return (
-    <main className="w-full flex flex-col items-center mb-10">
+    <>
       <div className="w-full lg:px-16 xl:px-32 px-2 max-w-[110rem]">
         <div className="text-xs flex items-center gap-1 text-gray-600 py-6">
           <Link href={"/"}>InnoTech</Link>
@@ -116,7 +116,7 @@ const ProductPage = async ({ params }: Props) => {
           opinions={opinionsData ? opinionsData : []}
         />
       </div>
-    </main>
+    </>
   );
 };
 
