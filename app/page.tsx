@@ -9,6 +9,7 @@ import { IoChevronForwardOutline } from "react-icons/io5";
 import BigSlider from "@/components/homePage/BigSlider";
 import ProductsSlider from "@/components/homePage/ProductsSlider";
 import Brands from "@/components/homePage/Brands";
+import LastWatched from "@/components/homePage/LastWatched";
 
 const placeholderProducts = [
   {
@@ -161,6 +162,8 @@ export default async function Home() {
         <ProductsSlider products={placeholderProducts} />
         <div className="lg:hidden my-5 bg-gray-100 h-5 border-gray-200 border-y-[1px]" />
       </section>
+
+      <LastWatched />
       <section className="w-full py-0 lg:py-5">
         <div className="mb-3">
           <h2 className="text-2xl font-semibold ml-5 lg:ml-0">Brands zone</h2>
