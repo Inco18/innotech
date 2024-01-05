@@ -33,7 +33,7 @@ const DealOfTheDay = ({ product }: Props) => {
   }, []);
 
   const dateToPay = new Date();
-  dateToPay.setHours(23, 59, 59);
+  dateToPay.setUTCHours(22, 0, 0);
   let timeDiff = actDate ? dateToPay.getTime() - actDate.getTime() : 0;
   let timeDiffToCalc = timeDiff;
   const diffHours = Math.floor(timeDiffToCalc / 1000 / 60 / 60);
@@ -48,7 +48,9 @@ const DealOfTheDay = ({ product }: Props) => {
         <div className="bg-white h-full rounded-md p-4 relative">
           <div className="block md:hidden lg:block bg-zinc-500 text-white px-6 py-1 rounded-lg absolute text-center right-4">
             <p className="text-sm">Save</p>
-            <p className="text-lg">{product.price - product.salePrice} zł</p>
+            <p className="text-lg">
+              {(product.price - product.salePrice).toFixed(0)} zł
+            </p>
           </div>
           <h2 className="text-2xl font-semibold">Deal of the day</h2>
           <div className="flex flex-col md:flex-row md:justify-around lg:justify-normal lg:flex-col">
@@ -61,7 +63,7 @@ const DealOfTheDay = ({ product }: Props) => {
                 {product.salePrice.toFixed(2)} zł
               </p>
               <p className="text-lg hidden md:block lg:hidden text-[#fa0064]">
-                Save {product.price - product.salePrice} zł
+                Save {(product.price - product.salePrice).toFixed(0)} zł
               </p>
               <p className="text-xs w-full text-gray-600 text-left md:text-center lg:text-left">
                 <span className="text-base line-through">

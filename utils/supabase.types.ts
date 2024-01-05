@@ -90,7 +90,21 @@ export interface Database {
             foreignKeyName: "opinions_product_id_fkey";
             columns: ["product_id"];
             isOneToOne: false;
+            referencedRelation: "deal_of_the_day";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "opinions_product_id_fkey";
+            columns: ["product_id"];
+            isOneToOne: false;
             referencedRelation: "products";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "opinions_product_id_fkey";
+            columns: ["product_id"];
+            isOneToOne: false;
+            referencedRelation: "random_products";
             referencedColumns: ["id"];
           }
         ];
@@ -196,7 +210,21 @@ export interface Database {
             foreignKeyName: "sales_products_product_id_fkey";
             columns: ["product_id"];
             isOneToOne: false;
+            referencedRelation: "deal_of_the_day";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "sales_products_product_id_fkey";
+            columns: ["product_id"];
+            isOneToOne: false;
             referencedRelation: "products";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "sales_products_product_id_fkey";
+            columns: ["product_id"];
+            isOneToOne: false;
+            referencedRelation: "random_products";
             referencedColumns: ["id"];
           },
           {
@@ -237,7 +265,56 @@ export interface Database {
       };
     };
     Views: {
-      [_ in never]: never;
+      deal_of_the_day: {
+        Row: {
+          category: number | null;
+          created_at: string | null;
+          description: Json | null;
+          id: number | null;
+          images: string[] | null;
+          manufacturer: string | null;
+          name: string | null;
+          price: number | null;
+          quantity_sold: number | null;
+          rating: number | null;
+          sale_price: number | null;
+          specification: Json | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "products_category_fkey";
+            columns: ["category"];
+            isOneToOne: false;
+            referencedRelation: "categories";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      random_products: {
+        Row: {
+          category: number | null;
+          created_at: string | null;
+          description: Json | null;
+          id: number | null;
+          images: string[] | null;
+          manufacturer: string | null;
+          name: string | null;
+          price: number | null;
+          quantity_sold: number | null;
+          rating: number | null;
+          sale_price: number | null;
+          specification: Json | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "products_category_fkey";
+            columns: ["category"];
+            isOneToOne: false;
+            referencedRelation: "categories";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
     };
     Functions: {
       [_ in never]: never;
