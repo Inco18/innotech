@@ -17,11 +17,13 @@ type Props = {
 const DealOfTheDay = ({ product }: Props) => {
   const [totalQuantity, setTotalQuantity] = useState(0);
   const [soldQuantity, setSoldQunatity] = useState(0);
-  const [actDate, setActDate] = useState(new Date());
+  const [actDate, setActDate] = useState<Date>();
   useEffect(() => {
     const totalQuantityTemp = getRandomInt(100, 1000);
     setTotalQuantity(totalQuantityTemp);
     setSoldQunatity(getRandomInt(0, totalQuantityTemp));
+
+    setActDate(new Date());
   }, []);
   const leftQuantity = totalQuantity - soldQuantity;
 
@@ -31,8 +33,8 @@ const DealOfTheDay = ({ product }: Props) => {
   }, []);
 
   const dateToPay = new Date();
-  dateToPay.setHours(23, 59, 59);
-  let timeDiff = dateToPay.getTime() - actDate.getTime();
+  dateToPay.setUTCHours(22, 0, 0);
+  let timeDiff = actDate ? dateToPay.getTime() - actDate.getTime() : 0;
   let timeDiffToCalc = timeDiff;
   const diffHours = Math.floor(timeDiffToCalc / 1000 / 60 / 60);
   timeDiffToCalc -= diffHours * 1000 * 60 * 60;
@@ -46,7 +48,9 @@ const DealOfTheDay = ({ product }: Props) => {
         <div className="bg-white h-full rounded-md p-4 relative">
           <div className="block md:hidden lg:block bg-zinc-500 text-white px-6 py-1 rounded-lg absolute text-center right-4">
             <p className="text-sm">Save</p>
-            <p className="text-lg">{product.price - product.salePrice} zł</p>
+            <p className="text-lg">
+              {(product.price - product.salePrice).toFixed(0)} zł
+            </p>
           </div>
           <h2 className="text-2xl font-semibold">Deal of the day</h2>
           <div className="flex flex-col md:flex-row md:justify-around lg:justify-normal lg:flex-col">
@@ -59,7 +63,7 @@ const DealOfTheDay = ({ product }: Props) => {
                 {product.salePrice.toFixed(2)} zł
               </p>
               <p className="text-lg hidden md:block lg:hidden text-[#fa0064]">
-                Save {product.price - product.salePrice} zł
+                Save {(product.price - product.salePrice).toFixed(0)} zł
               </p>
               <p className="text-xs w-full text-gray-600 text-left md:text-center lg:text-left">
                 <span className="text-base line-through">
@@ -95,25 +99,13 @@ const DealOfTheDay = ({ product }: Props) => {
                   />
                 </div>
               </div>
-              <div
-                className="w-full text-center flex flex-col items-center"
-                suppressHydrationWarning
-              >
+              <div className="w-full text-center flex flex-col items-center">
                 {timeDiff > 0 ? (
                   <>
                     <p className="text-sm">Hurry up, this offer ends in:</p>
-                    <div
-                      className="flex items-center mt-2 gap-4 mx-auto"
-                      suppressHydrationWarning
-                    >
-                      <div
-                        className="flex flex-col items-center text-xs "
-                        suppressHydrationWarning
-                      >
-                        <div
-                          className="w-12 h-12 flex items-center justify-center bg-zinc-300 text-2xl rounded-lg relative"
-                          suppressHydrationWarning
-                        >
+                    <div className="flex items-center mt-2 gap-4 mx-auto">
+                      <div className="flex flex-col items-center text-xs ">
+                        <div className="w-12 h-12 flex items-center justify-center bg-zinc-300 text-2xl rounded-lg relative">
                           {diffHours <= 9 ? "0" : ""}
                           {diffHours}
                           <span className="absolute -right-3 text-2xl top-2/4 -translate-y-2/4">
@@ -123,14 +115,8 @@ const DealOfTheDay = ({ product }: Props) => {
                         hours
                       </div>
 
-                      <div
-                        className="flex flex-col items-center text-xs"
-                        suppressHydrationWarning
-                      >
-                        <div
-                          className="w-12 h-12 flex items-center justify-center bg-zinc-300 text-2xl rounded-lg relative"
-                          suppressHydrationWarning
-                        >
+                      <div className="flex flex-col items-center text-xs">
+                        <div className="w-12 h-12 flex items-center justify-center bg-zinc-300 text-2xl rounded-lg relative">
                           {diffMinutes <= 9 ? "0" : ""}
                           {diffMinutes}
                           <span className="absolute -right-3 text-2xl top-2/4 -translate-y-2/4">
@@ -139,14 +125,8 @@ const DealOfTheDay = ({ product }: Props) => {
                         </div>
                         mins
                       </div>
-                      <div
-                        className="flex flex-col items-center text-xs"
-                        suppressHydrationWarning
-                      >
-                        <div
-                          className="w-12 h-12 flex items-center justify-center bg-zinc-300 text-2xl rounded-lg"
-                          suppressHydrationWarning
-                        >
+                      <div className="flex flex-col items-center text-xs">
+                        <div className="w-12 h-12 flex items-center justify-center bg-zinc-300 text-2xl rounded-lg">
                           {diffSeconds <= 9 ? "0" : ""}
                           {diffSeconds}
                         </div>
@@ -154,8 +134,10 @@ const DealOfTheDay = ({ product }: Props) => {
                       </div>
                     </div>
                   </>
-                ) : (
+                ) : actDate ? (
                   <p className="text-xl mt-6">This offer has ended</p>
+                ) : (
+                  <p className="text-xl mt-6"></p>
                 )}
               </div>
             </div>

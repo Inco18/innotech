@@ -101,7 +101,7 @@ const ProductsSlider = ({ products }: Props) => {
 
   return (
     <div className={`${width ? "block" : "flex"} relative`}>
-      {sliderIndex != 0 && (
+      {products.length > 5 && sliderIndex != 0 && (
         <button
           className="hidden lg:block absolute bg-white top-2/4 -translate-y-2/4 -left-3 text-lg p-2 rounded-lg text-black shadow-[0px_2px_4px_0px_rgba(0,0,0,0.08),rgba(0,0,0,0.08)_0px_0px_2px_1px] z-50 hover:bg-gray-200 active:bg-gray-300"
           onClick={() => sliderRef?.current?.slickPrev()}
@@ -110,8 +110,12 @@ const ProductsSlider = ({ products }: Props) => {
         </button>
       )}
       {width &&
-        ((width >= 1280 && sliderIndex != products.length - 6) ||
-          (width < 1280 && sliderIndex != products.length - 5)) && (
+        ((width >= 1280 &&
+          products.length > 6 &&
+          sliderIndex != products.length - 6) ||
+          (width < 1280 &&
+            products.length > 5 &&
+            sliderIndex != products.length - 5)) && (
           <button
             className="hidden lg:block absolute bg-white top-2/4 -translate-y-2/4 -right-3 text-lg p-2 rounded-lg text-black shadow-[0px_2px_4px_0px_rgba(0,0,0,0.08),rgba(0,0,0,0.08)_0px_0px_2px_1px] z-50 hover:bg-gray-200 active:bg-gray-300"
             onClick={() => sliderRef?.current?.slickNext()}
@@ -129,7 +133,7 @@ const ProductsSlider = ({ products }: Props) => {
           swipeToSlide
           rows={1}
           beforeChange={(index, newIndex) => setSliderIndex(newIndex)}
-          className="[&_.slick-list]:py-1"
+          className="[&_.slick-list]:py-1 [&_.slick-track]:!ml-0"
           responsive={[
             {
               breakpoint: 1280,

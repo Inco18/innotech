@@ -13,6 +13,7 @@ import {
   formatSpecificationName,
   formatspecificationValue,
 } from "@/utils/formatters";
+import { addUniqueItemToLocalStorageArray } from "@/utils/helpers";
 
 type Props = { product: Tables<"products"> };
 
@@ -46,6 +47,10 @@ const ProductInfo = ({ product }: Props) => {
   useEffect(() => {
     const dateInterval = setInterval(() => setActDate(new Date()), 1000 * 60);
     return () => clearInterval(dateInterval);
+  }, []);
+
+  useEffect(() => {
+    addUniqueItemToLocalStorageArray<number>("lastProducts", product.id, 16);
   }, []);
 
   const dateToPay = new Date();
