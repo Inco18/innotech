@@ -71,11 +71,15 @@ const Opinions = (props: Props) => {
               />
             </div>
           </div>
-          <div className="md:border-2 flex flex-col items-center justify-center text-center rounded-lg md:p-4 md:max-w-xs lg:max-w-sm xl:max-w-none w-full md:w-auto mx-auto md:mx-0">
+          <div className="md:border-2 flex flex-col items-center justify-center text-center rounded-lg md:p-4 md:max-w-xs lg:max-w-sm xl:max-w-lg w-full md:w-auto mx-auto md:mx-0">
             <h4 className="text-2xl font-medium hidden md:block">
               You have this product?
             </h4>
-            <p className="text-sm text-gray-500 hidden md:block">
+            <p
+              className="text-sm text-gray-500 hidden md:block line-clamp-2"
+              title={`Rate ${props.productManufacturer} ${props.productModel} and help
+              others choose`}
+            >
               Rate {props.productManufacturer} {props.productModel} and help
               others choose
             </p>
