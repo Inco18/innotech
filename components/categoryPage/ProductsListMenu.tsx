@@ -8,13 +8,14 @@ import DisplayMenu from "./DisplayMenu";
 import FiltersMenuSmall from "./smallScreen/FiltersMenuSmall";
 import DisplayMenuSmall from "./smallScreen/DisplayMenuSmall";
 import SortMenuSmall from "./smallScreen/SortMenuSmall";
-import { PAGE_SIZE } from "@/constants";
+
 import useWindowDimensions from "@/hooks/useWindowSize";
 
 type ProductsListMenuProps = {
   sortBy: string;
   displayType: string;
   currentPage: number;
+  pageSize: number;
   numOfPages: number;
   numOfProducts: number;
   children: JSX.Element;
@@ -24,16 +25,15 @@ const ProductsListMenu = ({
   currentPage,
   numOfPages,
   numOfProducts,
+  pageSize,
   sortBy,
   displayType,
   children,
 }: ProductsListMenuProps) => {
   const { width } = useWindowDimensions();
 
-  const info = `${(currentPage - 1) * PAGE_SIZE + 1} -${
-    currentPage * PAGE_SIZE > PAGE_SIZE
-      ? numOfProducts
-      : currentPage * PAGE_SIZE
+  const info = `${(currentPage - 1) * pageSize + 1} -${
+    currentPage * pageSize > pageSize ? numOfProducts : currentPage * pageSize
   } z ${numOfProducts}`;
 
   return (
@@ -45,7 +45,10 @@ const ProductsListMenu = ({
             <div className="flex md:hidden w-full">
               <DisplayMenuSmall displayType={displayType} />
               <FiltersMenuSmall />
-              <SortMenuSmall sortBy={sortBy} />
+              <SortMenuSmall
+                defaultSortBy={sortBy}
+                defaultPageSize={pageSize}
+              />
             </div>
             <DisplayMenu displayType={displayType} />
             <SortMenu styles="hidden md:flex" sortBy={sortBy} />

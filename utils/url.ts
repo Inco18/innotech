@@ -17,6 +17,29 @@ export const updateSearchParams = (type: string, values: string | string[]) => {
 
   return newPathName;
 };
+export const updateMultipleSearchParams = (paramsToUpdate: {
+  [key: string]: string | string[] | number | number[];
+}) => {
+  const searchParams = new URLSearchParams(window.location.search);
+
+  Object.keys(paramsToUpdate).forEach((type) => {
+    searchParams.delete(type);
+  });
+
+  Object.entries(paramsToUpdate).forEach(([type, values]) => {
+    if (Array.isArray(values)) {
+      values.forEach((value) => {
+        searchParams.append(type, `${value}`);
+      });
+    } else {
+      searchParams.set(type, `${values}`);
+    }
+  });
+
+  const newPathName = `${window.location.pathname}?${searchParams.toString()}`;
+
+  return newPathName;
+};
 
 export const removeSearchParams = (toRemove: string[]) => {
   const searchParams = new URLSearchParams(window.location.search);

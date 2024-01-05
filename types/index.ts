@@ -149,6 +149,7 @@ type CategoryPageProps = {
     page?: number;
     sort_by?: string;
     display_type?: string;
+    page_size?: number;
     from?: number;
     to?: number;
   };

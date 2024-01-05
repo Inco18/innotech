@@ -268,6 +268,7 @@ export const CATEGORY_MENU_DEFAULT_VALUES = {
   page: 1,
   sortBy: categoryFilterOptions[0].query,
   displayType: categoryDisplayOptions[0].query,
+  pageSize: PAGE_SIZE,
 };
 
 export const simplifiedElementDropdownMenu = [
@@ -312,3 +313,4 @@ export const homePageBrands = [
   "https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/brands_zone_logos/sony.svg?t=2024-01-04T11%3A10%3A48.527Z",
   "https://ornlntxawpvzqcyhardf.supabase.co/storage/v1/object/public/brands_zone_logos/xiaomi.svg?t=2024-01-04T11%3A10%3A53.403Z",
 ];
+export const numberOfResultsPerPage = [30, 60, 90];
