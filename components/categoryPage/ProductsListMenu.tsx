@@ -10,30 +10,32 @@ import DisplayMenuSmall from "./smallScreen/DisplayMenuSmall";
 import SortMenuSmall from "./smallScreen/SortMenuSmall";
 
 import useWindowDimensions from "@/hooks/useWindowSize";
-
-type ProductsListMenuProps = {
-  sortBy: string;
-  displayType: string;
-  currentPage: number;
-  pageSize: number;
-  numOfPages: number;
-  numOfProducts: number;
-  children: JSX.Element;
-};
+import { PAGE_SIZE, numberOfResultsPerPage } from "@/constants";
 
 const ProductsListMenu = ({
-  currentPage,
-  numOfPages,
   numOfProducts,
-  pageSize,
   sortBy,
   displayType,
   children,
+  searchParams,
+  categoryFilters,
+  productsSpecificationsList,
 }: ProductsListMenuProps) => {
   const { width } = useWindowDimensions();
+  const { page = 0 } = searchParams;
 
-  const info = `${(currentPage - 1) * pageSize + 1} -${
-    currentPage * pageSize > pageSize ? numOfProducts : currentPage * pageSize
+  const verifiedPageSize = numberOfResultsPerPage.includes(page)
+    ? page
+    : PAGE_SIZE;
+
+  const numOfPages = Math.ceil(numOfProducts / verifiedPageSize);
+
+  const currentPage = Math.min(Math.max(+page, 1), numOfPages);
+
+  const info = `${(currentPage - 1) * verifiedPageSize + 1} -${
+    currentPage * verifiedPageSize > verifiedPageSize
+      ? numOfProducts
+      : currentPage * verifiedPageSize
   } z ${numOfProducts}`;
 
   return (
@@ -44,10 +46,22 @@ const ProductsListMenu = ({
           <div className=" w-full flex">
             <div className="flex md:hidden w-full">
               <DisplayMenuSmall displayType={displayType} />
-              <FiltersMenuSmall />
+              <FiltersMenuSmall
+                numOfProducts={numOfProducts}
+                searchParams={searchParams}
+                categoryFilters={categoryFilters}
+                productsSpecificationsList={productsSpecificationsList}
+              >
+                <button
+                  type="button"
+                  className=" w-[3rem] flex items-center justify-center px-[3rem] border-r border-gray-200  p-5 font-medium cursor-pointer"
+                >
+                  Filters
+                </button>
+              </FiltersMenuSmall>
               <SortMenuSmall
                 defaultSortBy={sortBy}
-                defaultPageSize={pageSize}
+                defaultPageSize={verifiedPageSize}
               />
             </div>
             <DisplayMenu displayType={displayType} />

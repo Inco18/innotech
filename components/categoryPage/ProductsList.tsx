@@ -33,11 +33,11 @@ const sortProducts = ({
 const ProductsList = async ({
   params,
   searchParams,
-  productsAmount,
   productsIds,
 }: ProductsListProps) => {
   const categoryId = params.categoryId.split("-");
   const categoryIdNumber = +categoryId[0];
+  const productsAmount = productsIds.length;
 
   const {
     page = defaultValues.page,

@@ -102,12 +102,14 @@ type SubOptionProps = {
   searchParams: { [key: string]: string | string[] };
   categoryFilters: string[];
 };
-type Props = {
-  searchParams: {};
+type FiltersMenuSmall = {
+  searchParams: { [key: string]: any };
   categoryFilters: any | null | undefined;
   productsSpecificationsList: {
     specification: any;
   }[];
+  numOfProducts?: number;
+  children?: JSX.Element;
 };
 type NewCategoryFiltersProps = {
   [key: string]: {
@@ -130,7 +132,7 @@ type ProductsListProps = {
     sort_by?: string;
     display_type?: string;
   };
-  productsAmount: number;
+
   productsIds: number[];
 };
 type MultiRangeSliderProps = {
@@ -153,4 +155,18 @@ type CategoryPageProps = {
     from?: number;
     to?: number;
   };
+};
+type ProductsListMenuProps = {
+  sortBy: string;
+  displayType: string;
+
+  numOfProducts: number;
+  children: JSX.Element;
+  searchParams: {
+    page?: number;
+  };
+  categoryFilters: any | null | undefined;
+  productsSpecificationsList: {
+    specification: any;
+  }[];
 };
