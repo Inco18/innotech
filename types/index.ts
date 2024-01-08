@@ -95,6 +95,15 @@ type FilterMenuOptionProps = {
   searchParams: { [key: string]: any };
   categoryFilters: string[];
 };
+interface FiltersSubMenuModalProps {
+  searchParams: { [key: string]: any };
+  categoryFilters: any | null | undefined;
+  newCategoryFilters: any;
+  selected: string;
+  isOpen: boolean;
+  setIsOpen: (value: boolean) => void;
+  children?: JSX.Element;
+}
 type SubOptionProps = {
   value: string;
   amount: number;

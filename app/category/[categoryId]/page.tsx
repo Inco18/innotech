@@ -1,3 +1,4 @@
+import AppliedFilters from "@/components/categoryPage/AppliedFilters";
 import FiltersMenu from "@/components/categoryPage/FiltersMenu";
 import ProductsList from "@/components/categoryPage/ProductsList";
 import ProductsListMenu from "@/components/categoryPage/ProductsListMenu";
@@ -6,9 +7,7 @@ import Spinner from "@/components/ui/Spinner";
 
 import {
   CATEGORY_MENU_DEFAULT_VALUES as defaultValues,
-  PAGE_SIZE,
   navigationBarCategories,
-  numberOfResultsPerPage,
 } from "@/constants";
 
 import { supabase } from "@/utils/supabase";
@@ -17,7 +16,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { FaChevronRight } from "react-icons/fa6";
-import { IoChevronForwardOutline } from "react-icons/io5";
 
 export const generateMetadata = async ({
   params,
@@ -224,7 +222,7 @@ const Page = async ({ params, searchParams }: CategoryPageProps) => {
 
           {/*Categoty's Recommended Products*/}
           <div className="w-full ">
-            {!!recomended?.length && (
+            {!appliedFilters.length && !!recomended?.length && (
               <section className="grid grid-cols-1  py-0 lg:pb-5">
                 <div className="flex justify-between mb-3">
                   <h2 className="text-2xl font-semibold ml-5 lg:ml-0">
@@ -237,6 +235,16 @@ const Page = async ({ params, searchParams }: CategoryPageProps) => {
                 />
               </section>
             )}
+
+            {!!appliedFilters.length && (
+              <section className="grid grid-cols-1  border-t border-gray-200 py-4">
+                <AppliedFilters
+                  searchParams={searchParams}
+                  categoryFilters={normalizedCategoryFilters}
+                />
+              </section>
+            )}
+
             {/* Products List Menu */}
             <ProductsListMenu
               numOfProducts={productsAmount}

@@ -1,10 +1,12 @@
-import { navigationBarCategories } from "@/constants";
 import { Dialog, Transition } from "@headlessui/react";
 import React, { useState, Fragment } from "react";
 import { RxCross2 } from "react-icons/rx";
 import SubOption from "../SubOption";
 import { addRemoveSearchParams, removeSearchParams } from "@/utils/url";
 import { useRouter } from "next/navigation";
+import useWindowDimensions from "@/hooks/useWindowSize";
+import FiltersSubMenuModal from "../FiltersSubMenuModal";
+import PriceInputs from "../PriceInputs";
 
 const FiltersMenuSmall = ({
   searchParams,
@@ -14,7 +16,10 @@ const FiltersMenuSmall = ({
   children,
 }: FiltersMenuSmall) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenSmall, setIsOpenSmall] = useState(false);
   const router = useRouter();
+
+  const { width = 0 } = useWindowDimensions();
 
   const newCategoryFilters: NewCategoryFiltersProps = {};
 
@@ -53,7 +58,7 @@ const FiltersMenuSmall = ({
   const filtersNames = Object.keys(newCategoryFilters);
   const [selected, setSelected] = useState(filtersNames[0]);
 
-  const selectedFilters = newCategoryFilters[selected].values;
+  const selectedFilters = newCategoryFilters?.[selected]?.values || [];
 
   const filtersAmountAll = Object.entries(searchParams).reduce(
     (acc, [key, values]) => {
@@ -67,7 +72,7 @@ const FiltersMenuSmall = ({
 
   const selectedOptionFiltersAmount = searchParams[selected]
     ? Array.isArray(searchParams[selected])
-      ? searchParams[selected].length
+      ? searchParams[selected]?.length
       : 1
     : 0;
 
@@ -156,60 +161,76 @@ const FiltersMenuSmall = ({
                     </div>
                   </Dialog.Title>
 
-                  <div className="overflow-y-auto ">
-                    <div className="flex max-h-[60vh]">
-                      <div className=" overflow-y-auto w-max">
+                  <div className="overflow-y-auto w-full">
+                    <div className="flex max-h-[60vh] ">
+                      <div className=" overflow-y-auto w-full sm:w-max">
                         <ul>
-                          {Object.keys(newCategoryFilters).map((e, index) => {
-                            const appliedFilters = searchParams[e]
-                              ? Array.isArray(searchParams[e])
-                                ? searchParams[e]
-                                : [searchParams[e]]
-                              : [];
+                          {["price", ...Object.keys(newCategoryFilters)].map(
+                            (e, index) => {
+                              const appliedFilters = searchParams[e]
+                                ? Array.isArray(searchParams[e])
+                                  ? searchParams[e]
+                                  : [searchParams[e]]
+                                : [];
 
-                            return (
-                              <li
-                                className={`px-5 pr-10 w-[20rem] py-2 text-[15px] cursor-pointer overflow-hidden relative capitalize ${
-                                  e === selected
-                                    ? " bg-gray-100 text-blue-500 "
-                                    : ""
-                                }`}
-                                onClick={() => setSelected(e)}
-                                key={e}
-                              >
-                                {e === selected && (
-                                  <div className=" absolute bg-blue-500 rounded-[3px] -left-[11px] h-[60%] w-4 top-1/2 -translate-y-[50%]" />
-                                )}
-                                <div className="flex flex-col">
-                                  <p className="">{`${e.replaceAll(
-                                    "_",
-                                    " "
-                                  )}`}</p>
-
-                                  {appliedFilters.length > 0 && (
-                                    <p className="text-xs text-gray-500 truncate w-full">
-                                      {`${
-                                        appliedFilters.length
-                                      }: ${appliedFilters
-                                        .map(
-                                          (option: string, index: number) =>
-                                            `${option.replaceAll("_", " ")}${
-                                              index ===
-                                              appliedFilters.length - 1
-                                                ? ""
-                                                : ", "
-                                            }`
-                                        )
-                                        .join("")}`}
-                                    </p>
+                              return (
+                                <li
+                                  className={`px-5 pr-10 min-w-[20rem] py-2 text-[15px] cursor-pointer overflow-hidden relative capitalize ${
+                                    e === selected
+                                      ? " bg-gray-100 text-blue-500 "
+                                      : ""
+                                  }`}
+                                  key={e}
+                                  onClick={() => {
+                                    setSelected(e);
+                                    if (width <= 412) {
+                                      setIsOpenSmall(true);
+                                    }
+                                  }}
+                                >
+                                  {e === selected && (
+                                    <div className=" absolute bg-blue-500 rounded-[3px] -left-[11px] h-[60%] w-4 top-1/2 -translate-y-[50%]" />
                                   )}
-                                </div>
-                              </li>
-                            );
-                          })}
+                                  <div className="flex flex-col">
+                                    <p className="">{`${e.replaceAll(
+                                      "_",
+                                      " "
+                                    )}`}</p>
+
+                                    {appliedFilters.length > 0 && (
+                                      <p className="text-xs text-gray-500 truncate w-full">
+                                        {`${
+                                          appliedFilters.length
+                                        }: ${appliedFilters
+                                          .map(
+                                            (option: string, index: number) =>
+                                              `${option.replaceAll("_", " ")}${
+                                                index ===
+                                                appliedFilters.length - 1
+                                                  ? ""
+                                                  : ", "
+                                              }`
+                                          )
+                                          .join("")}`}
+                                      </p>
+                                    )}
+                                  </div>
+                                </li>
+                              );
+                            }
+                          )}
                         </ul>
+
+                        <FiltersSubMenuModal
+                          searchParams={searchParams}
+                          categoryFilters={categoryFilters}
+                          newCategoryFilters={newCategoryFilters}
+                          selected={selected}
+                          isOpen={isOpenSmall}
+                          setIsOpen={setIsOpenSmall}
+                        />
                       </div>
-                      <div className="overflow-y-auto flex flex-col flex-1">
+                      <div className="overflow-y-auto flex-col flex-1 hidden sm:flex">
                         <div className="  flex justify-between px-6 py-3 items-center">
                           <span className=" capitalize font-semibold text-lg">
                             {selected.replaceAll("_", " ")}
@@ -223,12 +244,14 @@ const FiltersMenuSmall = ({
                               Clear ({selectedOptionFiltersAmount})
                             </span>
                           ) : (
-                            <span
-                              className="text-[12px] text-gray-500 cursor-pointer inline-block"
-                              onClick={handleAddAll}
-                            >
-                              Select all
-                            </span>
+                            selected === "price" || (
+                              <span
+                                className="text-[12px] text-gray-500 cursor-pointer inline-block"
+                                onClick={handleAddAll}
+                              >
+                                Select all
+                              </span>
+                            )
                           )}
                         </div>
 
@@ -246,6 +269,12 @@ const FiltersMenuSmall = ({
                               />
                             ))}
                         </ul>
+
+                        {selected === "price" && (
+                          <div className="mx-auto">
+                            <PriceInputs searchParams={searchParams} />
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div
