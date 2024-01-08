@@ -6,13 +6,15 @@ import { useRouter } from "next/navigation";
 
 import PriceInputs from "./PriceInputs";
 import FiltersMenuOption from "./FiltersMenuOption";
+import FiltersMenuSmall from "./smallScreen/FiltersMenuSmall";
 
 const FiltersMenu = ({
+  numOfProducts,
   searchParams,
   categoryFilters,
   productsSpecificationsList,
-}: Props) => {
-  const renenderPriceInputs = useRef(0);
+}: FiltersMenuSmall) => {
+  const rerenderPriceInputs = useRef(0);
   const router = useRouter();
 
   const newCategoryFilters: NewCategoryFiltersProps = {};
@@ -52,7 +54,7 @@ const FiltersMenu = ({
   const updatedCategoryFiltersEntries = Object.entries(newCategoryFilters);
 
   const handleClearSearchParmas = () => {
-    renenderPriceInputs.current = renenderPriceInputs.current ? 0 : 1;
+    rerenderPriceInputs.current = rerenderPriceInputs.current ? 0 : 1;
 
     const newPathName = removeSearchParams([
       ...Object.keys(newCategoryFilters),
@@ -73,16 +75,31 @@ const FiltersMenu = ({
           Clear all
         </span>
       </div>
+      <div className="px-4 mb-3">
+        <FiltersMenuSmall
+          numOfProducts={numOfProducts}
+          searchParams={searchParams}
+          categoryFilters={categoryFilters}
+          productsSpecificationsList={productsSpecificationsList}
+        >
+          <button
+            type="button"
+            className="bg-gray-200/60 w-full rounded-md text-gray-500 text-[16px] font-[400] p-1  cursor-pointer"
+          >
+            Show all filters
+          </button>
+        </FiltersMenuSmall>
+      </div>
       <div className="px-4">
         <p>
           <strong className="capitalize">Price</strong>
         </p>
         <PriceInputs
           searchParams={searchParams}
-          key={renenderPriceInputs.current}
+          key={rerenderPriceInputs.current}
         />
       </div>
-      {updatedCategoryFiltersEntries.map((filters) => (
+      {updatedCategoryFiltersEntries.splice(0, 7).map((filters) => (
         <FiltersMenuOption
           key={filters[0]}
           filters={filters}
@@ -90,6 +107,22 @@ const FiltersMenu = ({
           searchParams={searchParams}
         />
       ))}
+
+      <div className="px-4 mt-5">
+        <FiltersMenuSmall
+          numOfProducts={numOfProducts}
+          searchParams={searchParams}
+          categoryFilters={categoryFilters}
+          productsSpecificationsList={productsSpecificationsList}
+        >
+          <button
+            type="button"
+            className="bg-gray-200/60 w-full rounded-md text-gray-500 text-[16px] font-[400] p-1  cursor-pointer"
+          >
+            Show all filters
+          </button>
+        </FiltersMenuSmall>
+      </div>
     </div>
   );
 };

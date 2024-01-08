@@ -36,6 +36,10 @@ const SortMenuSmall = ({
     closeModal();
   };
 
+  const sortLabel = categoryFilterOptions.find(
+    (e) => e.query === defaultSortBy
+  )?.label;
+
   return (
     <>
       <button
@@ -43,11 +47,10 @@ const SortMenuSmall = ({
         onClick={openModal}
       >
         <div className=" flex flex-col">
-          <span className=" font-semibold text-[15px]">Sortowanie</span>
-          <span>
-            <span className=" font-light text-gray-400 text-[13px]">
-              Od napopularnieszych
-            </span>
+          <span className=" font-semibold text-[15px]">Sorting</span>
+
+          <span className=" font-light text-gray-400 text-[13px]">
+            {sortLabel}
           </span>
         </div>
       </button>

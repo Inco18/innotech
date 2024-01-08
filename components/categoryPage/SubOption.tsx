@@ -29,7 +29,7 @@ const SubOption = ({
   };
 
   return (
-    <li key={value} className="hover:bg-gray-100 px-4 ">
+    <li key={value} className="hover:bg-gray-100 px-4 w-full ">
       <label className="w-full flex gap-2  py-[.4rem] items-center relative">
         <div className="relative w-[1.3rem]  h-[1.3rem] p-0 ">
           <input

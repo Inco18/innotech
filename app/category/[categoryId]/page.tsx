@@ -1,13 +1,13 @@
-import CategotyFiltersMenu from "@/components/categoryPage/FiltersMenu";
+import AppliedFilters from "@/components/categoryPage/AppliedFilters";
+import FiltersMenu from "@/components/categoryPage/FiltersMenu";
 import ProductsList from "@/components/categoryPage/ProductsList";
 import ProductsListMenu from "@/components/categoryPage/ProductsListMenu";
 import BigSlider from "@/components/homePage/BigSlider";
+import Spinner from "@/components/ui/Spinner";
 
 import {
   CATEGORY_MENU_DEFAULT_VALUES as defaultValues,
-  PAGE_SIZE,
   navigationBarCategories,
-  numberOfResultsPerPage,
 } from "@/constants";
 
 import { supabase } from "@/utils/supabase";
@@ -16,7 +16,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { FaChevronRight } from "react-icons/fa6";
-import { IoChevronForwardOutline } from "react-icons/io5";
 
 export const generateMetadata = async ({
   params,
@@ -57,10 +56,11 @@ const filterProducts = ({
       const normalizedFilterValues = filterValues.map((value) =>
         value.toLowerCase()
       );
-
       const matchingFilterValues = normalizedFilterValues.filter((filter) =>
         existingSpecValues.includes(filter)
       );
+
+      if (matchingFilterValues.length === 0) return true;
 
       const productSpecValue = (
         product.specification[filterCategory].value || ""
@@ -78,12 +78,14 @@ const filterProducts = ({
 // Function to check if a value is a valid number
 const isValidValue = (value: number) => !isNaN(value) && value >= 0;
 
+const checkValue = (value: number, min: number, max: number) => {
+  return isValidValue(value) ? (value >= min && value <= max ? value : min) : 0;
+};
+
 const Page = async ({ params, searchParams }: CategoryPageProps) => {
   const {
-    page = defaultValues.page,
     sort_by = defaultValues.sortBy,
     display_type = defaultValues.displayType,
-    page_size = defaultValues.pageSize,
     from = 0,
     to = 0,
   } = searchParams;
@@ -153,17 +155,8 @@ const Page = async ({ params, searchParams }: CategoryPageProps) => {
   );
 
   // Validating and checking 'from' and 'to' values
-  const checkedFrom = isValidValue(from)
-    ? from >= priceRange.min && from <= priceRange.max
-      ? from
-      : priceRange.min
-    : 0;
-
-  const checkedTo = isValidValue(to)
-    ? to >= priceRange.min && to <= priceRange.max
-      ? to
-      : priceRange.min
-    : 0;
+  const checkedFrom = checkValue(from, priceRange.min, priceRange.max);
+  const checkedTo = checkValue(to, priceRange.min, priceRange.max);
 
   // Normalizing category filters
   const normalizedCategoryFilters = categoryFiltersData?.[0]?.filters;
@@ -196,18 +189,8 @@ const Page = async ({ params, searchParams }: CategoryPageProps) => {
 
   const productsAmount = filteredProductsIds?.length || 0;
 
-  const verifiedPageSize = numberOfResultsPerPage.includes(page_size)
-    ? page_size
-    : PAGE_SIZE;
-
-  // Calculating number of pages based on PAGE_SIZE
-  const numOfPages = Math.ceil(productsAmount / verifiedPageSize);
-
-  // Validating page number
-  const verifiedPageNumber = Math.min(Math.max(+page, 1), numOfPages);
-
   return (
-    <main className="w-full flex flex-col items-center mb-10">
+    <main className="w-full  flex flex-col items-center mb-10">
       <div className="w-full lg:px-16 xl:px-32 px-2 max-w-[110rem]">
         <section className=" flex flex-col items-start">
           {/* Breadcrumb */}
@@ -226,19 +209,20 @@ const Page = async ({ params, searchParams }: CategoryPageProps) => {
             <span className="text-gray-600">({productsAmount} results)</span>
           </h1>
         </section>
-        <section className="flex w-full gap-6 mt-4">
+        <section className="flex w-full h-full gap-6 mt-4">
           {/* Category Filters Menu */}
           <div className="hidden md:block">
-            <CategotyFiltersMenu
+            <FiltersMenu
               searchParams={searchParams}
               categoryFilters={normalizedCategoryFilters}
+              numOfProducts={productsAmount}
               productsSpecificationsList={products}
             />
           </div>
 
           {/*Categoty's Recommended Products*/}
-          <div className="w-full">
-            {!!recomended?.length && (
+          <div className="w-full ">
+            {!appliedFilters.length && !!recomended?.length && (
               <section className="grid grid-cols-1  py-0 lg:pb-5">
                 <div className="flex justify-between mb-3">
                   <h2 className="text-2xl font-semibold ml-5 lg:ml-0">
@@ -251,21 +235,36 @@ const Page = async ({ params, searchParams }: CategoryPageProps) => {
                 />
               </section>
             )}
+
+            {!!appliedFilters.length && (
+              <section className="grid grid-cols-1  border-t border-gray-200 py-4">
+                <AppliedFilters
+                  searchParams={searchParams}
+                  categoryFilters={normalizedCategoryFilters}
+                />
+              </section>
+            )}
+
             {/* Products List Menu */}
             <ProductsListMenu
-              currentPage={verifiedPageNumber}
-              numOfPages={numOfPages}
+              numOfProducts={productsAmount}
+              searchParams={searchParams}
+              categoryFilters={normalizedCategoryFilters}
               sortBy={sort_by}
               displayType={display_type}
-              numOfProducts={productsAmount}
-              pageSize={verifiedPageSize}
+              productsSpecificationsList={products}
             >
-              <Suspense fallback={<p>Loading feed...</p>}>
+              <Suspense
+                fallback={
+                  <div className="w-full mt-[10rem] flex justify-center items-center">
+                    <Spinner scale={1} />
+                  </div>
+                }
+              >
                 {/* Products List */}
                 <ProductsList
                   params={params}
                   searchParams={searchParams}
-                  productsAmount={productsAmount}
                   productsIds={filteredProductsIds}
                 />
               </Suspense>
