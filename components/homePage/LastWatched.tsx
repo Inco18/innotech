@@ -20,7 +20,6 @@ const LastWatched = () => {
     const item = localStorage.getItem("lastProducts");
     const idArray: number[] = item ? JSON.parse(item) : [];
     const fetchData = async () => {
-      console.log(idArray);
       const { data, error } = await supabase
         .from("products")
         .select("manufacturer,name,price,sale_price,images,id")
