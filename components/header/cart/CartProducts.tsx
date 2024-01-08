@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const CartProducts = () => {
+const CartProducts = ({ onClose }: { onClose: () => void }) => {
   const { productsInCart } = useCartContext();
 
   return (
@@ -15,11 +15,15 @@ const CartProducts = () => {
             className="flex gap-3 pt-2 border-b-2 last:border-none pb-5"
             key={product.id}
           >
-            <Link href={`/product/${product.id}`}>
+            <Link href={`/product/${product.id}`} onClick={onClose}>
               <Image src={product.imageUrl} height={80} width={80} alt="" />
             </Link>
             <div className="w-full">
-              <Link href={`/product/${product.id}`} className="hover:underline">
+              <Link
+                href={`/product/${product.id}`}
+                className="hover:underline"
+                onClick={onClose}
+              >
                 {product.name}
               </Link>
               <div className="flex justify-between mt-2">

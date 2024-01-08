@@ -13,8 +13,7 @@ type Props = {
 };
 
 const CartModal = (props: Props) => {
-  const { productsInCart, totalPrice, totalSaved, totalQuantity } =
-    useCartContext();
+  const { totalPrice, totalSaved, totalQuantity } = useCartContext();
   return (
     <Transition appear show={props.open} as={Fragment}>
       <Dialog onClose={props.onClose}>
@@ -56,6 +55,7 @@ const CartModal = (props: Props) => {
                   <Link
                     href={"/cart"}
                     className="text-blue-500 hover:text-blue-600 text-sm"
+                    onClick={props.onClose}
                   >
                     Edit
                   </Link>
@@ -68,7 +68,7 @@ const CartModal = (props: Props) => {
                   reserving them.
                 </p>
               </div>
-              <CartProducts />
+              <CartProducts onClose={props.onClose} />
               <div className="bg-gray-100 p-3 rounded-md border-t-2 flex flex-col gap-1 mt-auto">
                 {totalSaved > 0 && (
                   <div className="flex justify-between text-sm text-green-600">
@@ -83,6 +83,7 @@ const CartModal = (props: Props) => {
                 <Link
                   href={"/cart"}
                   className="bg-green-600 text-white p-2 w-full rounded-lg text-base text-center"
+                  onClick={props.onClose}
                 >
                   Go to cart
                 </Link>

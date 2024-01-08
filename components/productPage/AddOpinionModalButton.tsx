@@ -9,6 +9,7 @@ import { IoIosClose } from "react-icons/io";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { toast } from "react-toastify";
 import SmallSpinner from "../ui/SmallSpinner";
+import { addOpinion } from "@/app/actions";
 
 type Props = {
   productImage: string;
@@ -24,21 +25,16 @@ const AddOpinionModalButton = (props: Props) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const email = formData.get("email")?.toString();
-    const description = formData.get("description")?.toString();
-    const username = formData.get("name")?.toString();
     setIsSending(true);
-    const { data, error } = await supabase.from("opinions").insert({
-      rating: starsSelected,
-      email,
-      description,
-      product_id: props.productId,
-      username,
-    });
+    const returnValue = await addOpinion(
+      new FormData(e.target as HTMLFormElement),
+      starsSelected,
+      props.productId
+    );
     setIsSending(false);
 
-    if (error) toast.error(error.code + ": " + error.details);
+    if (returnValue?.error)
+      toast.error(returnValue.error.code + ": " + returnValue.error.details);
     else {
       toast.success("Your opinion has been added.");
       router.refresh();
