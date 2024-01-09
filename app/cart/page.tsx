@@ -102,6 +102,11 @@ const Cart = () => {
                             parseInt(e.target.value)
                           );
                         }}
+                        onBlur={(e) =>
+                          e.target.value
+                            ? null
+                            : changeProductQuantity(product.id, 1)
+                        }
                         className="p-2 w-10 text-center border-x-[1px] border-gray-200"
                       />
                       <button
