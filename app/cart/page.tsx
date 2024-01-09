@@ -5,7 +5,7 @@ import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import { CiCircleInfo, CiTrash } from "react-icons/ci";
-import { FaChevronRight } from "react-icons/fa6";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 const Cart = () => {
   const {
@@ -78,22 +78,51 @@ const Cart = () => {
                         zł
                       </span>
                     </div>
-                    <input
-                      type="number"
-                      name="quantity"
-                      value={product.quantity}
-                      min={0}
-                      max={99}
-                      onChange={(e) => {
-                        changeProductQuantity(
-                          product.id,
-                          parseInt(e.target.value)
-                        );
-                      }}
-                      className="border-2 border-gray-200 rounded-lg p-2 w-16"
-                    />
+                    <div className="flex items-center border-2 border-gray-200 rounded-lg">
+                      <button
+                        onClick={() =>
+                          changeProductQuantity(
+                            product.id,
+                            product.quantity - 1
+                          )
+                        }
+                        className="flex items-center justify-center w-7 text-gray-600 text-sm py-3 rounded-l-lg"
+                      >
+                        <FaChevronLeft />
+                      </button>
+                      <input
+                        type="number"
+                        name="quantity"
+                        value={product.quantity}
+                        min={0}
+                        max={99}
+                        onChange={(e) => {
+                          changeProductQuantity(
+                            product.id,
+                            parseInt(e.target.value)
+                          );
+                        }}
+                        onBlur={(e) =>
+                          e.target.value
+                            ? null
+                            : changeProductQuantity(product.id, 1)
+                        }
+                        className="p-2 w-10 text-center border-x-[1px] border-gray-200"
+                      />
+                      <button
+                        onClick={() =>
+                          changeProductQuantity(
+                            product.id,
+                            product.quantity + 1
+                          )
+                        }
+                        className="flex items-center justify-center w-7 text-gray-600 text-sm py-3 rounded-r-lg"
+                      >
+                        <FaChevronRight />
+                      </button>
+                    </div>
                     <div
-                      className="text-2xl p-2 hover:bg-gray-100 rounded-lg cursor-pointer"
+                      className="text-2xl p-2 hover:bg-gray-100 rounded-lg cursor-pointer "
                       onClick={() => removeProductFromCart(product.id)}
                     >
                       <CiTrash />

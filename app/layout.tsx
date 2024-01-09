@@ -6,7 +6,6 @@ import Providers from "@/components/Providers";
 import Footer from "@/components/footer/Footer";
 import Navbar from "@/components/navbar/Navbar";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,8 +20,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={inter.className + " flex flex-col items-center"}>
+    <html lang="en" className="scroll-smooth overflow-x-hidden">
+      <body
+        className={
+          inter.className + " flex flex-col items-center overflow-x-hidden"
+        }
+      >
         <Providers>
           <Header />
           <Navbar />

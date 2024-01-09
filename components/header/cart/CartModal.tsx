@@ -26,7 +26,10 @@ const CartModal = (props: Props) => {
           leaveTo="opacity-0"
           as={Fragment}
         >
-          <div className="fixed inset-0 bg-black/60" aria-hidden="true" />
+          <div
+            className="fixed inset-0 bg-black/60 z-[998]"
+            aria-hidden="true"
+          />
         </Transition.Child>
         <div className="fixed inset-0 flex w-screen z-[999]">
           <Transition.Child
@@ -38,7 +41,7 @@ const CartModal = (props: Props) => {
             leaveTo="transform translate-x-[15rem]"
             as={Fragment}
           >
-            <Dialog.Panel className="ml-auto h-screen bg-white overflow-y-auto max-w-sm flex flex-col">
+            <Dialog.Panel className="ml-auto h-full bg-white max-w-sm flex flex-col">
               <Dialog.Title
                 className="bg-gray-100 p-3 border-b-2 border-gray-200 flex items-center gap-2 font-semibold text-lg"
                 tabIndex={0}

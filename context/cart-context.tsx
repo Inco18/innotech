@@ -43,7 +43,13 @@ const CartContextProvider = ({ children }: { children: ReactNode }) => {
       setProductsInCart((prev) => {
         const newArr = prev.map((prod) =>
           prod.id === product.id
-            ? { ...prod, quantity: prod.quantity + product.quantity }
+            ? {
+                ...prod,
+                quantity:
+                  prod.quantity + product.quantity > 99
+                    ? 99
+                    : prod.quantity + product.quantity,
+              }
             : prod
         );
         localStorage.setItem("cartProducts", JSON.stringify(newArr));

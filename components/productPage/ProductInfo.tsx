@@ -14,12 +14,14 @@ import {
   formatspecificationValue,
 } from "@/utils/formatters";
 import { addUniqueItemToLocalStorageArray } from "@/utils/helpers";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 type Props = { product: Tables<"products"> };
 
 const ProductInfo = ({ product }: Props) => {
   const { addProductToCart } = useCartContext();
   const [actDate, setActDate] = useState(new Date());
+  const [quantity, setQuantity] = useState(1);
   const specEntries: specificationEntriesType = Object.entries(
     JSON.parse(JSON.stringify(product.specification))
   );
@@ -29,6 +31,11 @@ const ProductInfo = ({ product }: Props) => {
     return a[1].shortIndex - b[1].shortIndex;
   });
   const actPrice = product.sale_price ? product.sale_price : product.price;
+
+  const handleQunatityChange = (newQty: number) => {
+    if (newQty < 1 || newQty > 99) return;
+    else setQuantity(newQty);
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -115,14 +122,32 @@ const ProductInfo = ({ product }: Props) => {
             className="flex items-center w-full gap-3 my-2"
             onSubmit={handleSubmit}
           >
-            <input
-              type="number"
-              name="quantity"
-              defaultValue={1}
-              min={1}
-              max={99}
-              className="border-2 border-gray-200 rounded-lg p-2 w-16"
-            />
+            <div className="flex items-center border-2 border-gray-200 rounded-lg">
+              <button
+                onClick={() => handleQunatityChange(quantity - 1)}
+                type="button"
+                className="flex items-center justify-center w-7 text-gray-600 text-sm py-3 rounded-l-lg"
+              >
+                <FaChevronLeft />
+              </button>
+              <input
+                type="number"
+                name="quantity"
+                value={quantity}
+                min={1}
+                max={99}
+                onChange={(e) => handleQunatityChange(parseInt(e.target.value))}
+                onBlur={(e) => (e.target.value ? null : setQuantity(1))}
+                className="p-2 w-10 text-center border-gray-200 border-x-[1px]"
+              />
+              <button
+                onClick={() => handleQunatityChange(quantity + 1)}
+                type="button"
+                className="flex items-center justify-center w-7 text-gray-600 text-sm py-3 rounded-l-lg"
+              >
+                <FaChevronRight />
+              </button>
+            </div>
             <button className="flex items-center gap-2 justify-center flex-1 p-2 rounded-md bg-green-600 hover:bg-green-800 text-white">
               <MdOutlineAddShoppingCart />
               Add to cart
