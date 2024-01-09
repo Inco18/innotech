@@ -20,12 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth overflow-x-hidden">
-      <body
-        className={
-          inter.className + " flex flex-col items-center overflow-x-hidden"
-        }
-      >
+    <html lang="en" className="scroll-smooth">
+      <body className={inter.className + " flex flex-col items-center"}>
         <Providers>
           <Header />
           <Navbar />
