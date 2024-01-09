@@ -5,7 +5,7 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const Search = () => {
   return (
-    <form className="border-2 border-gray-100 col-start-1 col-end-3 rounded-lg md:flex-1 flex items-center gap-2 h-10 focus-within:shadow-[0_2px_10px_0px_rgba(0,0,0,0.2)] transition-shadow order-5 md:order-2 ">
+    <form className="border-2 border-gray-100 col-start-1 col-end-3 rounded-lg md:flex-1 flex items-center h-10 focus-within:shadow-[0_2px_10px_0px_rgba(0,0,0,0.2)] transition-shadow order-5 md:order-2 ">
       <input
         type="text"
         name="searchTerm"
