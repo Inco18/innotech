@@ -22,7 +22,10 @@ const HelpModal = (props: Props) => {
           leaveTo="opacity-0"
           as={Fragment}
         >
-          <div className="fixed inset-0 bg-black/60" aria-hidden="true" />
+          <div
+            className="fixed inset-0 bg-black/60 z-[998]"
+            aria-hidden="true"
+          />
         </Transition.Child>
         <div className="fixed inset-0 flex w-screen z-[999]">
           <Transition.Child
