@@ -152,7 +152,7 @@ const FiltersMenuSmall = ({
                     className="bg-gray-100  border-b-2 border-gray-200 flex items-center justify-between gap-2 font-semibold text-xl  px-5 py-3"
                     tabIndex={0}
                   >
-                    Filtry ({filtersAmountAll || 0})
+                    Filters ({filtersAmountAll || 0})
                     <div
                       className=" text-2xl rounded-lg p-2 hover:bg-gray-300"
                       onClick={closeModal}
@@ -163,7 +163,7 @@ const FiltersMenuSmall = ({
 
                   <div className="overflow-y-auto w-full">
                     <div className="flex max-h-[60vh] ">
-                      <div className=" overflow-y-auto w-full sm:w-max">
+                      <div className=" overflow-y-auto w-full sm:max-w-[20rem]">
                         <ul>
                           {["price", ...Object.keys(newCategoryFilters)].map(
                             (e, index) => {
