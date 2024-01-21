@@ -8,16 +8,24 @@ type Product = {
   id: number;
   name: string;
   price: number;
+  sale_price: number;
 };
 
-const SearchBar = ({ query }: { query: string }) => {
-  const [timeLeft, setTimeLeft] = useState(3);
+const SearchBar = ({
+  query,
+  isOpen,
+  setIsOpen,
+}: {
+  query: string;
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+}) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   const fetchProducts = useCallback(async () => {
     const { data = [], error } = await supabase
       .from("products")
-      .select("name, id, price")
+      .select("name, id, price,sale_price")
       .ilike("name", `%${query}%`)
       .limit(10);
     setProducts((data as Product[]) || []);
@@ -25,41 +33,38 @@ const SearchBar = ({ query }: { query: string }) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (timeLeft === 0 && query) {
+      if (query) {
         fetchProducts();
-      } else {
-        setTimeLeft((time) => Math.max(time - 1, 0));
       }
     }, 1000);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [query, timeLeft, fetchProducts]);
-
-  useEffect(() => {
-    setTimeLeft(3);
   }, [query, fetchProducts]);
 
   if (!query) return null;
+
   return (
-    <section className=" absolute w-full bg-white top-[calc(100%+2px)]  z-[90] rounded-lg overflow-hidden border border-gray-200] shadow-[0_2px_10px_0px_rgba(0,0,0,0.2)] ">
-      {timeLeft > 0 && (
-        <div className="w-full text-center py-4  px-2">
-          Time left to search: {timeLeft} seconds
-        </div>
-      )}
+    <section
+      className={` absolute w-full bg-white top-[calc(100%+2px)]  z-[90] rounded-lg overflow-hidden border border-gray-200] shadow-[0_2px_10px_0px_rgba(0,0,0,0.2)] ${
+        isOpen ? "" : "hidden"
+      } `}
+    >
       <div>
         <ul>
-          {products.map(({ id, name, price }) => (
+          {products.map(({ id, name, price, sale_price }) => (
             <li key={id} className="w-full ">
               <Link
                 className="py-3 px-4   hover:bg-gray-100 w-full flex"
                 href={`/product/${id}`}
+                onClick={() => setIsOpen(false)}
               >
                 <div className="flex justify-between w-full gap-4 items-center">
                   <div className="text-sm ">{name}</div>
-                  <span className="text-md">{price}zł</span>
+                  <span className="text-md">
+                    {sale_price ? sale_price : price}zł
+                  </span>
                 </div>
               </Link>
             </li>

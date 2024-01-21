@@ -84,7 +84,7 @@ const SortMenuSmall = ({
                     className="bg-gray-100  border-b-2 border-gray-200 flex items-center justify-between gap-2 font-semibold text-xl  px-5 py-3"
                     tabIndex={0}
                   >
-                    Sortowanie
+                    Sorting
                     <div
                       className=" text-2xl rounded-lg p-2 hover:bg-gray-300"
                       onClick={closeModal}
