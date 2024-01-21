@@ -1,13 +1,7 @@
 import Image from "next/image";
-import { BsCartPlus } from "react-icons/bs";
-import { FaScaleUnbalanced } from "react-icons/fa6";
-import { IoIosHeartEmpty } from "react-icons/io";
 import Rating from "../../productPage/Rating";
 import DropdownMenu from "../smallScreen/DropdownMenu";
-import {
-  categoryElementMenu,
-  simplifiedElementDropdownMenu,
-} from "@/constants";
+import { simplifiedElementDropdownMenu } from "@/constants";
 import ElementMenu from "../ElementMenu";
 
 const SimplifiedElement = ({
@@ -18,6 +12,7 @@ const SimplifiedElement = ({
   sale_price,
   images,
   specification,
+  quantity_sold,
 }: CategoryProductProps) => {
   const specificationToShow: SpecificationItemProps = Object.entries(
     specification as SpecificationProps
@@ -70,7 +65,7 @@ const SimplifiedElement = ({
         </div>
         <div className=" items-center gap-2 flex pl-5 sm:pl-0">
           <Rating rating={rating} starsSize=" text-[12px]" />
-          <span className=" text-sm text-gray-400">(322)</span>
+          <span className=" text-sm text-gray-400">({quantity_sold})</span>
         </div>
         <div className="pl-5 sm:pl-0 sm:pr-5">
           {sale_price && (
