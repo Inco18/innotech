@@ -29,7 +29,16 @@ const DetailedElement = ({
         className={`flex relative py-5 h-full items-start  overflow-hidden lg:px-5`}
       >
         <div className="absolute grid grid-cols-[2.6rem,2.6rem,2.6rem] gap-2   bottom-5 z-[10] right-5  opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
-          <ElementMenu />
+          <ElementMenu
+            product={{
+              id,
+              name,
+              price,
+              salePrice: sale_price || 0,
+              quantity: 1,
+              imageUrl: images[0],
+            }}
+          />
         </div>
 
         <div className=" overflow-hidden my-auto">

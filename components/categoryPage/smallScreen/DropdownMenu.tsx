@@ -1,3 +1,5 @@
+import { simplifiedElementDropdownMenu } from "@/constants";
+import { useCartContext } from "@/context/cart-context";
 import { Menu, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
 import { IconType } from "react-icons";
@@ -5,9 +7,22 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 
 type DropdownMenuProps = {
   options: { icon: IconType; label: string; color?: string }[];
+  product: Product;
 };
 
-const DropdownMenu = ({ options }: DropdownMenuProps) => {
+const DropdownMenu = ({ options, product }: DropdownMenuProps) => {
+  const { addProductToCart } = useCartContext();
+
+  const handleClick = (label: string) => (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+
+    const addToCartLabel = simplifiedElementDropdownMenu.at(0)?.label;
+
+    if (label === addToCartLabel) {
+      addProductToCart(product);
+    }
+  };
+
   return (
     <div className="relative ">
       <Menu as="div" className="relative inline-block text-left">
@@ -42,9 +57,7 @@ const DropdownMenu = ({ options }: DropdownMenuProps) => {
                       }text-gray-900  flex w-full gap-2 items-center  p-4 text-sm ${
                         color ? `text-${color}` : ""
                       }`}
-                      onClick={(e: React.MouseEvent<HTMLElement>) =>
-                        e.stopPropagation()
-                      }
+                      onClick={handleClick(label)}
                     >
                       <Icon className={`text-lg `} />
                       <span> {label}</span>

@@ -27,7 +27,16 @@ const TileElement = ({
     >
       <div className={`flex flex-col justify-between relative pt-3 h-full`}>
         <div className="absolute grid grid-rows-[2.6rem,2.6rem,1fr]  top-5 bottom-5 z-[10] right-5 items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
-          <ElementMenu />
+          <ElementMenu
+            product={{
+              id,
+              name,
+              price,
+              salePrice: sale_price || 0,
+              quantity: 1,
+              imageUrl: images[0],
+            }}
+          />
         </div>
 
         <div className="p-1 mx-auto">
