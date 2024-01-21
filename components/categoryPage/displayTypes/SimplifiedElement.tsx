@@ -29,7 +29,17 @@ const SimplifiedElement = ({
         className={`py-2 px-1 relative h-full flex flex-col  sm:grid sm:grid-cols-[min-content,minmax(10rem,1fr),10rem,7rem] sm:items-center gap-2 sm:gap-0`}
       >
         <div className=" absolute sm:hidden top-4 right-4 z-[13]">
-          <DropdownMenu options={simplifiedElementDropdownMenu} />
+          <DropdownMenu
+            options={simplifiedElementDropdownMenu}
+            product={{
+              id,
+              name,
+              price,
+              salePrice: sale_price || 0,
+              quantity: 1,
+              imageUrl: images[0],
+            }}
+          />
         </div>
 
         <div className=" overflow-hidden my-auto">
@@ -60,7 +70,16 @@ const SimplifiedElement = ({
           </p>
 
           <div className="hidden absolute sm:grid grid-cols-[2.6rem,2.6rem,2.6rem] gap-2 bg-white top-[50%] translate-y-[-50%] z-[10] right-5  opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
-            <ElementMenu />
+            <ElementMenu
+              product={{
+                id,
+                name,
+                price,
+                salePrice: sale_price || 0,
+                quantity: 1,
+                imageUrl: images[0],
+              }}
+            />
           </div>
         </div>
         <div className=" items-center gap-2 flex pl-5 sm:pl-0">
