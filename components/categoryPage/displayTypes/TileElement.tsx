@@ -1,10 +1,6 @@
 import Image from "next/image";
-import { BsCartPlus } from "react-icons/bs";
-import { FaScaleUnbalanced } from "react-icons/fa6";
-import { IoIosHeartEmpty } from "react-icons/io";
 import Rating from "../../productPage/Rating";
 import { formatSpecificationName } from "@/utils/formatters";
-import { categoryElementMenu } from "@/constants";
 import ElementMenu from "../ElementMenu";
 
 const TileElement = ({
@@ -15,6 +11,7 @@ const TileElement = ({
   sale_price,
   images,
   specification,
+  quantity_sold,
 }: CategoryProductProps) => {
   const specificationToShow: SpecificationItemProps = Object.entries(
     specification as SpecificationProps
@@ -50,7 +47,7 @@ const TileElement = ({
 
           <div className="flex items-center gap-2">
             <Rating rating={rating} starsSize=" text-sm" />
-            <span className=" text-sm text-gray-400">(322)</span>
+            <span className=" text-sm text-gray-400">({quantity_sold})</span>
           </div>
 
           <ul className="">

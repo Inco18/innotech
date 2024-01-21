@@ -1,8 +1,6 @@
 import Image from "next/image";
-
 import Rating from "../../productPage/Rating";
 import { formatSpecificationName } from "@/utils/formatters";
-import { categoryElementMenu } from "@/constants";
 import ElementMenu from "../ElementMenu";
 
 const DetailedElement = ({
@@ -13,6 +11,7 @@ const DetailedElement = ({
   sale_price,
   images,
   specification,
+  quantity_sold,
 }: CategoryProductProps) => {
   const specificationToShow: SpecificationItemProps = Object.entries(
     specification as SpecificationProps
@@ -52,7 +51,7 @@ const DetailedElement = ({
 
             <div className="flex items-center gap-2">
               <Rating rating={rating} starsSize=" text-sm" />
-              <span className=" text-sm text-gray-400">(322)</span>
+              <span className=" text-sm text-gray-400">({quantity_sold})</span>
             </div>
 
             <ul className="">
