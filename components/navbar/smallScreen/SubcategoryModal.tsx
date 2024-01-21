@@ -31,7 +31,7 @@ const SubcategoryModal = ({
       >
         <Dialog.Panel className="absolute  right-0 top-0 h-screen w-full bg-white overflow-y-auto">
           <Dialog.Title
-            className="bg-gray-100 p-1 border-b-2 border-gray-200  flex items-center gap-2 font-semibold text-base "
+            className="bg-gray-100 p-1 border-b-2 border-gray-200  flex items-center gap-2 font-semibold text-base focus:outline-none"
             tabIndex={0}
           >
             <div

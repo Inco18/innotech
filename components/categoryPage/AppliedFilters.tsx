@@ -41,7 +41,7 @@ const AppliedFilters = ({
           </div>
           {values.map((value) => (
             <button
-              className=" border p-1 text-[12px] text-gray-400 rounded-md flex items-center justify-between gap-2 w-max"
+              className=" border p-1 text-[12px] text-gray-400 rounded-md flex items-center justify-between gap-2 w-max hover:line-through transition-all"
               key={value}
               onClick={() => {
                 handleRemoveParam(param, `${value}`);
