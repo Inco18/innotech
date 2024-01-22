@@ -16,6 +16,7 @@ type CategoryProductProps = {
   specification: any;
   rating: number;
   quantity_sold: number;
+  num_opinions: number;
 };
 type SpecificationPageProps = {
   id: number;

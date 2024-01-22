@@ -51,7 +51,7 @@ const ProductsList = async ({
   const { data: products = [], error: productsError } = await supabase
     .from("products")
     .select(
-      `id,name,price,specification,sale_price,images,rating,quantity_sold`
+      `id,name,price,specification,sale_price,images,rating,quantity_sold,num_opinions`
     )
     .in("id", productsIds)
     .eq("category", categoryIdNumber)

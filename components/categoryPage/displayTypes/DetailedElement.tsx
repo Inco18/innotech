@@ -11,7 +11,8 @@ const DetailedElement = ({
   sale_price,
   images,
   specification,
-  quantity_sold,
+
+  num_opinions,
 }: CategoryProductProps) => {
   const specificationToShow: SpecificationItemProps = Object.entries(
     specification as SpecificationProps
@@ -34,7 +35,7 @@ const DetailedElement = ({
               id,
               name,
               price,
-              salePrice: sale_price || 0,
+              salePrice: sale_price || undefined,
               quantity: 1,
               imageUrl: images[0],
             }}
@@ -60,7 +61,7 @@ const DetailedElement = ({
 
             <div className="flex items-center gap-2">
               <Rating rating={rating} starsSize=" text-sm" />
-              <span className=" text-sm text-gray-400">({quantity_sold})</span>
+              <span className=" text-sm text-gray-400">({num_opinions})</span>
             </div>
 
             <ul className="">
