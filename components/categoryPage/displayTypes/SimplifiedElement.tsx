@@ -12,7 +12,7 @@ const SimplifiedElement = ({
   sale_price,
   images,
   specification,
-  quantity_sold,
+  num_opinions,
 }: CategoryProductProps) => {
   const specificationToShow: SpecificationItemProps = Object.entries(
     specification as SpecificationProps
@@ -35,7 +35,7 @@ const SimplifiedElement = ({
               id,
               name,
               price,
-              salePrice: sale_price || 0,
+              salePrice: sale_price || undefined,
               quantity: 1,
               imageUrl: images[0],
             }}
@@ -75,7 +75,7 @@ const SimplifiedElement = ({
                 id,
                 name,
                 price,
-                salePrice: sale_price || 0,
+                salePrice: sale_price || undefined,
                 quantity: 1,
                 imageUrl: images[0],
               }}
@@ -84,7 +84,7 @@ const SimplifiedElement = ({
         </div>
         <div className=" items-center gap-2 flex pl-5 sm:pl-0">
           <Rating rating={rating} starsSize=" text-[12px]" />
-          <span className=" text-sm text-gray-400">({quantity_sold})</span>
+          <span className=" text-sm text-gray-400">({num_opinions})</span>
         </div>
         <div className="pl-5 sm:pl-0 sm:pr-5">
           {sale_price && (
