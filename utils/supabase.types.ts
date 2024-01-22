@@ -118,6 +118,7 @@ export interface Database {
           images: string[];
           manufacturer: string;
           name: string;
+          num_opinions: number;
           price: number;
           quantity_sold: number;
           rating: number;
@@ -132,6 +133,7 @@ export interface Database {
           images: string[];
           manufacturer?: string;
           name: string;
+          num_opinions?: number;
           price: number;
           quantity_sold?: number;
           rating?: number;
@@ -146,6 +148,7 @@ export interface Database {
           images?: string[];
           manufacturer?: string;
           name?: string;
+          num_opinions?: number;
           price?: number;
           quantity_sold?: number;
           rating?: number;
