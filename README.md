@@ -87,7 +87,7 @@ Welcome to InnoTech, your go-to destination for a cutting-edge and seamless onli
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-[product-screenshot]: public/screenshot.png
+[product-screenshot]: /public/Screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
