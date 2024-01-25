@@ -12,6 +12,7 @@ type Props = {
   productManufacturer: string;
   rating: number;
   opinions: Tables<"opinions">[];
+  category: string;
 };
 
 const countOpinions = (numRating: number, opinions: Tables<"opinions">[]) => {
@@ -87,6 +88,7 @@ const Opinions = (props: Props) => {
               productId={props.productId}
               productImage={props.productImage}
               productModel={props.productModel}
+              category={props.category}
             />
           </div>
         </div>

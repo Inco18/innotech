@@ -60,9 +60,7 @@ const ProductPage = async ({ params }: Props) => {
           <Link href={"/"}>InnoTech</Link>
           <FaChevronRight />
           <Link
-            href={`/category/${
-              product.categories?.id
-            }-${product.categories?.name?.split(" ").join("-").toLowerCase()}`}
+            href={`/category/${product.categories?.id}-${product.categories?.name}`}
           >
             {product.categories?.name}
           </Link>
@@ -114,6 +112,9 @@ const ProductPage = async ({ params }: Props) => {
           productModel={product.name}
           rating={productRating}
           opinions={opinionsData ? opinionsData : []}
+          category={`${product.categories?.id}-${product.categories?.name}`
+            .trim()
+            .replaceAll(" ", "%20")}
         />
       </div>
     </main>

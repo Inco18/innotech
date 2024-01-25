@@ -6,7 +6,8 @@ import { revalidatePath } from "next/cache";
 export async function addOpinion(
   formData: FormData,
   starsSelected: number,
-  productId: number
+  productId: number,
+  category: string
 ) {
   const email = formData.get("email")?.toString();
   const description = formData.get("description")?.toString();
@@ -22,4 +23,5 @@ export async function addOpinion(
   if (error) return { error };
 
   revalidatePath(`/product/${productId}`);
+  revalidatePath(`/category/${category}`);
 }
