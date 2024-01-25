@@ -1,5 +1,4 @@
 "use client";
-import { supabase } from "@/utils/supabase";
 import { Transition, Dialog } from "@headlessui/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -15,6 +14,7 @@ type Props = {
   productImage: string;
   productModel: string;
   productId: number;
+  category: string;
 };
 
 const AddOpinionModalButton = (props: Props) => {
@@ -29,7 +29,8 @@ const AddOpinionModalButton = (props: Props) => {
     const returnValue = await addOpinion(
       new FormData(e.target as HTMLFormElement),
       starsSelected,
-      props.productId
+      props.productId,
+      props.category
     );
     setIsSending(false);
 
